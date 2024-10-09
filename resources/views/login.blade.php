@@ -16,6 +16,8 @@
             </div>
             <p><h5><b>Sign In</b></h5></p>
             <div class="card-body">
+                @guest
+                    @if(Route::has('login'))
                 <form action="{{route('login')}}" method="post">
                     @csrf
                     <div class="container">
@@ -36,6 +38,8 @@
                         <button type="submit" class="btn btn-primary btn-md">Submit</button>
                     </div>
                 </form>
+                @endif
+                @endguest
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
