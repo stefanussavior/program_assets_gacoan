@@ -7,7 +7,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\User\UserController;
+// use App\Http\Controllers\User\UserController;
 
 use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -52,15 +52,13 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']], function(){
-=======
-Route::get('/', [LoginController::class, 'IndexLogin']);
-Route::post('/login', [LoginController::class, 'login'])->name('login');
-Route::get('/logout', [LoginController::class,'logout']);
-
+    Route::get('/', [LoginController::class, 'IndexLogin']);
+    Route::post('/login', [LoginController::class, 'login'])->name('login');
+    Route::get('/logout', [LoginController::class,'logout']);
+});
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
->>>>>>> a6bf026 (crud)
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
