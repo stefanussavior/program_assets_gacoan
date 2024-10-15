@@ -45,18 +45,37 @@
                         <ul class="sidebar-submenu">
                           <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="#"><i data-feather="database"></i><span>Asset</span></a></li>
                           <!-- <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="#"><i data-feather="database"></i><span>Merk</span></a></li> -->
-                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="#"><i data-feather="database"></i><span>Kategori</span></a></li>
-                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="#"><i data-feather="database"></i><span>Checklist</span></a></li>
-                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="#"><i data-feather="database"></i><span>Kondisi</span></a></li>
-                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="#"><i data-feather="database"></i><span>Kontrol Checklist</span></a></li>
-                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="#"><i data-feather="database"></i><span>Tata Letak</span></a></li>
-                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="#"><i data-feather="database"></i><span>Maintenance</span></a></li>
-                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="#"><i data-feather="database"></i><span>Tipe Maintenance</span></a></li>
-                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="#"><i data-feather="database"></i><span>Periodic Maintenance</span></a></li>
-                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="#"><i data-feather="database"></i><span>Prioritas</span></a></li>
-                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="#"><i data-feather="database"></i><span>Alasan Mutasi</span></a></li>
-                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="#"><i data-feather="database"></i><span>Pemasok</span></a></li>
-                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="#"><i data-feather="database"></i><span>Satuan</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/brand"><i data-feather="database"></i><span>Brand</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/category"><i data-feather="database"></i><span>Kategori</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/checklist"><i data-feather="database"></i><span>Checklist</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/condition"><i data-feather="database"></i><span>Kondisi</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/control"><i data-feather="database"></i><span>Kontrol Checklist</span></a></li>
+
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/dept"><i data-feather="database"></i><span>Departement</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/division"><i data-feather="database"></i><span>Division</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/groupuser"><i data-feather="database"></i><span>Group User</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/joblevel"><i data-feather="database"></i><span>Job Level</span></a></li>
+
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/layout"><i data-feather="database"></i><span>Tata Letak</span></a></li>
+
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/location"><i data-feather="database"></i><span>Lokasi</span></a></li>
+
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/mtc"><i data-feather="database"></i><span>Maintenance</span></a></li>
+                          
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/people"><i data-feather="database"></i><span>People</span></a></li>
+
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/type"><i data-feather="database"></i><span>Tipe Maintenance</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/periodic_mtc"><i data-feather="database"></i><span>Periodic Maintenance</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/priority"><i data-feather="database"></i><span>Prioritas</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/reason"><i data-feather="database"></i><span>Alasan Mutasi</span></a></li>
+                          
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/region"><i data-feather="database"></i><span>Regional</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/repair"><i data-feather="database"></i><span>Perbaikan</span></a></li>
+                          
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/supplier"><i data-feather="database"></i><span>Pemasok</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/uom"><i data-feather="database"></i><span>Satuan</span></a></li>
+                          
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/warranty"><i data-feather="database"></i><span>Jaminan</span></a></li>
 
                         </ul>
                         </ul>
