@@ -23,7 +23,7 @@
                     <div class="container">
                         <label for="username"><h6>NIK (Nomor Induk Karyawan) : </h6></label>
                         <br>
-                        <input type="text" name="username" id="username" class="form-control col-xs-2" placeholder="Masukkan NIK Anda...." required>
+                        <input type="text" name="email" id="email" class="form-control col-xs-2" placeholder="Masukkan NIK Anda...." required>
                         <br>
                         <label class="form-label"><h6>Password : </h6></label>
                         <div class="input-group mb-3">
