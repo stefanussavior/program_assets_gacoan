@@ -23,6 +23,8 @@
     </div>
 @endif
 
+
+
 <form action="{{ route('products.store') }}" method="POST">
     @csrf
 
@@ -47,3 +49,4 @@
 
 <p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
 @endsection
+

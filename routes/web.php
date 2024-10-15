@@ -15,7 +15,7 @@ use App\Http\Controllers\LoginController;
 // Route::get('/logout', [LoginController::class,'logout']);
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -27,6 +27,9 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('users', UserController::class);
     Route::resource('products', ProductController::class);
 });
+
+
+
 
 // Route::group([RoleMiddleware::class => ':admin'], function(){
 //     Route::get('/admin/dashboard', [AdminController::class, 'index']);
