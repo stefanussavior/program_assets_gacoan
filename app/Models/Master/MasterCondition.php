@@ -34,9 +34,9 @@ class MasterCondition extends Model
             $model->create_date = Carbon::now(); // Mengisi create_date dengan tanggal saat ini
             $model->create_by = Auth::user()->username ?? 'system'; // Mengisi create_by dengan username user yang login
 
-            // Menghasilkan cat_id secara otomatis
-            $maxBrandId = MasterCondition::max('id'); // Ambil nilai cat_id maksimum
-            $model->cat_id = $maxBrandId ? $maxBrandId + 1 : 1; // Set cat_id, mulai dari 1 jika tidak ada
+            // Menghasilkan id secara otomatis
+            $maxConditionId = MasterCondition::max('id'); // Ambil nilai id maksimum
+            $model->id = $maxConditionId ? $maxConditionId + 1 : 1; // Set id, mulai dari 1 jika tidak ada
         });
 
         // Event ketika mengupdate data (updating)

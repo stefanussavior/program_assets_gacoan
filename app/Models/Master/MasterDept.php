@@ -36,9 +36,9 @@ class MasterDept extends Model
             $model->create_date = Carbon::now(); // Mengisi create_date dengan tanggal saat ini
             $model->create_by = Auth::user()->username ?? 'system'; // Mengisi create_by dengan username user yang login
 
-            // Menghasilkan cat_id secara otomatis
-            $maxBrandId = MasterDept::max('dept_id'); // Ambil nilai cat_id maksimum
-            $model->cat_id = $maxBrandId ? $maxBrandId + 1 : 1; // Set cat_id, mulai dari 1 jika tidak ada
+            // Menghasilkan dept_id secara otomatis
+            $maxDeptId = MasterDept::max('dept_id'); // Ambil nilai dept_id maksimum
+            $model->dept_id = $maxDeptId ? $maxDeptId + 1 : 1; // Set dept_id, mulai dari 1 jika tidak ada
         });
 
         // Event ketika mengupdate data (updating)

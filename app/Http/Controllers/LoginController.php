@@ -3,12 +3,16 @@
 namespace App\Http\Auth\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Master\MasterUser;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 
 class LoginController extends Controller
 {
     public function IndexLogin() {
+        return view('login');
+    }
+    public function showLoginForm() {
         return view('login');
     }
     public function login(Request $request)
@@ -19,7 +23,7 @@ class LoginController extends Controller
         ]);
 
         // Retrieve user by username
-        $user = User::where('username', $request->username)->first();
+        $user = MasterUser::where('username', $request->username)->first();
 
         // Check if user exists and password matches
         if ($user && $user->password === md5($request->password)) {

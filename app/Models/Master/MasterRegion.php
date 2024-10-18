@@ -38,9 +38,9 @@ class MasterRegion extends Model
             $model->create_date = Carbon::now(); // Mengisi create_date dengan tanggal saat ini
             $model->create_by = Auth::user()->username ?? 'system'; // Mengisi create_by dengan username user yang login
 
-            // Menghasilkan cat_id secara otomatis
-            $maxBrandId = MasterRegion::max('region_id'); // Ambil nilai cat_id maksimum
-            $model->cat_id = $maxBrandId ? $maxBrandId + 1 : 1; // Set cat_id, mulai dari 1 jika tidak ada
+            // Menghasilkan region_id secara otomatis
+            $maxRegionId = MasterRegion::max('region_id'); // Ambil nilai region_id maksimum
+            $model->region_id = $maxRegionId ? $maxRegionId + 1 : 1; // Set region_id, mulai dari 1 jika tidak ada
         });
 
         // Event ketika mengupdate data (updating)

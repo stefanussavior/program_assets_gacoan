@@ -462,38 +462,45 @@
     {{-- Add Data Uom --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#saveUomButton').click(function (e) {
-                e.preventDefault();
-
-                // Ambil data form
-                var uomName = $('#uom_name').val();
-
-                // Validasi jika diperlukan
-                if (uomName === '') {
-                    alert('Uom Name is required');
-                    return;
-                }
-
-                // Kirimkan data menggunakan Ajax
-                $.ajax({
-                    url: '/admin/uoms/edit/' + $('#uom_id').val(), // Pastikan ini adalah URL yang benar
-                    method: 'PUT', // Pastikan ini menggunakan metode PUT
-                    data: $(this).serialize(), // Kirim data dari form
-                    success: function(response) {
-                        $('#updateModal').modal('hide'); // Sembunyikan modal
-                            $('#addDataUom').modal('hide');
-                            window.location.href = response.redirect_url;
-                        location.reload(); // Refresh halaman
-                    },
-                    error: function(jqXHR) {
-                        const message = jqXHR.responseJSON?.message || 'Failed to update Uom.';
-                        alert(message); // Tampilkan pesan kesalahan
-                    }
-                });
-            });
-        });
-    </script>
+      $(document).ready(function () {
+          // Get the CSRF token from the meta tag
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
+  
+          $('#saveUomButton').click(function (e) {
+              e.preventDefault();
+  
+              // Ambil data form
+              var uomName = $('#uom_name').val();
+  
+              // Kirimkan data menggunakan Ajax
+              $.ajax({
+                  url: '/add-uom', // URL untuk menambahkan kategori
+                  method: 'POST', // Menggunakan metode POST
+                  data: {
+                      uom_name: uomName
+                  }, // Kirim data dari form
+                  success: function(response) {
+                      console.log(response);
+                      // Cek apakah response berisi error atau success
+                      if (response.status === 'success') {
+                          $('#addDataUom').modal('hide');
+                          window.location.href = response.redirect_url; // Redirect ke URL yang diinginkan
+                      } else {
+                          alert(response.message); // Tampilkan pesan error
+                      }
+                  },
+                  error: function(jqXHR) {
+                      const message = jqXHR.responseJSON?.message || 'Failed to add category.'; // Tampilkan pesan kesalahan
+                      alert(message);
+                  }
+              });
+          });
+      });
+  </script>
 
     {{-- Update Data Uom --}}
     <script>

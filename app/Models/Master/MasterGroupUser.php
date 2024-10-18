@@ -38,9 +38,9 @@ class MasterGroupUser extends Model
             $model->create_date = Carbon::now(); // Mengisi create_date dengan tanggal saat ini
             $model->create_by = Auth::user()->username ?? 'system'; // Mengisi create_by dengan username user yang login
 
-            // Menghasilkan cat_id secara otomatis
-            $maxBrandId = MasterGroupUser::max('group_id'); // Ambil nilai cat_id maksimum
-            $model->cat_id = $maxBrandId ? $maxBrandId + 1 : 1; // Set cat_id, mulai dari 1 jika tidak ada
+            // Menghasilkan group_id secara otomatis
+            $maxGroupId = MasterGroupUser::max('group_id'); // Ambil nilai group_id maksimum
+            $model->group_id = $maxGroupId ? $maxGroupId + 1 : 1; // Set group_id, mulai dari 1 jika tidak ada
         });
 
         // Event ketika mengupdate data (updating)

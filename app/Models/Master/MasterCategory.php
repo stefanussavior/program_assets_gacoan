@@ -39,8 +39,8 @@ class MasterCategory extends Model
             $model->create_by = Auth::user()->username ?? 'system'; // Mengisi create_by dengan username user yang login
 
             // Menghasilkan cat_id secara otomatis
-            $maxBrandId = MasterChecklist::max('cat_id'); // Ambil nilai cat_id maksimum
-            $model->cat_id = $maxBrandId ? $maxBrandId + 1 : 1; // Set cat_id, mulai dari 1 jika tidak ada
+            $maxCategoryId = MasterCategory::max('cat_id'); // Ambil nilai cat_id maksimum
+            $model->cat_id = $maxCategoryId ? $maxCategoryId + 1 : 1; // Set cat_id, mulai dari 1 jika tidak ada
         });
 
         // Event ketika mengupdate data (updating)

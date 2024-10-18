@@ -36,9 +36,9 @@ class MasterChecklist extends Model
             $model->create_date = Carbon::now(); // Mengisi create_date dengan tanggal saat ini
             $model->create_by = Auth::user()->username ?? 'system'; // Mengisi create_by dengan username user yang login
 
-            // Menghasilkan cat_id secara otomatis
-            $maxBrandId = MasterChecklist::max('checklist_id'); // Ambil nilai cat_id maksimum
-            $model->cat_id = $maxBrandId ? $maxBrandId + 1 : 1; // Set cat_id, mulai dari 1 jika tidak ada
+            // Menghasilkan checklist_id secara otomatis
+            $maxChecklistId = MasterChecklist::max('checklist_id'); // Ambil nilai checklist_id maksimum
+            $model->checklist_id = $maxChecklistId ? $maxChecklistId + 1 : 1; // Set checklist_id, mulai dari 1 jika tidak ada
         });
 
         // Event ketika mengupdate data (updating)

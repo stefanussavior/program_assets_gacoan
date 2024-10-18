@@ -38,9 +38,9 @@ class MasterWarranty extends Model
             $model->create_date = Carbon::now(); // Mengisi create_date dengan tanggal saat ini
             $model->create_by = Auth::user()->username ?? 'system'; // Mengisi create_by dengan username user yang login
 
-            // Menghasilkan cat_id secara otomatis
-            $maxBrandId = MasterWarranty::max('warranty_id'); // Ambil nilai cat_id maksimum
-            $model->cat_id = $maxBrandId ? $maxBrandId + 1 : 1; // Set cat_id, mulai dari 1 jika tidak ada
+            // Menghasilkan warranty_id secara otomatis
+            $maxWarrantyId = MasterWarranty::max('warranty_id'); // Ambil nilai warranty_id maksimum
+            $model->warranty_id = $maxWarrantyId ? $maxWarrantyId + 1 : 1; // Set warranty_id, mulai dari 1 jika tidak ada
         });
 
         // Event ketika mengupdate data (updating)

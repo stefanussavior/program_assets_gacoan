@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -179,13 +180,13 @@
             <div class="page-title">
               <div class="row">
                 <div class="col-sm-6">
-                  <h3>Priority Name List</h3>
+                  <h3>Asset Name List</h3>
                 </div>
                 <div class="col-sm-6">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
                     <li class="breadcrumb-item">ASMI</li>
-                    <li class="breadcrumb-item active">Priority Name List</li>
+                    <li class="breadcrumb-item active">Asset Name List</li>
                   </ol>
                 </div>
               </div>
@@ -199,13 +200,13 @@
               <div class="col-sm-12">
                 <div class="card">
                   <div class="card-header pb-0">
-                    <h5>Priority Name List</h5>
+                    <h5>Asset Name List</h5>
                     <span>adalah daftar atau kumpulan aset yang dimiliki oleh seseorang, organisasi, atau perusahaan. Daftar ini biasanya mencakup rincian tentang setiap aset, seperti jenis aset, nilai, lokasi, dan informasi relevan lainnya.</span>
                   </div>
 					<div class="card-body"> 
 						<div class="btn-showcase">
                             <div class="button_between">
-                                <button class="btn btn-square btn-primary" type="button" data-toggle="modal" data-target="#addDataPriority">+ Add Data Priority</button>
+                                <button class="btn btn-square btn-primary" type="button" data-toggle="modal" data-target="#addDataAsset">+ Add Data Asset</button>
                                 {{-- <button class="btn btn-square btn-primary" type="button" data-toggle="modal" data-target="#importDataExcel"> <i class="fa fa-file-excel-o" ></i> Import Data Excel </button>
                                 <button class="btn btn-square btn-primary" type="button"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
                                 Download PDF Data</button> --}}
@@ -229,33 +230,81 @@
 
                     <!-- Modal add -->
                     <!-- Modal Add Data Asset -->
-                    <div class="modal fade" id="addDataPriority" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                    <div class="modal fade" id="addDataAsset" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
                         <div class="modal-dialog modal-md">
                             <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add Data Priority</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Add Data Asset</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form id="addPriorityForm" enctype="multipart/form-data">
+                                <form id="addAssetForm" enctype="multipart/form-data">  
                                     @csrf
                                     <div class="row">
                                         <div class="col-sm-12">
-                                        <label for="priority_code">Priority Code : </label>
-                                        <input type="text" name="priority_code" id="priority_code" class="form-control" placeholder="Enter Priority Name" required>
+                                        <label for="asset_code">Asset Code : </label>
+                                        <input type="text" name="asset_code" id="asset_code" class="form-control" placeholder="Enter Asset Code" required>
                                         </div>
                                         <div class="col-sm-12">
-                                        <label for="priority_name">Priority Name : </label>
-                                        <input type="text" name="priority_name" id="priority_name" class="form-control" placeholder="Enter Priority Name" required>
+                                        <label for="asset_model">Asset Model : </label>
+                                        <input type="text" name="asset_model" id="asset_model" class="form-control" placeholder="Enter Asset Model" required>
+                                        </div>
+                                        <div class="col-sm-12">
+                                        <label for="asset_status">Asset Status : </label>
+                                        <input type="text" name="asset_status" id="asset_status" class="form-control" placeholder="Enter Asset Status" required>
+                                        </div>
+                                        <div class="col-sm-12">
+                                        <label for="asset_quantity">Asset Quantity : </label>
+                                        <input type="text" name="asset_quantity" id="asset_quantity" class="form-control" placeholder="Enter Asset Quantity" required>
+                                        </div>
+                                        <div class="col-sm-12">
+                                        <label for="asset_image">Asset Image : </label>
+                                        <input type="text" name="asset_image" id="asset_image" class="form-control" placeholder="Enter Asset Image" required>
+                                        </div>
+                                        <div class="col-sm-12">
+                                          <label for="priority_id">Prioritas: </label>
+                                          <select name="priority_id" id="priority_id" class="form-control" required>
+                                            <option value="">Pilih Prioritas</option>
+                                            @foreach($priorities as $priority)
+                                                <option value="{{ $priority->priority_id }}">{{ $priority->priority_name }}</option>
+                                            @endforeach
+                                        </select>
+                                      </div>
+                                        <div class="col-sm-12">
+                                        <label for="cat_id">Kategori : </label>
+                                            <select name="cat_id" id="cat_id" class="form-control" required>
+                                              <option value="">Pilih Kategori</option>
+                                              @foreach($categories as $category)
+                                                  <option value="{{ $category->cat_id }}">{{ $category->cat_name }}</option>
+                                              @endforeach
+                                          </select>
+                                        </div>
+                                        <div class="col-sm-12">
+                                        <label for="type_id">Tipe : </label>
+                                            <select name="type_id" id="type_id" class="form-control" required>
+                                              <option value="">Pilih Tipe</option>
+                                              @foreach($tipies as $type)
+                                                  <option value="{{ $type->type_id }}">{{ $type->type_name }}</option>
+                                              @endforeach
+                                          </select>
+                                        </div>
+                                        <div class="col-sm-12">
+                                        <label for="uom_id">Satuan : </label>
+                                            <select name="uom_id" id="uom_id" class="form-control" required>
+                                              <option value="">Pilih Satuan</option>
+                                              @foreach($uomies as $uom)
+                                                  <option value="{{ $uom->uom_id }}">{{ $uom->uom_name }}</option>
+                                              @endforeach
+                                          </select>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" id="savePriorityButton">Save changes</button>
+                                <button type="submit" class="btn btn-primary" id="saveAssetButton">Save changes</button>
                             </div>
                             </div>
                         </div>
@@ -266,7 +315,7 @@
                               <div class="modal-dialog modal-md">
                                   <div class="modal-content">
                                       <div class="modal-header">
-                                          <h5 class="modal-title" id="exampleModalLabel">Update Priority</h5>
+                                          <h5 class="modal-title" id="exampleModalLabel">Update Asset</h5>
                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
                                           </button>
@@ -277,14 +326,50 @@
                                           <div class="modal-body">
                                               <div class="row">
                                                   <div class="col-sm-12">
-                                                      <label for="priority_code">Priority Code : </label>
-                                                      <input type="text" name="priority_code" id="priority_code" class="form-control" required>
+                                                      <label for="asset_code">Assets Code : </label>
+                                                      <input type="text" name="asset_code" id="asset_code" class="form-control" required>
                                                   </div>
                                                   <div class="col-sm-12">
-                                                      <label for="priority_name">Priority Name : </label>
-                                                      <input type="text" name="priority_name" id="priority_name" class="form-control" required>
+                                                      <label for="asset_model">Assets Model : </label>
+                                                      <input type="text" name="asset_model" id="asset_model" class="form-control" required>
                                                   </div>
-                                                  <input type="hidden" name="priority_id" id="priority_id">
+                                                  <div class="col-sm-12">
+                                                    <label for="priority_id">Priority: </label>
+                                                    <select name="priority_id" id="priority_id" class="form-control" required>
+                                                        <option value="">Select Priority</option>
+                                                        @foreach($priorities as $priority)
+                                                            <option value="{{ $priority->priority_id }}">{{ $priority->priority_name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                  </div>
+                                                  <div class="col-sm-12">
+                                                      <label for="cat_id">Category : </label>
+                                                      <select name="cat_id" id="cat_id" class="form-control" required>
+                                                          <option value="">Select Category</option>
+                                                          @foreach($categories as $category)
+                                                              <option value="{{ $category->cat_id }}">{{ $category->cat_name }}</option>
+                                                          @endforeach
+                                                      </select>
+                                                    </div>
+                                                  <div class="col-sm-12">
+                                                      <label for="type_id">Type : </label>
+                                                      <select name="type_id" id="type_id" class="form-control" required>
+                                                          <option value="">Select Type</option>
+                                                          @foreach($tipies as $type)
+                                                              <option value="{{ $type->type_id }}">{{ $type->type_name }}</option>
+                                                          @endforeach
+                                                      </select>
+                                                    </div>
+                                                  <div class="col-sm-12">
+                                                      <label for="uom_id">Uom : </label>
+                                                      <select name="uom_id" id="uom_id" class="form-control" required>
+                                                          <option value="">Select Uom</option>
+                                                          @foreach($uomies as $uom)
+                                                              <option value="{{ $uom->uom_id }}">{{ $uom->uom_name }}</option>
+                                                          @endforeach
+                                                      </select>
+                                                    </div>
+                                                  <input type="hidden" name="asset_id" id="asset_id">
                                               </div>
                                           </div>
                                           <div class="modal-footer">
@@ -346,13 +431,20 @@
                           <table class="table table-bordered table-striped" id="coba" width="100%">
                               <thead class="thead-dark">
                                   <tr>
-                                      <th>ID Priority</th>
-                                      <th>Priority Code</th>
-                                      <th>Priority Name</th>
+                                      <th>ID Asset</th>
+                                      <th>Asset Code</th>
+                                      <th>Asset Model</th>
+                                      <th>Asset Status</th>
+                                      <th>Asset Quantity</th>
+                                      <th>Asset Image</th>
+                                      <th>Priority</th>
+                                      <th>Category</th>
+                                      <th>Type</th>
+                                      <th>Uom</th>
                                       <th>Action</th>
                                   </tr>
                               </thead>
-                              <tbody id="priorityTableBody">
+                              <tbody id="assetTableBody">
                                   <!-- Data akan diisi dengan AJAX -->
                               </tbody>
                           </table>
@@ -429,27 +521,34 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
 
-    {{-- Get Data priority --}}
+    {{-- Get Data asset --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Mengambil data priority menggunakan Ajax
+            // Mengambil data asset menggunakan Ajax
             $.ajax({
-                url: "{{ route('get.priority') }}", // Route untuk get_priority
+                url: "{{ route('get.asset') }}", // Route untuk get_asset
                 method: "GET",
                 success: function(data) {
                     let rows = '';
-                    data.forEach(function(priority) {
+                    data.forEach(function(asset) {
                         rows += `
                             <tr>
-                                <td>${priority.priority_id}</td> <!-- Tampilkan ID priority -->
-                                <td>${priority.priority_code}</td> <!-- Tampilkan Nama priority -->
-                                <td>${priority.priority_name}</td> <!-- Tampilkan Nama priority -->
+                                <td>${asset.asset_id}</td> <!-- Tampilkan ID asset -->
+                                <td>${asset.asset_code}</td> <!-- Tampilkan Nama asset -->
+                                <td>${asset.asset_model}</td> <!-- Tampilkan Nama asset -->
+                                <td>${asset.asset_status}</td> <!-- Tampilkan Nama asset -->
+                                <td>${asset.asset_quantity}</td> <!-- Tampilkan Nama asset -->
+                                <td>${asset.asset_image}</td> <!-- Tampilkan Nama asset -->
+                                <td>${asset.priority_id}</td> <!-- Tampilkan Nama asset -->
+                                <td>${asset.cat_id}</td> <!-- Tampilkan Nama asset -->
+                                <td>${asset.type_id}</td> <!-- Tampilkan Nama asset -->
+                                <td>${asset.uom_id}</td> <!-- Tampilkan Nama asset -->
                                 <td>
-                                <a href="javascript:void(0);" class="edit-button" data-id="${priority.priority_id}" data-name="${priority.priority_name}" title="Edit">
+                                <a href="javascript:void(0);" class="edit-button" data-id="${asset.asset_id}" data-name="${asset.asset_code}" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form class="delete-form" action="{{ url('admin/prioritys/delete') }}/${priority.priority_id}" method="POST" style="display:inline;">
+                                <form class="delete-form" action="{{ url('admin/regists/delete') }}/${asset.asset_id}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" class="delete-button" title="Delete" style="border: none; background: none; cursor: pointer;">
@@ -460,7 +559,7 @@
                             </tr>
                         `;
                     });
-                    $('#priorityTableBody').html(rows); // Memasukkan baris ke dalam tbody
+                    $('#assetTableBody').html(rows); // Memasukkan baris ke dalam tbody
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error('Error fetching data:', textStatus, errorThrown);
@@ -469,61 +568,58 @@
         });
     </script>
 
-    {{-- Add Data Priority --}}
+    {{-- Add Data Asset --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-        // Get the CSRF token from the meta tag
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-            $('#savePriorityButton').click(function (e) {
-                e.preventDefault();
-
-                // Ambil data form
-                var priorityCode = $('#priority_code').val();
-                var priorityName = $('#priority_name').val();
-
-                // Kirimkan data menggunakan Ajax
-                $.ajax({
-                    url: '/add-priority' + $('#priority_id').val(), // Pastikan ini adalah URL yang benar
-                    method: 'POST', // Pastikan ini menggunakan metode PUT
-                    data: {
-                    priority_code: priorityCode,
-                    priority_name: priorityName
-                }, // Kirim data dari form
+        $('#saveAssetButton').click(function (e) {
+            e.preventDefault();
+            
+            $.ajax({
+                url: '{{ route('add-regist') }}', // URL yang benar
+                method: 'POST',
+                data: $('#addAssetForm').serialize(), // Pastikan menggunakan ID yang benar
                 success: function(response) {
-                      console.log(response);
-                      // Cek apakah response berisi error atau success
-                      if (response.status === 'success') {
-                          $('#addDataPriority').modal('hide');
-                          window.location.href = response.redirect_url;
-                      } else {
-                          alert(response.message);
-                      }
-                  },
-                    error: function(jqXHR) {
-                        const message = jqXHR.responseJSON?.message || 'Failed to update Priority.';
-                        alert(message); // Tampilkan pesan kesalahan
+                    console.log(response);
+                    if (response.status === 'success') {
+                        $('#addDataAsset').modal('hide');
+                        window.location.href = response.redirect_url;
+                    } else {
+                        alert(response.message);
                     }
-                });
+                },
+                error: function(jqXHR) {
+                    console.log(jqXHR.responseJSON); // Cek detail kesalahan
+                    const message = jqXHR.responseJSON?.message || 'Failed to update Asset.';
+                    alert(message); // Tampilkan pesan kesalahan
+                }
             });
         });
     </script>
 
-    {{-- Update Data Priority --}}
+    {{-- Update Data Asset --}}
     <script>
         $(document).on('click', '.edit-button', function() {
-            const priorityId = $(this).data('id'); // Ambil priority_id dari atribut data
-            const priorityCode = $(this).data('code'); // Ambil priority_name dari atribut data
-            const priorityName = $(this).data('name'); // Ambil priority_name dari atribut data
+            const assetId = $(this).data('id'); // Ambil asset_id dari atribut data
+            const assetCode = $(this).data('code'); // Ambil asset_code dari atribut data
+            const assetModel = $(this).data('model'); // Ambil asset_code dari atribut data
+            const assetQuantity = $(this).data('quantity'); // Ambil asset_code dari atribut data
+            const assetStatus = $(this).data('status'); // Ambil asset_code dari atribut data
+            const assetImage = $(this).data('image'); // Ambil asset_code dari atribut data
+            const priorityId = $(this).data('priority'); // Ambil asset_code dari atribut data
+            const catId = $(this).data('cat'); // Ambil asset_code dari atribut data
+            const typeId = $(this).data('type'); // Ambil asset_code dari atribut data
 
             // Isi input dengan data
+            $('#asset_id').val(assetId);
+            $('#asset_code').val(assetCode);
+            $('#asset_status').val(assetStatus);
+            $('#asset_quantity').val(assetQuantity);
+            $('#asset_model').val(assetModel);
+            $('#asset_image').val(assetImage);
             $('#priority_id').val(priorityId);
-            $('#priority_code').val(priorityCode);
-            $('#priority_name').val(priorityName);
+            $('#type_id').val(typeId);
+            $('#cat_id').val(catId);
+            $('#uom_id').val(uomId);
 
             // Tampilkan modal
             $('#updateModal').modal('show');
@@ -534,7 +630,7 @@
             e.preventDefault(); // Cegah form reload halaman
 
             $.ajax({
-                url: '/admin/prioritys/edit/' + $('#priority_id').val(),
+                url: '/admin/regists/edit/' + $('#asset_id').val(),
                 method: 'PUT', // Menggunakan PUT untuk memperbarui data
                 data: $(this).serialize(), // Serialisasi data form untuk dikirim
                 success: function(response) {
@@ -543,21 +639,21 @@
                     }
                 },
                 error: function(jqXHR) {
-                    const message = jqXHR.responseJSON?.message || 'Failed to update Priority.';
+                    const message = jqXHR.responseJSON?.message || 'Failed to update Asset.';
                     alert(message); // Tampilkan pesan error jika gagal
                 }
             });
         });
     </script>
     
-    {{-- Delete data Priority --}}
+    {{-- Delete data Asset --}}
     <script>
         $(document).on('click', '.delete-button', function(e) {
         e.preventDefault(); // Mencegah submit form default
         const form = $(this).closest('form'); // Ambil form yang terdekat dari tombol
 
         // Tampilkan dialog konfirmasi
-        if (confirm('Apakah Anda yakin ingin menghapus Priority ini?')) {
+        if (confirm('Apakah Anda yakin ingin menghapus Asset ini?')) {
             // Ambil URL dari action form
             const actionUrl = form.attr('action');
             
@@ -567,7 +663,7 @@
                 data: form.serialize(), // Kirim data form
                 success: function(response) {
                     if (response.status === 'success') {
-                        window.location.href = response.redirect_url; // Redirect ke Admin.Priority
+                        window.location.href = response.redirect_url; // Redirect ke Admin.Asset
                     } else {
                         alert(response.message); // Tampilkan pesan error jika gagal
                     }

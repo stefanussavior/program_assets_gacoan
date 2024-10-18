@@ -39,9 +39,9 @@ class MasterSupplier extends Model
             $model->create_date = Carbon::now(); // Mengisi create_date dengan tanggal saat ini
             $model->create_by = Auth::user()->username ?? 'system'; // Mengisi create_by dengan username user yang login
 
-            // Menghasilkan cat_id secara otomatis
-            $maxBrandId = MasterSupplier::max('supplier_id'); // Ambil nilai cat_id maksimum
-            $model->cat_id = $maxBrandId ? $maxBrandId + 1 : 1; // Set cat_id, mulai dari 1 jika tidak ada
+            // Menghasilkan supplier_id secara otomatis
+            $maxSupplierId = MasterSupplier::max('supplier_id'); // Ambil nilai supplier_id maksimum
+            $model->supplier_id = $maxSupplierId ? $maxSupplierId + 1 : 1; // Set supplier_id, mulai dari 1 jika tidak ada
         });
 
         // Event ketika mengupdate data (updating)

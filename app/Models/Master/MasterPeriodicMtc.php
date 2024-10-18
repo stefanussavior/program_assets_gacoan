@@ -38,9 +38,9 @@ class MasterPeriodicMtc extends Model
             $model->create_date = Carbon::now(); // Mengisi create_date dengan tanggal saat ini
             $model->create_by = Auth::user()->username ?? 'system'; // Mengisi create_by dengan username user yang login
 
-            // Menghasilkan cat_id secara otomatis
-            $maxBrandId = MasterPeriodicMtc::max('periodic_mtc_id'); // Ambil nilai cat_id maksimum
-            $model->cat_id = $maxBrandId ? $maxBrandId + 1 : 1; // Set cat_id, mulai dari 1 jika tidak ada
+            // Menghasilkan periodic_mtc_id secara otomatis
+            $maxPeriodicId = MasterPeriodicMtc::max('periodic_mtc_id'); // Ambil nilai periodic_mtc_id maksimum
+            $model->periodic_mtc_id = $maxPeriodicId ? $maxPeriodicId + 1 : 1; // Set periodic_mtc_id, mulai dari 1 jika tidak ada
         });
 
         // Event ketika mengupdate data (updating)

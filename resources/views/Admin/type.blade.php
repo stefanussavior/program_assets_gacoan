@@ -472,43 +472,47 @@
     {{-- Add Data Type --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('#saveTypeButton').click(function (e) {
-                e.preventDefault();
-
-                // Ambil data form
-                var typeCode = $('#type_code').val();
-                var typeName = $('#type_name').val();
-
-                // Validasi jika diperlukan
-                if (typeName === '') {
-                    alert('Type Name is required');
-                    return;
-                }
-                if (typeCode === '') {
-                    alert('Type Name is required');
-                    return;
-                }
-
-                // Kirimkan data menggunakan Ajax
-                $.ajax({
-                    url: '/admin/types/edit/' + $('#type_id').val(), // Pastikan ini adalah URL yang benar
-                    method: 'PUT', // Pastikan ini menggunakan metode PUT
-                    data: $(this).serialize(), // Kirim data dari form
-                    success: function(response) {
-                        $('#updateModal').modal('hide'); // Sembunyikan modal
-                            $('#addDataType').modal('hide');
-                            window.location.href = response.redirect_url;
-                        location.reload(); // Refresh halaman
-                    },
-                    error: function(jqXHR) {
-                        const message = jqXHR.responseJSON?.message || 'Failed to update Type.';
-                        alert(message); // Tampilkan pesan kesalahan
-                    }
-                });
-            });
-        });
-    </script>
+      $(document).ready(function () {
+          // Get the CSRF token from the meta tag
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
+  
+          $('#saveTypeButton').click(function (e) {
+              e.preventDefault();
+  
+              // Ambil data form
+              var typeCode = $('#type_code').val();
+              var typeName = $('#type_name').val();
+  
+              // Kirimkan data menggunakan Ajax
+              $.ajax({
+                  url: '/add-type', // URL untuk menambahkan kategori
+                  method: 'POST', // Menggunakan metode POST
+                  data: {
+                      type_code: typeCode,
+                      type_name: typeName
+                  }, // Kirim data dari form
+                  success: function(response) {
+                      console.log(response);
+                      // Cek apakah response berisi error atau success
+                      if (response.status === 'success') {
+                          $('#addDataType').modal('hide');
+                          window.location.href = response.redirect_url; // Redirect ke URL yang diinginkan
+                      } else {
+                          alert(response.message); // Tampilkan pesan error
+                      }
+                  },
+                  error: function(jqXHR) {
+                      const message = jqXHR.responseJSON?.message || 'Failed to add category.'; // Tampilkan pesan kesalahan
+                      alert(message);
+                  }
+              });
+          });
+      });
+  </script>
 
     {{-- Update Data Type --}}
     <script>

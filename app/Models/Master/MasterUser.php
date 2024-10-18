@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth; // Untuk mendapatkan username dari user yang sedang login
 use Carbon\Carbon; // Untuk tanggal dan waktu
+use Spatie\Permission\Traits\HasRoles;
 
 class MasterUser extends Model
 {
-    use HasFactory;
+    use HasFactory, HasRoles;
     // use SoftDeletes;
 
     protected $table = 'm_user';
@@ -20,6 +21,7 @@ class MasterUser extends Model
         'user_id',
         'username',
         'password',
+        'email',
         'role'
     ];
     
@@ -34,9 +36,9 @@ class MasterUser extends Model
             $model->create_date = Carbon::now(); // Mengisi create_date dengan tanggal saat ini
             $model->create_by = Auth::user()->username ?? 'system'; // Mengisi create_by dengan username user yang login
 
-            // Menghasilkan cat_id secara otomatis
-            $maxBrandId = MasterUser::max('user_id'); // Ambil nilai cat_id maksimum
-            $model->cat_id = $maxBrandId ? $maxBrandId + 1 : 1; // Set cat_id, mulai dari 1 jika tidak ada
+            // Menghasilkan user_id secara otomatis
+            $maxUserId = MasterUser::max('user_id'); // Ambil nilai user_id maksimum
+            $model->user_id = $maxUserId ? $maxUserId + 1 : 1; // Set user_id, mulai dari 1 jika tidak ada
         });
 
         // Event ketika mengupdate data (updating)

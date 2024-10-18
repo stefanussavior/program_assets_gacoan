@@ -4,15 +4,12 @@ namespace App\Models\Master;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth; // Untuk mendapatkan username dari user yang sedang login
-use Carbon\Carbon; // Untuk tanggal dan waktu
+use Illuminate\Support\Facades\Auth;
 
-class MasterAsset extends Model
+class MasterAssetApproval extends Model
 {
     use HasFactory;
-    // use SoftDeletes;
-
+    
     protected $table = 'm_assets';
     protected $primaryKey = 'asset_id';
 

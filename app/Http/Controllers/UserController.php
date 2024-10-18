@@ -173,16 +173,16 @@ class UserController extends Controller
     {
         // Validasi data yang dikirimkan
         $request->validate([
-            'username' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
             'password' => 'required|string|max:255',
         ]);
 
         try {
             // Buat instance dari model MasterUser
             $user = new MasterUser();
-            $user->username = $request->input('username');
+            $user->email = $request->input('email');
             $user->password = $request->input('password');
-            $user->create_by = Auth::user()->username; // Mengambil username yang sedang login
+            $user->create_by = Auth::user()->email; // Mengambil email yang sedang login
             
             // Menghasilkan user_id secara otomatis
             $maxUserId = MasterUser::max('user_id'); // Ambil nilai user_id maksimum
@@ -235,7 +235,7 @@ class UserController extends Controller
     {
         // Validasi input
         $request->validate([
-            'username' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
             'password' => 'required|string|max:255',
         ]);
 
@@ -247,7 +247,7 @@ class UserController extends Controller
         }
 
         // Update data user
-        $user->username = $request->username;
+        $user->email = $request->email;
         $user->password = $request->password;
         
         if ($user->save()) { // Menggunakan save() yang lebih aman daripada update()

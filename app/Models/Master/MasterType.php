@@ -38,9 +38,9 @@ class MasterType extends Model
             $model->create_date = Carbon::now(); // Mengisi create_date dengan tanggal saat ini
             $model->create_by = Auth::user()->username ?? 'system'; // Mengisi create_by dengan username user yang login
 
-            // Menghasilkan cat_id secara otomatis
-            $maxBrandId = MasterType::max('type_id'); // Ambil nilai cat_id maksimum
-            $model->cat_id = $maxBrandId ? $maxBrandId + 1 : 1; // Set cat_id, mulai dari 1 jika tidak ada
+            // Menghasilkan type_id secara otomatis
+            $maxTypeId = MasterType::max('type_id'); // Ambil nilai type_id maksimum
+            $model->type_id = $maxTypeId ? $maxTypeId + 1 : 1; // Set type_id, mulai dari 1 jika tidak ada
         });
 
         // Event ketika mengupdate data (updating)

@@ -13,7 +13,7 @@ class MasterPriority extends Model
     use HasFactory;
     // use SoftDeletes;
 
-    public $table = 'm_prority';
+    public $table = 'm_priority';
     protected $primaryKey = 'priority_id';
 
     public $fillable = [
@@ -38,9 +38,9 @@ class MasterPriority extends Model
             $model->create_date = Carbon::now(); // Mengisi create_date dengan tanggal saat ini
             $model->create_by = Auth::user()->username ?? 'system'; // Mengisi create_by dengan username user yang login
 
-            // Menghasilkan cat_id secara otomatis
-            $maxBrandId = MasterPriority::max('priority_id'); // Ambil nilai cat_id maksimum
-            $model->cat_id = $maxBrandId ? $maxBrandId + 1 : 1; // Set cat_id, mulai dari 1 jika tidak ada
+            // Menghasilkan priority_id secara otomatis
+            $maxPriorityId = MasterPriority::max('priority_id'); // Ambil nilai priority_id maksimum
+            $model->priority_id = $maxPriorityId ? $maxPriorityId + 1 : 1; // Set priority_id, mulai dari 1 jika tidak ada
         });
 
         // Event ketika mengupdate data (updating)

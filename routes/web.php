@@ -1,4 +1,5 @@
 <?php
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
@@ -13,6 +14,7 @@ use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AssetsController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChecklistController;
@@ -35,43 +37,72 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UomController;
 use App\Http\Controllers\WarrantyController;
-
-
+use App\Http\Controllers\ProfileController; // Pastikan ini sesuai dengan namespace baru
 
 // Show the login form
-// Route::get('/', [LoginController::class, 'IndexLogin']);
-// Route::post('/login', [LoginController::class, 'Login'])->name('login');
-// Route::get('/logout', [LoginController::class,'logout']);
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [LoginController::class, 'showLoginForm']);
+Route::post('/login', [LoginController::class, 'login'])->name('login'); // Pastikan nama metode ditulis kecil
+Route::get('/logout', [LoginController::class, 'logout']);
 
 Auth::routes();
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth']], function(){
-    Route::get('/', [LoginController::class, 'IndexLogin']);
-    Route::post('/login', [LoginController::class, 'login'])->name('login');
-    Route::get('/logout', [LoginController::class,'logout']);
-});
-Auth::routes();
-
-Route::middleware(['auth'])->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
-    Route::resource('products', ProductController::class);
+    // Route::resource('products', );
 });
 
 Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::get('/admin/dashboard', [AdminController::class, 'index']);
-
-    //Asset Route
+    // Asset Route
     Route::get('/admin/halaman_asset', [AdminController::class, 'HalamanAsset']);
     Route::get('/admin/GetDataAsset', [AdminController::class, 'GetDataAsset']);
     Route::get('/admin/get_detail_data_asset/{id}', [AdminController::class, 'GetDetailDataAsset']);
     Route::post('/admin/add_data_asset', [AdminController::class, 'AddDataAsset']);
+
+    Route::get('/admin/halaman_asset', [AdminController::class, 'HalamanAsset']);
+    Route::get('/admin/GetDataAsset', [AdminController::class, 'GetDataAsset']);
+    Route::get('/admin/get_detail_data_asset/{id}', [AdminController::class, 'GetDetailDataAsset']);
+    Route::post('/admin/add_data_asset', [AdminController::class, 'AddDataAsset']);
+
+    // Regist Assets
+    Route::get('/admin/regist', [AssetsController::class, 'HalamanAssets']);
+    Route::get('/admin/regist', [AssetsController::class, 'HalamanAssets'])->name('Admin.asset');
+    Route::post('/add-regist', [AssetsController::class, 'AddDataAssets'])->name('add-regist');
+    Route::get('/get-regist', [AssetsController::class, 'GetAssets'])->name('get.asset');
+    Route::get('/admin/regists', [AssetsController::class, 'Index'])->name('Admin.asset');
+    Route::get('/admin/regists/edit/{id}', [AssetsController::class, 'showEditForm'])->name('edit.asset');
+    Route::put('/admin/regists/edit/{id}', [AssetsController::class, 'updateDataAssets'])->name('update.asset');
+    Route::delete('/admin/regists/delete/{id}', [AssetsController::class, 'deleteDataAssets'])->name('delete.asset');
+    Route::get('/add-regist', [AssetsController::class, 'showForm'])->name('addDataAsset');
+    
+    // Approval Reg OPS SM
+    Route::get('/admin/approval-reg', [AssetsController::class, 'HalamanApproval']);
+    Route::get('/admin/approval-reg', [AssetsController::class, 'HalamanApproval'])->name('Admin.approval-reg');
+    Route::post('/add-approval-reg', [AssetsController::class, 'AddDataApproval'])->name('add.approval-reg');
+    Route::get('/get-approval-reg', [AssetsController::class, 'GetApproval'])->name('get.approval-reg');
+    Route::get('/admin/approval-regs', [AssetsController::class, 'Index'])->name('Admin.approval-reg');
+    Route::get('/admin/approval-regs/edit/{id}', [AssetsController::class, 'showEditForm'])->name('edit.approval-reg');
+    Route::put('/admin/approval-regs/edit/{id}', [AssetsController::class, 'updateDataApproval'])->name('update.approval-reg');
+    Route::delete('/admin/approval-regs/delete/{id}', [AssetsController::class, 'deleteDataApproval'])->name('delete.approval-reg');
+    
+    // Review Reg OPS SM
+    Route::get('/admin/review-reg', [AssetsController::class, 'HalamanReview']);
+    Route::get('/admin/review-reg', [AssetsController::class, 'HalamanReview'])->name('Admin.review-reg');
+    Route::post('/add-review-reg', [AssetsController::class, 'AddDataReview'])->name('add.review-reg');
+    Route::get('/get-review-reg', [AssetsController::class, 'GetReview'])->name('get.review-reg');
+    Route::get('/admin/review-regs', [AssetsController::class, 'Index'])->name('Admin.review-reg');
+    Route::get('/admin/review-regs/edit/{id}', [AssetsController::class, 'showEditForm'])->name('edit.review-reg');
+    Route::put('/admin/review-regs/edit/{id}', [AssetsController::class, 'updateDataReview'])->name('update.review-reg');
+    Route::delete('/admin/review-regs/delete/{id}', [AssetsController::class, 'deleteDataReview'])->name('delete.review-reg');
+
+    // Route::get('/admin/regist', [AssetsController::class, 'index'])->name('admin.assets');
+    // Route::post('/admin/regist', [AssetsController::class, 'addDataAssets'])->name('add-asset');
+    // Route::get('/admin/regists/{id}', [AssetsController::class, 'getAssets'])->name('get.asset');
+    // Route::get('/admin/regists/edit/{id}', [AssetsController::class, 'showEditForm'])->name('edit.asset');
+    // Route::put('/admin/regists/edit/{id}', [AssetsController::class, 'updateDataAssets'])->name('update.asset');
+    // Route::delete('/admin/regists/{id}', [AssetsController::class, 'deleteDataAssets'])->name('delete.asset');
+
     // Brand
     Route::get('/admin/brand', [BrandController::class, 'HalamanBrand']);
     Route::get('/admin/brand', [BrandController::class, 'HalamanBrand'])->name('Admin.brand');
@@ -84,7 +115,7 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     // Category
     Route::get('/admin/category', [CategoryController::class, 'HalamanCategory']);
     Route::get('/admin/category', [CategoryController::class, 'HalamanCategory'])->name('Admin.category');
-    Route::post('/add-category', [CategoryController::class, 'AddDataCategory'])->name('add.category');
+    Route::post('/add-category', [CategoryController::class, 'AddDataCategory'])->name('add-category');
     Route::get('/get-category', [CategoryController::class, 'GetCategory'])->name('get.category');
     Route::get('/admin/categorys', [CategoryController::class, 'Index'])->name('Admin.category');
     Route::get('/admin/categorys/edit/{id}', [CategoryController::class, 'showEditForm'])->name('edit.category');
@@ -201,7 +232,7 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     // Priority
     Route::get('/admin/priority', [PriorityController::class, 'HalamanPriority']);
     Route::get('/admin/priority', [PriorityController::class, 'HalamanPriority'])->name('Admin.priority');
-    Route::post('/add-priority', [PriorityController::class, 'AddDataPriority'])->name('add.priority');
+    Route::post('/add-priority', [PriorityController::class, 'AddDataPriority'])->name('add-priority');
     Route::get('/get-priority', [PriorityController::class, 'GetPriority'])->name('get.priority');
     Route::get('/admin/prioritys', [PriorityController::class, 'Index'])->name('Admin.priority');
     Route::get('/admin/prioritys/edit/{id}', [PriorityController::class, 'showEditForm'])->name('edit.priority');
@@ -281,12 +312,6 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::delete('/admin/warrantys/delete/{id}', [WarrantyController::class, 'deleteDataWarranty'])->name('delete.warranty');
 });
 
-// Route::group([RoleMiddleware::class => ':user'], function(){
-//     Route::get('/user/dashboard', [UserController::class, 'dashboard']);
-// });
-
-
-
-
-
-
+Route::group([RoleMiddleware::class => ':user'], function(){
+    Route::get('/user/dashboard', [UserController::class, 'dashboard']);
+});

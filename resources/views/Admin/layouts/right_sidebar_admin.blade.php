@@ -34,6 +34,39 @@
 						<!-- <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="list-products.php"><i data-feather="cast"></i><span>Schedule Maintenance</span></a></li> -->
                     </ul>
                   </li>
+                  
+                  <li class="sidebar-main-title">          
+                    <h6>Assets</h6>
+                  </li>
+                  <li class="menu-box"> 
+                    <ul>
+                      <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title"><i data-feather="home"></i><span class="lan-3">Registration</span></a>
+                        <ul class="sidebar-submenu">
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/regist"><i data-feather="arrow-right"></i><span>Assets Regist</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/approval-reg"><i data-feather="arrow-right"></i><span>Approval OPS SM</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/review-reg"><i data-feather="arrow-right"></i><span>Review TAF</span></a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title"><i data-feather="home"></i><span class="lan-3">Movement</span></a>
+                        <ul class="sidebar-submenu">
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/request-movement"><i data-feather="arrow-right"></i><span>Request Movement</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/data-movement"><i data-feather="arrow-right"></i><span>Data Movement</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/delivery-movement"><i data-feather="arrow-right"></i><span>Doc Delivery Order</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/approval-move-am"><i data-feather="arrow-right"></i><span>Approval OPS AM</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/approval-move-rm"><i data-feather="arrow-right"></i><span>Approval OPS RM</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/approval-move-sdgasset"><i data-feather="arrow-right"></i><span>Approval SDG Assets</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/confirm-assets-move"><i data-feather="arrow-right"></i><span>Confirm Movement OPS SM</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/review-move-head"><i data-feather="arrow-right"></i><span>Review Ops Head</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/review-move-mnr"><i data-feather="arrow-right"></i><span>Review MnR Area</span></a></li>
+                          <li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="/admin/review-move-taf"><i data-feather="arrow-right"></i><span>Review TAF Accounting</span></a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
 
                   <li class="sidebar-main-title">          
                     <h6>Master Data</h6>
