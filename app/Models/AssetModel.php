@@ -11,6 +11,8 @@ class AssetModel extends Model
 
     protected $table = 'm_assets';
 
+    protected $primaryKey = 'asset_id';
+
     protected $fillable = [
         'asset_code',
         'asset_model',
