@@ -408,7 +408,12 @@
 
                     <div class="form-group">
                         <label for="status">Status:</label>
-                        <input type="text" id="status" name="status" class="form-control">
+                        <select name="status" id="status" class="form-control">
+                        <option value=""></option>
+                        <option value="PRIORITY">PRIORITY</option>
+                        <option value="NOT PRIORITY">NOT PRIORITY</option>
+                        <option value="BASIC">BASIC</option>
+              </select>
                     </div>
 
                     <div class="form-group">
@@ -475,7 +480,8 @@
                 </button>
             </div>
             <div class="modal-body">
-              <form action="" method="post" enctype="multipart/form-data">
+              <form action="{{route('import')}}" method="post" enctype="multipart/form-data">
+                @csrf
                 <label for="import-data">Import Data Excel : </label>
                 <input type="file" name="data_excel" id="data_excel" class="form-control" placeholder="Upload File Excel">
               </div>
@@ -514,6 +520,7 @@
                             <th>Purchase Date</th>
                             <th>Warranty</th>
                             <th>Periodic Maintenance</th>
+                            <th>Data Registrasi Asset Status</th>
                             <th>Action</th>
                             <!-- <th>Type</th>
                             <th>Brand</th>
@@ -629,6 +636,8 @@
     <script src="{{asset('assets/js/data-registrasi-asset.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+
+    
 
     <!-- login js-->
     <!-- Plugin used-->

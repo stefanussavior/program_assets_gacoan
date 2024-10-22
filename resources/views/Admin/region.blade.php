@@ -330,22 +330,23 @@
                               </div>
                           </div>
 
-
-                        <div class="modal fade" id="detailDataAsset" tabindex="-1" role="dialog" aria-labelledby="detailDataAssetLabel" aria-hidden="true">
+                          <div class="modal fade" id="regionDetailModal" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="detailDataAssetLabel">Detail Barang Asset</h5>
+                                        <h5 class="modal-title" id="brandModalLabel">Detail Regional</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <img id="qrCodeImage" src="" alt="QR Code" style="width: 150px; height: 150px;">
-                                        <p id="assetDetails"></p>
+                                      <p><strong>ID:</strong> <span id="region-id"></span></p>
+                                      <p><strong>Kode:</strong> <span id="region-code"></span></p>
+                                      <p><strong>Name:</strong> <span id="region-name"></span></p>
+                                      <!-- You can add more brand details here -->
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -398,10 +399,18 @@
                                         <td>{{ $region->region_code }}</td>
                                         <td>{{ $region->region_name }}</td>
                                         <td class="text-center">
-                                            <a href="javascript:void(0);" class="edit-button" data-id="{{ $region->region_id }}" data-name="{{ $region->region_code }}" title="Edit">
+                                            <a href="javascript:void(0);" class="edit-button" 
+                                            data-id="{{ $region->region_id }}" 
+                                            data-name="{{ $region->region_name }}" 
+                                            data-code="{{ $region->region_code }}" 
+                                            title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="javascript:void(0);" class="detail-button" data-id="{{ $region->region_id }}" data-name="{{ $region->region_code }}" title="Detail">
+                                            <a href="javascript:void(0);" class="detail-button" 
+                                            data-id="{{ $region->region_id }}" 
+                                              data-name="{{ $region->region_name }}" 
+                                              data-code="{{ $region->region_code }}" 
+                                              title="Detail">
                                                 <i class="fas fa-book"></i>
                                             </a>
                                             <form class="delete-form" action="{{ url('admin/regions/delete', $region->region_id) }}" method="POST" style="display:inline;">
@@ -632,6 +641,27 @@
         });
     </script>
     
+    {{-- Detail --}}
+    <script>
+      $(document).ready(function() {
+          // Event listener for detail button
+          $('.detail-button').on('click', function() {
+              // Get brand data from the clicked button
+              var regionId = $(this).data('id');
+              var regionCode = $(this).data('code');
+              var regionName = $(this).data('name');
+              
+              // Set the data into the modal
+              $('#region-id').text(regionId);
+              $('#region-code').text(regionCode);
+              $('#region-name').text(regionName);
+              
+              // Show the modal
+              $('#regionDetailModal').modal('show');
+          });
+      });
+    </script>
+    
     {{-- Delete data Region --}}
     <script>
         $(document).on('click', '.delete-button', function(e) {
@@ -688,6 +718,15 @@
               }
           }
       });
+  </script>
+  
+  <script>
+    $(document).ready(function() {
+        // This will handle all modals that have a button with the data-dismiss attribute
+        $('[data-dismiss="modal"]').on('click', function() {
+            $('.modal').modal('hide');  // Hide any open modal
+        });
+    });
   </script>
     <!-- login js-->
     <!-- Plugin used-->

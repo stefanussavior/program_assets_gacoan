@@ -15,6 +15,7 @@ class MasterRegistrasiModel extends Model
 
     protected $primaryKey = 'id';
 
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'register_code',
         'asset_name',

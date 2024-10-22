@@ -318,22 +318,24 @@
                               </div>
                           </div>
 
-
-                        <div class="modal fade" id="detailDataAsset" tabindex="-1" role="dialog" aria-labelledby="detailDataAssetLabel" aria-hidden="true">
+                          <div class="modal fade" id="userDetailModal" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="detailDataAssetLabel">Detail Barang Asset</h5>
+                                        <h5 class="modal-title" id="brandModalLabel">Detail User</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <img id="qrCodeImage" src="" alt="QR Code" style="width: 150px; height: 150px;">
-                                        <p id="assetDetails"></p>
+                                      <p><strong>ID:</strong> <span id="user-id"></span></p>
+                                      <p><strong>Username:</strong> <span id="user-username"></span></p>
+                                      <p><strong>Password:</strong> <span id="user-password"></span></p>
+                                      <p><strong>Email:</strong> <span id="user-email"></span></p>
+                                      <!-- You can add more brand details here -->
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -386,10 +388,20 @@
                                         <td>{{ $user->username }}</td>
                                         <td>{{ $user->password }}</td>
                                         <td class="text-center">
-                                            <a href="javascript:void(0);" class="edit-button" data-id="{{ $user->id }}" data-name="{{ $user->username }}" data-password="{{ $user->password }}" title="Edit">
+                                            <a href="javascript:void(0);" class="edit-button" 
+                                            data-id="{{ $user->id }}" 
+                                            data-username="{{ $user->username }}" 
+                                            data-password="{{ $user->password }}" 
+                                            data-email="{{ $user->email }}" 
+                                            title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="javascript:void(0);" class="detail-button" data-id="{{ $user->id }}" data-name="{{ $user->username }}" title="Detail">
+                                            <a href="javascript:void(0);" class="detail-button" 
+                                            data-id="{{ $user->id }}" 
+                                            data-username="{{ $user->username }}" 
+                                            data-password="{{ $user->password }}" 
+                                            data-email="{{ $user->email }}" 
+                                            title="Detail">
                                                 <i class="fas fa-book"></i>
                                             </a>
                                             <form class="delete-form" action="{{ url('admin/users/delete', $user->id) }}" method="POST" style="display:inline;">
@@ -591,11 +603,13 @@
         $(document).on('click', '.edit-button', function() {
             const userId = $(this).data('id'); // Ambil id dari atribut data
             const username = $(this).data('name'); // Ambil username dari atribut data
+            const email = $(this).data('email'); // Ambil username dari atribut data
             const password = $(this).data('password'); // Ambil username dari atribut data
 
             // Isi input dengan data
             $('#id').val(userId);
             $('#username').val(username);
+            $('#email').val(email);
             $('#password').val(password);
 
             // Tampilkan modal
@@ -621,6 +635,29 @@
                 }
             });
         });
+    </script>
+    
+    {{-- Detail --}}
+    <script>
+      $(document).ready(function() {
+          // Event listener for detail button
+          $('.detail-button').on('click', function() {
+              // Get brand data from the clicked button
+              var userId = $(this).data('id');
+              var userName = $(this).data('username');
+              var passWord = $(this).data('password');
+              var eMail = $(this).data('email');
+              
+              // Set the data into the modal
+              $('#user-id').text(userId);
+              $('#user-username').text(userName);
+              $('#user-password').text(passWord);
+              $('#user-email').text(eMail);
+              
+              // Show the modal
+              $('#userDetailModal').modal('show');
+          });
+      });
     </script>
     
     {{-- Delete data User --}}
@@ -696,6 +733,15 @@
         }
     });
 });
+  </script>
+  
+  <script>
+    $(document).ready(function() {
+        // This will handle all modals that have a button with the data-dismiss attribute
+        $('[data-dismiss="modal"]').on('click', function() {
+            $('.modal').modal('hide');  // Hide any open modal
+        });
+    });
   </script>
     <!-- login js-->
     <!-- Plugin used-->

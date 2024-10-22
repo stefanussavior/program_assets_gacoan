@@ -820,6 +820,15 @@
           }
       });
   </script>
+  
+  <script>
+    $(document).ready(function() {
+        // This will handle all modals that have a button with the data-dismiss attribute
+        $('[data-dismiss="modal"]').on('click', function() {
+            $('.modal').modal('hide');  // Hide any open modal
+        });
+    });
+  </script>
     <!-- login js-->
     <!-- Plugin used-->
   </body>

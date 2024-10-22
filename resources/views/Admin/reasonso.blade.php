@@ -322,22 +322,22 @@
                               </div>
                           </div>
 
-
-                        <div class="modal fade" id="detailDataAsset" tabindex="-1" role="dialog" aria-labelledby="detailDataAssetLabel" aria-hidden="true">
+                          <div class="modal fade" id="reasonsoDetailModal" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="detailDataAssetLabel">Detail Barang Asset</h5>
+                                        <h5 class="modal-title" id="brandModalLabel">Detail Alasan Stock Opname</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <img id="qrCodeImage" src="" alt="QR Code" style="width: 150px; height: 150px;">
-                                        <p id="assetDetails"></p>
+                                      <p><strong>ID:</strong> <span id="reasonso-id"></span></p>
+                                      <p><strong>Name:</strong> <span id="reasonso-name"></span></p>
+                                      <!-- You can add more brand details here -->
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -618,6 +618,25 @@
         });
     </script>
     
+    {{-- Detail --}}
+    <script>
+      $(document).ready(function() {
+          // Event listener for detail button
+          $('.detail-button').on('click', function() {
+              // Get brand data from the clicked button
+              var reasonsoId = $(this).data('id');
+              var reasonsoName = $(this).data('name');
+              
+              // Set the data into the modal
+              $('#reasonso-id').text(reasonsoId);
+              $('#reasonso-name').text(reasonsoName);
+              
+              // Show the modal
+              $('#reasonsoDetailModal').modal('show');
+          });
+      });
+    </script>
+    
     {{-- Delete data reasonso --}}
     <script>
         $(document).on('click', '.delete-button', function(e) {
@@ -674,6 +693,15 @@
               }
           }
       });
+  </script>
+  
+  <script>
+    $(document).ready(function() {
+        // This will handle all modals that have a button with the data-dismiss attribute
+        $('[data-dismiss="modal"]').on('click', function() {
+            $('.modal').modal('hide');  // Hide any open modal
+        });
+    });
   </script>
     <!-- login js-->
     <!-- Plugin used-->

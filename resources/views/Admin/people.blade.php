@@ -386,22 +386,30 @@
                               </div>
                           </div>
 
-
-                        <div class="modal fade" id="detailDataAsset" tabindex="-1" role="dialog" aria-labelledby="detailDataAssetLabel" aria-hidden="true">
+                          <div class="modal fade" id="peopleDetailModal" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="detailDataAssetLabel">Detail Barang Asset</h5>
+                                        <h5 class="modal-title" id="brandModalLabel">Detail Orang</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <img id="qrCodeImage" src="" alt="QR Code" style="width: 150px; height: 150px;">
-                                        <p id="assetDetails"></p>
+                                      <p><strong>ID:</strong> <span id="people-id"></span></p>
+                                      <p><strong>Nama Panggilan:</strong> <span id="people-nickname"></span></p>
+                                      <p><strong>Name Lengkap:</strong> <span id="people-fullname"></span></p>
+                                      <p><strong>Email:</strong> <span id="people-email"></span></p>
+                                      <p><strong>Whatsapp:</strong> <span id="people-whatsapp"></span></p>
+                                      <p><strong>Divisi:</strong> <span id="division-id"></span></p>
+                                      <p><strong>Departement:</strong> <span id="dept-id"></span></p>
+                                      <p><strong>Job Level:</strong> <span id="joblevel-id"></span></p>
+                                      <p><strong>Region:</strong> <span id="region-id"></span></p>
+                                      <p><strong>Lokasi:</strong> <span id="loc-id"></span></p>
+                                      <!-- You can add more brand details here -->
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -468,10 +476,32 @@
                                         <td>{{ $people->region_id }}</td>
                                         <td>{{ $people->loc_id }}</td>
                                         <td class="text-center">
-                                            <a href="javascript:void(0);" class="edit-button" data-id="{{ $people->people_id }}" data-name="{{ $people->people_nickname }}" title="Edit">
+                                            <a href="javascript:void(0);" class="edit-button" 
+                                            data-id="{{ $people->people_id }}" 
+                                            data-nickname="{{ $people->people_nickname }}" 
+                                            data-fullname="{{ $people->people_fullname }}" 
+                                            data-email="{{ $people->people_email }}" 
+                                            data-whatsapp="{{ $people->people_whatsapp }}" 
+                                            data-division="{{ $people->division_id }}" 
+                                            data-dept="{{ $people->dept_id }}" 
+                                            data-joblevel="{{ $people->joblevel_id }}" 
+                                            data-region="{{ $people->region_id }}" 
+                                            data-loc="{{ $people->loc_id }}" 
+                                            title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="javascript:void(0);" class="detail-button" data-id="{{ $people->people_id }}" data-name="{{ $people->people_nickname }}" title="Detail">
+                                            <a href="javascript:void(0);" class="detail-button" 
+                                            data-id="{{ $people->people_id }}" 
+                                            data-nickname="{{ $people->people_nickname }}" 
+                                            data-fullname="{{ $people->people_fullname }}" 
+                                            data-email="{{ $people->people_email }}" 
+                                            data-whatsapp="{{ $people->people_whatsapp }}" 
+                                            data-division="{{ $people->division_id }}" 
+                                            data-dept="{{ $people->dept_id }}" 
+                                            data-joblevel="{{ $people->joblevel_id }}" 
+                                            data-region="{{ $people->region_id }}" 
+                                            data-loc="{{ $people->loc_id }}" 
+                                            title="Detail">
                                                 <i class="fas fa-book"></i>
                                             </a>
                                             <form class="delete-form" action="{{ url('admin/peoples/delete', $people->people_id) }}" method="POST" style="display:inline;">
@@ -692,6 +722,14 @@
         $(document).on('click', '.edit-button', function() {
             const peopleId = $(this).data('id'); // Ambil people_id dari atribut data
             const peopleNickname = $(this).data('nickname'); // Ambil people_nickname dari atribut data
+            const peopleFullname = $(this).data('fullname'); // Ambil people_nickname dari atribut data
+            const peopleEmail = $(this).data('email'); // Ambil people_nickname dari atribut data
+            const peopleWhatsapp = $(this).data('whatsapp'); // Ambil people_nickname dari atribut data
+            const divisionId = $(this).data('division'); // Ambil people_nickname dari atribut data
+            const deptId = $(this).data('dept'); // Ambil people_nickname dari atribut data
+            const joblevelId = $(this).data('joblevel'); // Ambil people_nickname dari atribut data
+            const regionId = $(this).data('region'); // Ambil people_nickname dari atribut data
+            const locId = $(this).data('loc'); // Ambil people_nickname dari atribut data
 
             // Isi input dengan data
             $('#people_id').val(peopleId);
@@ -728,6 +766,41 @@
                 }
             });
         });
+    </script>
+    
+    {{-- Detail --}}
+    <script>
+      $(document).ready(function() {
+          // Event listener for detail button
+          $('.detail-button').on('click', function() {
+              // Get brand data from the clicked button
+              var peopleId = $(this).data('id');
+              var peopleNickname = $(this).data('nickname');
+              var peopleFullname = $(this).data('fullname');
+              var peopleEmail = $(this).data('email');
+              var peopleWhatsapp = $(this).data('whatsapp');
+              var divisionId = $(this).data('division');
+              var deptId = $(this).data('dept');
+              var joblevelId = $(this).data('joblevel');
+              var regionId = $(this).data('region');
+              var locId = $(this).data('loc');
+              
+              // Set the data into the modal
+              $('#people-id').text(peopleId);
+              $('#people-nickname').text(peopleNickname);
+              $('#people-fullname').text(peopleFullname);
+              $('#people-email').text(peopleEmail);
+              $('#people-whatsapp').text(peopleWhatsapp);
+              $('#division-id').text(divisionId);
+              $('#dept-id').text(deptId);
+              $('#joblevel-id').text(joblevelId);
+              $('#region-id').text(regionId);
+              $('#loc-id').text(locId);
+              
+              // Show the modal
+              $('#peopleDetailModal').modal('show');
+          });
+      });
     </script>
     
     {{-- Delete data People --}}
@@ -786,6 +859,15 @@
               }
           }
       });
+  </script>
+  
+  <script>
+    $(document).ready(function() {
+        // This will handle all modals that have a button with the data-dismiss attribute
+        $('[data-dismiss="modal"]').on('click', function() {
+            $('.modal').modal('hide');  // Hide any open modal
+        });
+    });
   </script>
     <!-- login js-->
     <!-- Plugin used-->

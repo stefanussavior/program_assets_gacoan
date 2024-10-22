@@ -44,6 +44,8 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+
     <style>
       .btn-link {
           color: #007bff;
@@ -313,7 +315,7 @@
                                       </div>
                                   </div>
                                   <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                       <button type="submit" class="btn btn-primary">Save changes</button>
                                   </div>
                               </form>
@@ -321,26 +323,47 @@
                       </div>
                     </div>
 
+                    <div class="modal fade" id="brandDetailModal" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                                  <h5 class="modal-title" id="brandModalLabel">Detail Brand</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                  </button>
+                              </div>
+                              <div class="modal-body">
+                                <p><strong>ID:</strong> <span id="brand-id"></span></p>
+                                <p><strong>Name:</strong> <span id="brand-name"></span></p>
+                                <!-- You can add more brand details here -->
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
 
-                        <div class="modal fade" id="detailDataAsset" tabindex="-1" role="dialog" aria-labelledby="detailDataAssetLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="detailDataAssetLabel">Detail Barang Asset</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <img id="qrCodeImage" src="" alt="QR Code" style="width: 150px; height: 150px;">
-                                        <p id="assetDetails"></p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
+                    {{-- <div class="modal fade" id="brandDetailModal" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="brandModalLabel">Brand Details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p><strong>ID:</strong> <span id="brand-id"></span></p>
+                            <p><strong>Name:</strong> <span id="brand-name"></span></p>
+                            <!-- You can add more brand details here -->
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
                         </div>
+                      </div>
+                    </div> --}}
 
                     <div class="modal fade" id="importDataExcel" tabindex="-1" role="dialog" aria-labelledby="importDataExcelLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg" role="document">
@@ -388,17 +411,17 @@
                                 <tr>
                                     <td>{{ $brand->brand_name }}</td>
                                     <td>
-                                        <a href="javascript:void(0);" class="edit-button" data-id="{{ $brand->brand_id }}" data-name="{{ $brand->brand_name }}" title="Edit">
+                                        <a href="javascript:void(0);" class="edit-button" style="color: #000080;" data-id="{{ $brand->brand_id }}" data-name="{{ $brand->brand_name }}" title="Edit">
                                             <i class="fas fa-edit"></i>
                                         </a>
-                                        <a href="javascript:void(0);" class="detail-button" data-id="{{ $brand->brand_id }}" data-name="{{ $brand->brand_name }}" title="Detail">
+                                        <a href="javascript:void(0);" class="detail-button" style="color: #000080;" data-id="{{ $brand->brand_id }}" data-name="{{ $brand->brand_name }}" title="Detail">
                                             <i class="fas fa-book"></i>
                                         </a>
                                         <form class="delete-form" action="{{ url('admin/brands/delete', $brand->brand_id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="button" class="delete-button" title="Delete" style="border: none; background: none; cursor: pointer;">
-                                                <i class="fas fa-trash-alt" style="color: red;"></i>
+                                                <i class="fas fa-trash-alt" style="color: #000080;"></i>
                                             </button>
                                         </form>
                                     </td>
@@ -650,6 +673,25 @@
         }
     });
     </script>
+
+    {{-- Detail --}}
+    <script>
+      $(document).ready(function() {
+          // Event listener for detail button
+          $('.detail-button').on('click', function() {
+              // Get brand data from the clicked button
+              var brandId = $(this).data('id');
+              var brandName = $(this).data('name');
+              
+              // Set the data into the modal
+              $('#brand-id').text(brandId);
+              $('#brand-name').text(brandName);
+              
+              // Show the modal
+              $('#brandDetailModal').modal('show');
+          });
+      });
+    </script>
     
     <script>
       // JavaScript for searching/filtering the table rows
@@ -677,6 +719,14 @@
               }
           }
       });
+  </script>
+  <script>
+    $(document).ready(function() {
+        // This will handle all modals that have a button with the data-dismiss attribute
+        $('[data-dismiss="modal"]').on('click', function() {
+            $('.modal').modal('hide');  // Hide any open modal
+        });
+    });
   </script>
     <!-- login js-->
     <!-- Plugin used-->

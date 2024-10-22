@@ -330,22 +330,23 @@
                               </div>
                           </div>
 
-
-                        <div class="modal fade" id="detailDataAsset" tabindex="-1" role="dialog" aria-labelledby="detailDataAssetLabel" aria-hidden="true">
+                          <div class="modal fade" id="groupuserDetailModal" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="detailDataAssetLabel">Detail Barang Asset</h5>
+                                        <h5 class="modal-title" id="brandModalLabel">Detail Group User</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <img id="qrCodeImage" src="" alt="QR Code" style="width: 150px; height: 150px;">
-                                        <p id="assetDetails"></p>
+                                      <p><strong>ID:</strong> <span id="group-id"></span></p>
+                                      <p><strong>Name:</strong> <span id="group-name"></span></p>
+                                      <p><strong>Role:</strong> <span id="group-roles"></span></p>
+                                      <!-- You can add more brand details here -->
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -398,10 +399,10 @@
                                         <td>{{ $groupuser->group_name }}</td>
                                         <td>{{ $groupuser->group_roles }}</td>
                                         <td class="text-center">
-                                            <a href="javascript:void(0);" class="edit-button" data-id="{{ $groupuser->group_id }}" data-name="{{ $groupuser->group_name }}" title="Edit">
+                                            <a href="javascript:void(0);" class="edit-button" data-id="{{ $groupuser->group_id }}" data-name="{{ $groupuser->group_name }}" data-roles="{{ $groupuser->group_roles }}" title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="javascript:void(0);" class="detail-button" data-id="{{ $groupuser->group_id }}" data-name="{{ $groupuser->group_name }}" title="Detail">
+                                            <a href="javascript:void(0);" class="detail-button" data-id="{{ $groupuser->group_id }}" data-name="{{ $groupuser->group_name }}" data-roles="{{ $groupuser->group_roles }}" title="Detail">
                                                 <i class="fas fa-book"></i>
                                             </a>
                                             <form class="delete-form" action="{{ url('admin/groupusers/delete', $groupuser->group_id) }}" method="POST" style="display:inline;">
@@ -633,6 +634,27 @@
         });
     </script>
     
+    {{-- Detail --}}
+    <script>
+      $(document).ready(function() {
+          // Event listener for detail button
+          $('.detail-button').on('click', function() {
+              // Get brand data from the clicked button
+              var groupuserId = $(this).data('id');
+              var groupuserName = $(this).data('name');
+              var groupuserRoles = $(this).data('roles');
+              
+              // Set the data into the modal
+              $('#group-id').text(groupuserId);
+              $('#group-name').text(groupuserName);
+              $('#group-roles').text(groupuserRoles);
+              
+              // Show the modal
+              $('#groupuserDetailModal').modal('show');
+          });
+      });
+    </script>
+    
     {{-- Delete data GroupUser --}}
     <script>
         $(document).on('click', '.delete-button', function(e) {
@@ -689,6 +711,15 @@
               }
           }
       });
+  </script>
+  
+  <script>
+    $(document).ready(function() {
+        // This will handle all modals that have a button with the data-dismiss attribute
+        $('[data-dismiss="modal"]').on('click', function() {
+            $('.modal').modal('hide');  // Hide any open modal
+        });
+    });
   </script>
     <!-- login js-->
     <!-- Plugin used-->

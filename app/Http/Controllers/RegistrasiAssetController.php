@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Exports\AssetExport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\MasterRegistrasiImport;
 
 class RegistrasiAssetController extends Controller
 {
@@ -16,34 +17,39 @@ class RegistrasiAssetController extends Controller
         return view("Admin.registrasi_asset.laman_registrasi_asset");
     }
 
-        public function GetDataRegistrasiAsset(): JsonResponse
-        {
-            // Fetch all assets from the database
-            $dataAsset = MasterRegistrasiModel::all();
-        
-            foreach ($dataAsset as $Asset) {
-                // Check if asset_code is not null before generating the QR code
-                if (!empty($Asset->asset_code)) {
-                    // Define the file path for the QR code
-                    $qrCodeFileName = $Asset->asset_code . '.png';
-                    $qrCodeFilePath = storage_path('app/public/qrcodes/' . $qrCodeFileName);
-        
-                    // Check if the QR code already exists
-                    if (file_exists($qrCodeFilePath)) {
-                        // Assign the QR code path to the asset object
-                        $Asset->qr_code_path = asset('storage/qrcodes/' . $qrCodeFileName);
-                    } else {
-                        // Generate the QR code and save it to the defined path if it doesn't exist
-                        QrCode::format('png')->size(300)->generate($Asset->asset_code, $qrCodeFilePath);
-                        // Assign the newly generated QR code path to the asset object
-                        $Asset->qr_code_path = asset('storage/qrcodes/' . $qrCodeFileName);
-                    }
-                }
+    public function GetDataRegistrasiAsset(): JsonResponse
+{
+    // Fetch all assets including soft-deleted ones
+    $dataAsset = MasterRegistrasiModel::withTrashed()->get();
+
+    foreach ($dataAsset as $Asset) {
+        // Set data_registrasi_asset_status based on deleted_at
+        $Asset->data_registrasi_asset_status = is_null($Asset->deleted_at) ? 'active' : 'nonactive';
+
+        // Check if asset_code is not null before generating the QR code
+        if (!empty($Asset->asset_code)) {
+            // Define the file path for the QR code
+            $qrCodeFileName = $Asset->asset_code . '.png';
+            $qrCodeFilePath = storage_path('app/public/qrcodes/' . $qrCodeFileName);
+
+            // Check if the QR code already exists
+            if (file_exists($qrCodeFilePath)) {
+                // Assign the QR code path to the asset object
+                $Asset->qr_code_path = asset('storage/qrcodes/' . $qrCodeFileName);
+            } else {
+                // Generate the QR code and save it to the defined path if it doesn't exist
+                QrCode::format('png')->size(300)->generate($Asset->asset_code, $qrCodeFilePath);
+                // Assign the newly generated QR code path to the asset object
+                $Asset->qr_code_path = asset('storage/qrcodes/' . $qrCodeFileName);
             }
-        
-            // Return the assets with QR code paths as a JSON response
-            return response()->json($dataAsset);
         }
+    }
+
+    // Return the assets with QR code paths and status as a JSON response
+    return response()->json($dataAsset);
+}
+
+    
     
 
     public function AddDataRegistrasiAsset(Request $request) {
@@ -260,11 +266,26 @@ class RegistrasiAssetController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'register_code' => 'required|string',
-            'asset_name' => 'required|string',
-            'qty' => 'required|integer',
-            // Add other validation rules as necessary...
+            'register_code' => 'required|string|max:255',
+            'asset_name' => 'required|string|max:255',
+            'serial_number' => 'nullable|string|max:255',
+            'type_asset' => 'nullable|string|max:255',
+            'category_asset' => 'nullable|string|max:255',
+            'prioritas' => 'nullable|string|max:100',
+            'merk' => 'nullable|string|max:255',
+            'qty' => 'required|integer|min:1',
+            'satuan' => 'nullable|string|max:100',
+            'register_location' => 'nullable|string|max:255',
+            'layout' => 'nullable|string|max:255',
+            'register_date' => 'nullable|date', // Ensure the date format is valid
+            'supplier' => 'nullable|string|max:255',
+            'status' => 'nullable|string|max:100',
+            'purchase_number' => 'nullable|string|max:255',
+            'purchase_date' => 'nullable|date', // Ensure the date format is valid
+            'warranty' => 'nullable|string|max:255',
+            'periodic_maintenance' => 'nullable|string|max:255',
         ]);
+        
 
         $asset = MasterRegistrasiModel::findOrFail($id);
         $asset->update($request->all());
@@ -279,7 +300,29 @@ class RegistrasiAssetController extends Controller
     {
         return Excel::download(new AssetExport, 'data_registrasi_asset.xlsx');
     }
+
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
+        ]);
+
+        try {
+            Excel::import(new MasterRegistrasiImport, $request->file('file'));
+            return back()->with('success', 'Excel data imported successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error importing Excel data: ' . $e->getMessage());
+        }
+    }
+
+
+    public function Trash() {
+        $dataRegistrasiAsset = MasterRegistrasiModel::onlyTrashed()->get();
+        return response()->json($dataRegistrasiAsset);
+    }
     
 
-
 }
+
+

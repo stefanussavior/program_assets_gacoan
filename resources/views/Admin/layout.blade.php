@@ -330,22 +330,23 @@
                               </div>
                           </div>
 
-
-                        <div class="modal fade" id="detailDataAsset" tabindex="-1" role="dialog" aria-labelledby="detailDataAssetLabel" aria-hidden="true">
+                          <div class="modal fade" id="layoutDetailModal" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="detailDataAssetLabel">Detail Barang Asset</h5>
+                                        <h5 class="modal-title" id="brandModalLabel">Detail Layout</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <img id="qrCodeImage" src="" alt="QR Code" style="width: 150px; height: 150px;">
-                                        <p id="assetDetails"></p>
+                                      <p><strong>ID:</strong> <span id="layout-id"></span></p>
+                                      <p><strong>Kode:</strong> <span id="layout-code"></span></p>
+                                      <p><strong>Name:</strong> <span id="layout-name"></span></p>
+                                      <!-- You can add more brand details here -->
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -398,10 +399,10 @@
                                         <td>{{ $layout->layout_code }}</td>
                                         <td>{{ $layout->layout_name }}</td>
                                         <td class="text-center">
-                                            <a href="javascript:void(0);" class="edit-button" data-id="{{ $layout->layout_id }}" data-name="{{ $layout->layout_code }}" title="Edit">
+                                            <a href="javascript:void(0);" class="edit-button" data-id="{{ $layout->layout_id }}" data-name="{{ $layout->layout_name }}" data-code="{{ $layout->layout_code }}" title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="javascript:void(0);" class="detail-button" data-id="{{ $layout->layout_id }}" data-name="{{ $layout->layout_code }}" title="Detail">
+                                            <a href="javascript:void(0);" class="detail-button" data-id="{{ $layout->layout_id }}" data-name="{{ $layout->layout_name }}" data-code="{{ $layout->layout_code }}" title="Detail">
                                                 <i class="fas fa-book"></i>
                                             </a>
                                             <form class="delete-form" action="{{ url('admin/layouts/delete', $layout->layout_id) }}" method="POST" style="display:inline;">
@@ -600,11 +601,13 @@
     <script>
         $(document).on('click', '.edit-button', function() {
             const layoutId = $(this).data('id'); // Ambil layout_id dari atribut data
+            const layoutCode = $(this).data('code'); // Ambil layout_name dari atribut data
             const layoutName = $(this).data('name'); // Ambil layout_name dari atribut data
 
             // Isi input dengan data
             $('#layout_id').val(layoutId);
             $('#layout_name').val(layoutName);
+            $('#layout_code').val(layoutCode);
 
             // Tampilkan modal
             $('#updateModal').modal('show');
@@ -629,6 +632,27 @@
                 }
             });
         });
+    </script>
+    
+    {{-- Detail --}}
+    <script>
+      $(document).ready(function() {
+          // Event listener for detail button
+          $('.detail-button').on('click', function() {
+              // Get brand data from the clicked button
+              var layoutId = $(this).data('id');
+              var layoutCode = $(this).data('code');
+              var layoutName = $(this).data('name');
+              
+              // Set the data into the modal
+              $('#layout-id').text(layoutId);
+              $('#layout-code').text(layoutCode);
+              $('#layout-name').text(layoutName);
+              
+              // Show the modal
+              $('#layoutDetailModal').modal('show');
+          });
+      });
     </script>
     
     {{-- Delete data Layout --}}
@@ -687,6 +711,15 @@
               }
           }
       });
+  </script>
+  
+  <script>
+    $(document).ready(function() {
+        // This will handle all modals that have a button with the data-dismiss attribute
+        $('[data-dismiss="modal"]').on('click', function() {
+            $('.modal').modal('hide');  // Hide any open modal
+        });
+    });
   </script>
     <!-- login js-->
     <!-- Plugin used-->

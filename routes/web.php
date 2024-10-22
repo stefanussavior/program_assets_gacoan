@@ -39,11 +39,12 @@ use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UomController;
 use App\Http\Controllers\WarrantyController;
 use App\Http\Controllers\ProfileController; // Pastikan ini sesuai dengan namespace baru
+use App\Models\Master\MasterRegistrasiModel;
 
 // Show the login form
 Route::get('/', [LoginController::class, 'showLoginForm']);
 Route::post('/login', [LoginController::class, 'login'])->name('login'); // Pastikan nama metode ditulis kecil
-Route::get('/logout', [LoginController::class, 'logout']);
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Auth::routes();
 
@@ -54,29 +55,23 @@ Route::group(['middleware' => ['auth']], function(){
 });
 
 // registrasi data asset
-    Route::prefix('admin/registrasi_asset')->group(function(){
-        Route::get('/lihat_data_registrasi_asset', [RegistrasiAssetController::class, 'HalamanRegistrasiAsset']);
-        Route::get('/get_data_registrasi_asset',[RegistrasiAssetController::class, 'GetDataRegistrasiAsset']);
-        Route::post('/tambah_data_registrasi_asset', [RegistrasiAssetController::class,'AddDataRegistrasiAsset']);
-        Route::get('/get_detail_data_asset/{id}', [RegistrasiAssetController::class,'GetDetailDataRegistrasiAsset']);
-        Route::put('/update_data_registrasi_asset/{id}', [RegistrasiAssetController::class,'UpdateDataRegistrasiAsset']);
-        Route::delete('/delete_data_registrasi_asset/{id}', [RegistrasiAssetController::class, 'DeleteDataRegistrasiAsset']);
-        Route::get('/export_data_asset', [RegistrasiAssetController::class,'ExportToExcel']);
-    }); 
+Route::prefix('admin/registrasi_asset')->group(function(){
+    Route::get('/lihat_data_registrasi_asset', [RegistrasiAssetController::class, 'HalamanRegistrasiAsset']);
+    Route::get('/get_data_registrasi_asset',[RegistrasiAssetController::class, 'GetDataRegistrasiAsset']);
+    Route::post('/tambah_data_registrasi_asset', [RegistrasiAssetController::class,'AddDataRegistrasiAsset']);
+    Route::get('/get_detail_data_asset/{id}', [RegistrasiAssetController::class,'GetDetailDataRegistrasiAsset']);
+    Route::put('/update_data_registrasi_asset/{id}', [RegistrasiAssetController::class,'UpdateDataRegistrasiAsset']);
+    Route::delete('/delete_data_registrasi_asset/{id}', [RegistrasiAssetController::class, 'DeleteDataRegistrasiAsset']);
+    Route::get('/export_data_asset', [RegistrasiAssetController::class,'ExportToExcel']);
+    Route::post('/import', [MasterRegistrasiModel::class, 'import'])->name('import');
+}); 
+        Route::get('/admin/registrasi_asset/{id}', [RegistrasiAssetController::class, 'show']);
+        Route::put('/admin/registrasi_asset/{id}', [RegistrasiAssetController::class, 'update']);
 
-    Route::get('/admin/registrasi_asset/{id}', [RegistrasiAssetController::class, 'show']);
-
-// Route to update asset data (PUT method)
-Route::put('/admin/registrasi_asset/{id}', [RegistrasiAssetController::class, 'update']);
 
 Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::get('/admin/dashboard', [AdminController::class, 'index']);
     // Asset Route
-    Route::get('/admin/halaman_asset', [AdminController::class, 'HalamanAsset']);
-    Route::get('/admin/GetDataAsset', [AdminController::class, 'GetDataAsset']);
-    Route::get('/admin/get_detail_data_asset/{id}', [AdminController::class, 'GetDetailDataAsset']);
-    Route::post('/admin/add_data_asset', [AdminController::class, 'AddDataAsset']);
-
     Route::get('/admin/halaman_asset', [AdminController::class, 'HalamanAsset']);
     Route::get('/admin/GetDataAsset', [AdminController::class, 'GetDataAsset']);
     Route::get('/admin/get_detail_data_asset/{id}', [AdminController::class, 'GetDetailDataAsset']);

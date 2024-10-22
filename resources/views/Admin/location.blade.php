@@ -386,22 +386,30 @@
                               </div>
                           </div>
 
-
-                        <div class="modal fade" id="detailDataAsset" tabindex="-1" role="dialog" aria-labelledby="detailDataAssetLabel" aria-hidden="true">
+                          <div class="modal fade" id="locationDetailModal" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="detailDataAssetLabel">Detail Barang Asset</h5>
+                                        <h5 class="modal-title" id="brandModalLabel">Detail Lokasi</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <img id="qrCodeImage" src="" alt="QR Code" style="width: 150px; height: 150px;">
-                                        <p id="assetDetails"></p>
+                                      <p><strong>ID:</strong> <span id="loc-id"></span></p>
+                                      <p><strong>Kode:</strong> <span id="loc-code"></span></p>
+                                      <p><strong>Name:</strong> <span id="loc-name"></span></p>
+                                      <p><strong>Kota:</strong> <span id="loc-city"></span></p>
+                                      <p><strong>Alamat:</strong> <span id="loc-address"></span></p>
+                                      <p><strong>Daerah:</strong> <span id="loc-distric"></span></p>
+                                      <p><strong>Desa:</strong> <span id="loc-vilage"></span></p>
+                                      <p><strong>Wilayah:</strong> <span id="region-id"></span></p>
+                                      <p><strong>Latitude:</strong> <span id="loc-latitude"></span></p>
+                                      <p><strong>Longitude:</strong> <span id="loc-longitude"></span></p>
+                                      <!-- You can add more brand details here -->
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -468,10 +476,32 @@
                                         <td>{{ $location->loc_latitude }}</td>
                                         <td>{{ $location->loc_longitude }}</td>
                                         <td class="text-center">
-                                            <a href="javascript:void(0);" class="edit-button" data-id="{{ $location->loc_id }}" data-name="{{ $location->loc_code }}" title="Edit">
+                                            <a href="javascript:void(0);" class="edit-button" 
+                                            data-id="{{ $location->loc_id }}" 
+                                            data-name="{{ $location->loc_name }}"
+                                            data-code="{{ $location->loc_code }}"
+                                            data-city="{{ $location->loc_city }}"
+                                            data-address="{{ $location->loc_address }}"
+                                            data-distric="{{ $location->loc_distric }}"
+                                            data-vilage="{{ $location->loc_vilage }}"
+                                            data-region="{{ $location->region_id }}"
+                                            data-latitude="{{ $location->loc_latitude }}"
+                                            data-longitude="{{ $location->loc_longitude }}"
+                                            title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="javascript:void(0);" class="detail-button" data-id="{{ $location->loc_id }}" data-name="{{ $location->loc_code }}" title="Detail">
+                                            <a href="javascript:void(0);" class="detail-button" 
+                                            data-id="{{ $location->loc_id }}" 
+                                            data-name="{{ $location->loc_name }}"
+                                            data-code="{{ $location->loc_code }}"
+                                            data-city="{{ $location->loc_city }}"
+                                            data-address="{{ $location->loc_address }}"
+                                            data-distric="{{ $location->loc_distric }}"
+                                            data-vilage="{{ $location->loc_vilage }}"
+                                            data-region="{{ $location->region_id }}"
+                                            data-latitude="{{ $location->loc_latitude }}"
+                                            data-longitude="{{ $location->loc_longitude }}"
+                                            title="Detail">
                                                 <i class="fas fa-book"></i>
                                             </a>
                                             <form class="delete-form" action="{{ url('admin/locations/delete', $location->loc_id) }}" method="POST" style="display:inline;">
@@ -697,7 +727,7 @@
             const locationAddress = $(this).data('address'); // Ambil loc_name dari atribut data
             const locationDistric = $(this).data('distric'); // Ambil loc_name dari atribut data
             const locationregion = $(this).data('region'); // Ambil loc_name dari atribut data
-            const locationVillage = $(this).data('village'); // Ambil loc_name dari atribut data
+            const locationVillage = $(this).data('vilage'); // Ambil loc_name dari atribut data
             const locationLatitude = $(this).data('latitude'); // Ambil loc_name dari atribut data
             const locationLongitude = $(this).data('longitude'); // Ambil loc_name dari atribut data
 
@@ -736,6 +766,41 @@
                 }
             });
         });
+    </script>
+    
+    {{-- Detail --}}
+    <script>
+      $(document).ready(function() {
+          // Event listener for detail button
+          $('.detail-button').on('click', function() {
+              // Get brand data from the clicked button
+              var locationId = $(this).data('id');
+              var locationCode = $(this).data('code');
+              var locationName = $(this).data('name');
+              var locationCity = $(this).data('city');
+              var locationAddress = $(this).data('address');
+              var locationDistric = $(this).data('distric');
+              var regionId = $(this).data('region');
+              var locationVillage = $(this).data('vilage');
+              var locationLatitude = $(this).data('latitude');
+              var locationLongitude = $(this).data('longitude');
+              
+              // Set the data into the modal
+              $('#loc-id').text(locationId);
+              $('#loc-code').text(locationCode);
+              $('#loc-name').text(locationName);
+              $('#loc-city').text(locationCity);
+              $('#loc-address').text(locationAddress);
+              $('#loc-distric').text(locationDistric);
+              $('#region-id').text(regionId);
+              $('#loc-vilage').text(locationVillage);
+              $('#loc-latitude').text(locationLatitude);
+              $('#loc-longitude').text(locationLongitude);
+              
+              // Show the modal
+              $('#locationDetailModal').modal('show');
+          });
+      });
     </script>
     
     {{-- Delete data Location --}}
@@ -794,6 +859,15 @@
               }
           }
       });
+  </script>
+  
+  <script>
+    $(document).ready(function() {
+        // This will handle all modals that have a button with the data-dismiss attribute
+        $('[data-dismiss="modal"]').on('click', function() {
+            $('.modal').modal('hide');  // Hide any open modal
+        });
+    });
   </script>
     <!-- login js-->
     <!-- Plugin used-->

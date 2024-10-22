@@ -197,16 +197,16 @@
                   <div class="card-header pb-0">
                     <h5>Product Asset List</h5><span>adalah daftar atau kumpulan aset yang dimiliki oleh seseorang, organisasi, atau perusahaan. Daftar ini biasanya mencakup rincian tentang setiap aset, seperti jenis aset, nilai, lokasi, dan informasi relevan lainnya.</span>
                   </div>
-                  <div class="card-body"> 
-                    <div class="btn-showcase">
-                      <div class="button_between">
-                        <button class="btn btn-square btn-primary" type="button" data-toggle="modal" data-target="#addDataAsset">+ Add Data Asset</button>
-                        <button class="btn btn-square btn-primary" type="button" data-toggle="modal" data-target="#importDataExcel"> <i class="fa fa-file-excel-o" ></i> Import Data Excel </button>
-                        <button class="btn btn-square btn-primary" type="button"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                        Download PDF Data</button>
-                      </div>
-                      </div>
-                    </div>
+					<div class="card-body"> 
+						<div class="btn-showcase">
+              <div class="button_between">
+				        <button class="btn btn-square btn-primary" type="button" data-toggle="modal" data-target="#addDataAsset">+ Add Data Asset</button>
+				        <button class="btn btn-square btn-primary" type="button" data-toggle="modal" data-target="#importDataExcel"> <i class="fa fa-file-excel-o" ></i> Import Data Excel </button>
+				        <button class="btn btn-square btn-primary" type="button"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                Download PDF Data</button>
+              </div>
+						  </div>
+						</div>
 
 
     <!-- Button trigger modal -->
@@ -214,105 +214,105 @@
 
             <!-- Modal add -->
     <!-- Modal Add Data Asset -->
-                    <div class="modal fade" id="addDataAsset" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-                      <div class="modal-dialog modal-xl">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Add Data Registrasi Asset</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <form id="addAssetForm" enctype="multipart/form-data">
-                            <div class="row">
-                              <div class="col-sm-6">
-                                  <label for="asset_code">Register Code : </label>
-                                  <input type="text" name="register_code" id="register_code" class="form-control" placeholder="Masukkkan Kode Registrasi..." required>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Asset Name : </label>
-                                  <input type="text" name="asset_name" id="asset_name" class="form-control" placeholder="Masukkan Nama Asset" required>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Serial Number : </label>
-                                  <input type="text" name="serial_number" id="serial_number" class="form-control" placeholder="Masukkan Serial Number" required>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Type Asset : </label>
-                                  <input type="text" name="type_asset" id="type_asset" class="form-control" placeholder="Masukkan Type Asset" required>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Category Asset : </label>
-                                  <input type="text" name="category_asset" id="category_asset" class="form-control" placeholder="Masukkan Category Asset" required>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Prioritas : </label>
-                                  <input type="text" name="prioritas" id="prioritas" class="form-control" placeholder="Masukkan Prioritas" required>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Merk : </label>
-                                  <input type="text" name="merk" id="merk" class="form-control" placeholder="Masukkan Merk" required>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Quantity : </label>
-                                  <input type="number" name="qty" id="qty" class="form-control" placeholder="Masukkan Quantity" required>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Satuan : </label>
-                                  <input type="text" name="satuan" id="satuan" class="form-control" placeholder="Masukkan Satuan" required>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Register Location : </label>
-                                  <input type="text" name="register_location" id="register_location" class="form-control" placeholder="Masukkan Register Location" required>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Layout : </label>
-                                  <input type="text" name="layout" id="layout" class="form-control" placeholder="Masukkan Layout" required>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Status : </label>
-                                  <select name="status" id="status" class="form-control">
-                                    <option value=""></option>
-                                    <option value="PRIORITY">PRIORITY</option>
-                                    <option value="NOT PRIORITY">NOT PRIORITY</option>
-                                    <option value="BASIC">BASIC</option>
-                                  </select>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Register Date : </label>
-                                  <input type="date" name="register_date" id="register_date" class="form-control" placeholder="Masukkan Register Date" required>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Supplier : </label>
-                                  <input type="text" name="supplier" id="supplier" class="form-control" placeholder="Masukkan Supplier" required>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Purchase Number : </label>
-                                  <input type="number" name="purchase_number" id="purchase_number" class="form-control" placeholder="Masukkan Purchase Number" required>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Purchase Date : </label>
-                                  <input type="date" name="purchase_date" id="purchase_date" class="form-control" placeholder="Masukkan Purchase Date" required>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Warranty : </label>
-                                  <input type="text" name="warranty" id="warranty" class="form-control" placeholder="Masukkan Warranty" required>
-                                </div>
-                                <div class="col-sm-6">
-                                  <label for="asset_model">Periodic Maintenace : </label>
-                                  <input type="text" name="periodic_maintenance" id="periodic_maintenance" class="form-control" placeholder="Masukkan Periodic Maintenance" required>
-                                </div>
-                                  </div>
-                            </form>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="saveAssetButton">Save changes</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+<div class="modal fade" id="addDataAsset" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Data Registrasi Asset</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="addAssetForm" enctype="multipart/form-data">
+        <div class="row">
+          <div class="col-sm-6">
+              <label for="asset_code">Register Code : </label>
+              <input type="text" name="register_code" id="register_code" class="form-control" placeholder="Masukkkan Kode Registrasi..." required>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Asset Name : </label>
+              <input type="text" name="asset_name" id="asset_name" class="form-control" placeholder="Masukkan Nama Asset" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Serial Number : </label>
+              <input type="text" name="serial_number" id="serial_number" class="form-control" placeholder="Masukkan Serial Number" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Type Asset : </label>
+              <input type="text" name="type_asset" id="type_asset" class="form-control" placeholder="Masukkan Type Asset" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Category Asset : </label>
+              <input type="text" name="category_asset" id="category_asset" class="form-control" placeholder="Masukkan Category Asset" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Prioritas : </label>
+              <input type="text" name="prioritas" id="prioritas" class="form-control" placeholder="Masukkan Prioritas" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Merk : </label>
+              <input type="text" name="merk" id="merk" class="form-control" placeholder="Masukkan Merk" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Quantity : </label>
+              <input type="number" name="qty" id="qty" class="form-control" placeholder="Masukkan Quantity" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Satuan : </label>
+              <input type="text" name="satuan" id="satuan" class="form-control" placeholder="Masukkan Satuan" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Register Location : </label>
+              <input type="text" name="register_location" id="register_location" class="form-control" placeholder="Masukkan Register Location" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Layout : </label>
+              <input type="text" name="layout" id="layout" class="form-control" placeholder="Masukkan Layout" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Status : </label>
+              <select name="status" id="status" class="form-control">
+                <option value=""></option>
+                <option value="PRIORITY">PRIORITY</option>
+                <option value="NOT PRIORITY">NOT PRIORITY</option>
+                <option value="BASIC">BASIC</option>
+              </select>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Register Date : </label>
+              <input type="date" name="register_date" id="register_date" class="form-control" placeholder="Masukkan Register Date" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Supplier : </label>
+              <input type="text" name="supplier" id="supplier" class="form-control" placeholder="Masukkan Supplier" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Purchase Number : </label>
+              <input type="number" name="purchase_number" id="purchase_number" class="form-control" placeholder="Masukkan Purchase Number" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Purchase Date : </label>
+              <input type="date" name="purchase_date" id="purchase_date" class="form-control" placeholder="Masukkan Purchase Date" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Warranty : </label>
+              <input type="text" name="warranty" id="warranty" class="form-control" placeholder="Masukkan Warranty" required>
+            </div>
+            <div class="col-sm-6">
+              <label for="asset_model">Periodic Maintenace : </label>
+              <input type="text" name="periodic_maintenance" id="periodic_maintenance" class="form-control" placeholder="Masukkan Periodic Maintenance" required>
+            </div>
+              </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveAssetButton">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
                             <!-- Update Modal -->
                       <div id="updateModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

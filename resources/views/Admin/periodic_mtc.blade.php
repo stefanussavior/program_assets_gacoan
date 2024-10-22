@@ -330,22 +330,23 @@
                               </div>
                           </div>
 
-
-                        <div class="modal fade" id="detailDataAsset" tabindex="-1" role="dialog" aria-labelledby="detailDataAssetLabel" aria-hidden="true">
+                          <div class="modal fade" id="periodicDetailModal" tabindex="-1" role="dialog" aria-labelledby="brandModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="detailDataAssetLabel">Detail Barang Asset</h5>
+                                        <h5 class="modal-title" id="brandModalLabel">Detail Periode Maintenance</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <img id="qrCodeImage" src="" alt="QR Code" style="width: 150px; height: 150px;">
-                                        <p id="assetDetails"></p>
+                                      <p><strong>ID:</strong> <span id="periodic-id"></span></p>
+                                      <p><strong>Name:</strong> <span id="periodic-name"></span></p>
+                                      <p><strong>Hari:</strong> <span id="periodic-day"></span></p>
+                                      <!-- You can add more brand details here -->
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -398,10 +399,18 @@
                                         <td>{{ $periodic_mtc->periodic_mtc_name }}</td>
                                         <td>{{ $periodic_mtc->periodic_mtc_day }}</td>
                                         <td class="text-center">
-                                            <a href="javascript:void(0);" class="edit-button" data-id="{{ $periodic_mtc->periodic_mtc_id }}" data-name="{{ $periodic_mtc->periodic_mtc_name }}" title="Edit">
+                                            <a href="javascript:void(0);" class="edit-button" 
+                                            data-id="{{ $periodic_mtc->periodic_mtc_id }}" 
+                                            data-name="{{ $periodic_mtc->periodic_mtc_name }}" 
+                                            data-day="{{ $periodic_mtc->periodic_mtc_day }}" 
+                                            title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="javascript:void(0);" class="detail-button" data-id="{{ $periodic_mtc->periodic_mtc_id }}" data-name="{{ $periodic_mtc->periodic_mtc_name }}" title="Detail">
+                                            <a href="javascript:void(0);" class="detail-button" 
+                                            data-id="{{ $periodic_mtc->periodic_mtc_id }}" 
+                                            data-name="{{ $periodic_mtc->periodic_mtc_name }}" 
+                                            data-day="{{ $periodic_mtc->periodic_mtc_day }}" 
+                                            title="Detail">
                                                 <i class="fas fa-book"></i>
                                             </a>
                                             <form class="delete-form" action="{{ url('admin/periodics/delete', $periodic_mtc->periodic_mtc_id) }}" method="POST" style="display:inline;">
@@ -633,9 +642,30 @@
         });
     </script>
     
-    {{-- Delete data Periodic --}}
+    {{-- Detail --}}
     <script>
-        $(document).on('click', '.delete-button', function(e) {
+      $(document).ready(function() {
+          // Event listener for detail button
+          $('.detail-button').on('click', function() {
+              // Get brand data from the clicked button
+              var periodicId = $(this).data('id');
+              var periodicName = $(this).data('name');
+              var periodicDay = $(this).data('day');
+              
+              // Set the data into the modal
+              $('#periodic-id').text(periodicId);
+              $('#periodic-name').text(periodicName);
+              $('#periodic-day').text(periodicDay);
+              
+              // Show the modal
+              $('#periodicDetailModal').modal('show');
+          });
+      });
+      </script>
+    
+    {{-- Delete Data periodic --}}
+    <script>
+      $(document).on('click', '.delete-button', function(e) {
         e.preventDefault(); // Mencegah submit form default
         const form = $(this).closest('form'); // Ambil form yang terdekat dari tombol
 
@@ -689,6 +719,15 @@
               }
           }
       });
+  </script>
+  
+  <script>
+    $(document).ready(function() {
+        // This will handle all modals that have a button with the data-dismiss attribute
+        $('[data-dismiss="modal"]').on('click', function() {
+            $('.modal').modal('hide');  // Hide any open modal
+        });
+    });
   </script>
     <!-- login js-->
     <!-- Plugin used-->

@@ -349,22 +349,22 @@
                               </div>
                           </div>
 
-
-                        <div class="modal fade" id="detailDataAsset" tabindex="-1" role="dialog" aria-labelledby="detailDataAssetLabel" aria-hidden="true">
+                          <div class="modal fade" id="cityDetailModal" tabindex="-1" role="dialog" aria-labelledby="cityModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="detailDataAssetLabel">Detail Barang Asset</h5>
+                                        <h5 class="modal-title" id="cityModalLabel">Detail Kota</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <img id="qrCodeImage" src="" alt="QR Code" style="width: 150px; height: 150px;">
-                                        <p id="assetDetails"></p>
+                                        <p><strong>ID:</strong> <span id="city-id"></span></p>
+                                        <p><strong>Kota:</strong> <span id="city-name"></span></p>
+                                        <p><strong>Provinsi:</strong> <span id="provinsi-prov"></span></p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                     </div>
                                 </div>
                             </div>
@@ -417,10 +417,14 @@
                                         <td>{{ $city->provinsi }}</td>
                                         <td>{{ $city->city }}</td>
                                         <td class="text-center">
-                                            <a href="javascript:void(0);" class="edit-button" data-id="{{ $city->city_id }}" data-name="{{ $city->city }}" title="Edit">
+                                            <a href="javascript:void(0);" class="edit-button" 
+                                            data-id="{{ $city->city_id }}" 
+                                            data-name="{{ $city->city }}" 
+                                            data-prov="{{ $city->provinsi }}"
+                                            title="Edit">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <a href="javascript:void(0);" class="detail-button" data-id="{{ $city->city_id }}" data-name="{{ $city->city }}" title="Detail">
+                                            <a href="javascript:void(0);" class="detail-button" data-id="{{ $city->city_id }}" data-name="{{ $city->city }}" data-prov="{{ $city->provinsi }}" title="Detail">
                                                 <i class="fas fa-book"></i>
                                             </a>
                                             <form class="delete-form" action="{{ url('admin/citys/delete', $city->city_id) }}" method="POST" style="display:inline;">
@@ -619,8 +623,8 @@
     <script>
         $(document).on('click', '.edit-button', function() {
             const cityId = $(this).data('id'); // Ambil city_id dari atribut data
-            const provinsiName = $(this).data('name'); // Ambil city dari atribut data
-            const cityName = $(this).data('city'); // Ambil city dari atribut data
+            const provinsiName = $(this).data('prov'); // Ambil city dari atribut data
+            const cityName = $(this).data('name'); // Ambil city dari atribut data
 
             // Isi input dengan data
             $('#city_id').val(cityId);
@@ -650,6 +654,26 @@
                 }
             });
         });
+    </script>
+
+    <script>
+      $(document).ready(function() {
+    // Use event delegation to attach click event to dynamically loaded elements
+    $(document).on('click', '.detail-button', function() {
+        // Get city data from the clicked button
+        var cityId = $(this).data('id');
+        var city = $(this).data('name');
+        var provinsi = $(this).data('prov');
+        
+        // Set the data into the modal
+        $('#city-id').text(cityId);
+        $('#city-name').text(city);
+        $('#provinsi-prov').text(provinsi);
+        
+        // Show the modal
+        $('#cityDetailModal').modal('show');
+    });
+});
     </script>
     
     {{-- Delete data city --}}
@@ -708,6 +732,15 @@
               }
           }
       });
+  </script>
+  
+  <script>
+    $(document).ready(function() {
+        // This will handle all modals that have a button with the data-dismiss attribute
+        $('[data-dismiss="modal"]').on('click', function() {
+            $('.modal').modal('hide');  // Hide any open modal
+        });
+    });
   </script>
     <!-- login js-->
     <!-- Plugin used-->
