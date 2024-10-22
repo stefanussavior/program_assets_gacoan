@@ -429,25 +429,33 @@
                               </div>
                             </div>
 
-                            <div class="modal fade" id="detailDataAsset" tabindex="-1" role="dialog" aria-labelledby="detailDataAssetLabel" aria-hidden="true">
+                            <div class="modal fade" id="assetDetailModal" tabindex="-1" role="dialog" aria-labelledby="assetModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                                   <div class="modal-content">
                                       <div class="modal-header">
-                                          <h5 class="modal-title" id="detailDataAssetLabel">Detail Barang Asset</h5>
+                                          <h5 class="modal-title" id="assetModalLabel">Detail asset</h5>
                                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                               <span aria-hidden="true">&times;</span>
                                           </button>
                                       </div>
                                       <div class="modal-body">
-                                          <img id="qrCodeImage" src="" alt="QR Code" style="width: 150px; height: 150px;">
-                                          <p id="assetDetails"></p>
+                                        <p><strong>ID:</strong> <span id="asset-id"></span></p>
+                                        <p><strong>Kode:</strong> <span id="asset-code"></span></p>
+                                        <p><strong>Status:</strong> <span id="asset-status"></span></p>
+                                        <p><strong>Model:</strong> <span id="asset-model"></span></p>
+                                        <p><strong>Quantity:</strong> <span id="asset-quantity"></span></p>
+                                        <p><strong>Prioritas:</strong> <span id="priority-id"></span></p>
+                                        <p><strong>Kategori:</strong> <span id="cat-id"></span></p>
+                                        <p><strong>Tipe:</strong> <span id="type-id"></span></p>
+                                        <p><strong>Satuan:</strong> <span id="uom-id"></span></p>
+                                        <!-- You can add more brand details here -->
                                       </div>
                                       <div class="modal-footer">
-                                          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                                       </div>
                                   </div>
                               </div>
-                            </div>
+                          </div>
 
                             <div class="modal fade" id="importDataExcel" tabindex="-1" role="dialog" aria-labelledby="importDataExcelLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
@@ -512,10 +520,30 @@
                                                 <td>
                                                   <a href="javascript:void(0);" class="edit-button" 
                                                   data-id="{{ $asset->asset_id }}" 
+                                                  data-code="{{ $asset->asset_code }}" 
+                                                  data-status="{{ $asset->asset_status }}" 
+                                                  data-model="{{ $asset->asset_model }}" 
+                                                  data-quantity="{{ $asset->asset_quantity }}" 
+                                                  data-image="{{ $asset->asset_image }}" 
+                                                  data-priority="{{ $asset->priority_id }}" 
+                                                  data-category="{{ $asset->cat_id }}" 
+                                                  data-type="{{ $asset->type_id }}" 
+                                                  data-uom="{{ $asset->uom_id }}" 
                                                   title="Edit">
                                                      <i class="fas fa-edit"></i>
                                                </a>
-                                                    <a href="javascript:void(0);" class="detail-button" data-id="{{ $asset->asset_id }}" data-name="{{ $asset->asset_code }}" title="Detail">
+                                                    <a href="javascript:void(0);" class="detail-button" 
+                                                    data-id="{{ $asset->asset_id }}" 
+                                                    data-code="{{ $asset->asset_code }}" 
+                                                    data-status="{{ $asset->asset_status }}" 
+                                                    data-model="{{ $asset->asset_model }}" 
+                                                    data-quantity="{{ $asset->asset_quantity }}" 
+                                                    data-image="{{ $asset->asset_image }}" 
+                                                    data-priority="{{ $asset->priority_id }}" 
+                                                    data-category="{{ $asset->cat_id }}" 
+                                                    data-type="{{ $asset->type_id }}" 
+                                                    data-uom="{{ $asset->uom_id }}" 
+                                                    title="Detail">
                                                         <i class="fas fa-book"></i>
                                                     </a>
                                                     <form class="delete-form" action="{{ url('admin/regists/delete', $asset->asset_id) }}" method="POST" style="display:inline;">
@@ -763,6 +791,41 @@
           });
       });
   </script>
+
+{{-- Detail --}}
+<script>
+  $(document).ready(function() {
+      // Event listener for detail button
+      $('.detail-button').on('click', function() {
+          // Get brand data from the clicked button
+          var assetId = $(this).data('id');
+              var assetCode = $(this).data('code');
+              var assetModel = $(this).data('model');
+              var assetQuantity = $(this).data('quantity');
+              var assetStatus = $(this).data('status');
+              var assetImage = $(this).data('image');
+              var priorityId = $(this).data('priority');
+              var catId = $(this).data('cat');
+              var typeId = $(this).data('type');
+              var uomId = $(this).data('uom');
+          
+          // Set the data into the modal
+          $('#asset-id').text(assetId);
+              $('#asset-code').text(assetCode);
+              $('#asset-model').text(assetModel);
+              $('#asset-quantity').text(assetQuantity);
+              $('#asset-status').text(assetStatus);
+              $('#asset-image').text(assetImage);
+              $('#priority-id').text(priorityId);
+              $('#cat-id').text(catId);
+              $('#type-id').text(typeId);
+              $('#uom-id').text(uomId);
+          
+          // Show the modal
+          $('#assetDetailModal').modal('show');
+      });
+  });
+</script>
     
     {{-- Delete data Asset --}}
     <script>
