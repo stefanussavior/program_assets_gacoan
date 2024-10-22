@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -16,11 +17,16 @@ class ReasonController extends Controller
 {
     public function Index()
     {
-        return view("Admin.reason");
+        $reasons = DB::table('m_reason')->select('m_reason.*')->paginate(10);
+
+        return view("Admin.reason", ['reasons' => $reasons]);
     }
 
-    public function HalamanReason() {
-        return view("Admin.reason");
+    public function HalamanReason() 
+    {
+        $reasons = DB::table('m_reason')->select('m_reason.*')->paginate(10);
+
+        return view("Admin.reason", ['reasons' => $reasons]);
     }
 
     public function getReason()

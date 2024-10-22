@@ -1,50 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Enzo admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, Enzo admin template, dashboard template, flat admin template, responsive admin template, web app">
-    <meta name="author" content="pixelstrap">
-    <link rel="icon" href=" {{asset('assets/images/favicon/favicon.png')}}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{asset('assets/images/favicon/favicon.png')}}" type="image/x-icon">
-    <title>ASMI - Asset System Management Integration</title>
-    <!-- Google font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/font-awesome.css')}}">
-    <!-- ico-font-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/icofont.css')}}">
-    <!-- Themify icon-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/themify.css')}}">
-    <!-- Flag icon-->
-    <link rel="stylesheet" type="text/css" href="{{asset( 'assets/css/vendors/flag-icon.css')}}">
-    <!-- Feather icon-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/feather-icon.css')}}">
-    <!-- Plugins css start-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/scrollbar.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/animate.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/chartist.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/slick.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/slick-theme.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/prism.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/datatables.css')}}">
-    <!-- Plugins css Ends-->
-    <!-- Bootstrap css-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/vendors/bootstrap.css')}}">
-    <!-- App css-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
-    <link id="color" rel="stylesheet" href="{{asset('assets/css/color-1.css')}}" media="screen">
-    <!-- Responsive css-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/responsive.css')}}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  </head>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Enzo admin is super flexible, powerful, clean &amp; modern responsive bootstrap 5 admin template with unlimited possibilities.">
+  <meta name="keywords" content="admin template, Enzo admin template, dashboard template, flat admin template, responsive admin template, web app">
+  <meta name="author" content="pixelstrap">
+  <link rel="icon" href="{{ asset('assets/images/favicon/favicon.png')}}" type="image/x-icon">
+  <link rel="shortcut icon" href="{{ asset('assets/images/favicon/favicon.png')}}" type="image/x-icon">
+  <title>ESS - Employee Self Service</title>
+  <!-- Google font-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/font-awesome.css')}}">
+  <!-- ico-font-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/icofont.css')}}">
+  <!-- Themify icon-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/themify.css')}}">
+  <!-- Flag icon-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/flag-icon.css')}}">
+  <!-- Feather icon-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/feather-icon.css')}}">
+  <!-- Plugins css start-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/scrollbar.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatables.css')}}">
+  <!-- Plugins css Ends-->
+  <!-- Bootstrap css-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/bootstrap.css')}}">
+  <!-- App css-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css')}}">
+  <link id="color" rel="stylesheet" href="{{ asset('assets/css/color-1.css')}}" media="screen">
+  <!-- Responsive css-->
+  <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css')}}">
+  <!-- Add these in your <head> section -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+      .btn-link {
+          color: #007bff;
+          text-decoration: none;
+      }
+
+      .btn-link:hover {
+          text-decoration: underline;
+      }
+
+      .disabled {
+          color: #6c757d; /* Grey color for disabled links */
+          cursor: not-allowed; /* Change cursor for disabled links */
+      }
+
+      .mt-4 {
+          margin-top: 1.5rem; /* Margin adjustment for spacing */
+      }
+
+      .mt-2 {
+          margin-top: 0.5rem; /* Margin adjustment for spacing */
+      }
+
+      .pagination-container {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+
+      .pagination-info {
+          text-align: center;
+      }
+    </style>
+</head>
   <body>
     <!-- tap on top starts-->
     <div class="tap-top"><i data-feather="chevrons-up"></i></div>
@@ -196,119 +227,123 @@
           <!-- Container-fluid starts-->
           <div class="container-fluid list-products">
             <div class="row">
-              <!-- Individual column searching (text inputs) Starts-->
-              <div class="col-sm-12">
-                <div class="card">
-                  <div class="card-header pb-0">
-                    <h5>Asset Name List</h5>
-                    <span>adalah daftar atau kumpulan aset yang dimiliki oleh seseorang, organisasi, atau perusahaan. Daftar ini biasanya mencakup rincian tentang setiap aset, seperti jenis aset, nilai, lokasi, dan informasi relevan lainnya.</span>
-                  </div>
-					<div class="card-body"> 
-						<div class="btn-showcase">
-                            <div class="button_between">
-                                <button class="btn btn-square btn-primary" type="button" data-toggle="modal" data-target="#addDataAsset">+ Add Data Asset</button>
-                                {{-- <button class="btn btn-square btn-primary" type="button" data-toggle="modal" data-target="#importDataExcel"> <i class="fa fa-file-excel-o" ></i> Import Data Excel </button>
-                                <button class="btn btn-square btn-primary" type="button"> <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
-                                Download PDF Data</button> --}}
-                            </div>
-						  </div>
-						</div>
-
-
-                    <!-- Button trigger modal -->
-                    @if (session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
+                <!-- Individual column searching (text inputs) Starts-->
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header pb-0">
+                            <h5>Asset Name List</h5>
+                            <span>Adalah daftar atau kumpulan aset yang dimiliki oleh seseorang, organisasi, atau perusahaan. Daftar ini biasanya mencakup rincian tentang setiap aset, seperti jenis aset, nilai, lokasi, dan informasi relevan lainnya.</span>
                         </div>
-                    @endif
-
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-
-                    <!-- Modal add -->
-                    <!-- Modal Add Data Asset -->
-                    <div class="modal fade" id="addDataAsset" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-                        <div class="modal-dialog modal-md">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Add Data Asset</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
+        
+                        <div class="card-body">
+                            <div class="btn-showcase">
+                                <div class="button_between">
+                                    <button class="btn btn-square btn-primary" type="button" data-toggle="modal" data-target="#addDataAsset">+ Add Data Asset</button>
+                                    {{-- Uncomment if needed
+                                    <button class="btn btn-square btn-primary" type="button" data-toggle="modal" data-target="#importDataExcel"> 
+                                        <i class="fa fa-file-excel-o"></i> Import Data Excel 
+                                    </button>
+                                    <button class="btn btn-square btn-primary" type="button"> 
+                                        <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Download PDF Data
+                                    </button>
+                                    --}}
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <form id="addAssetForm" enctype="multipart/form-data">  
-                                    @csrf
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                        <label for="asset_code">Asset Code : </label>
-                                        <input type="text" name="asset_code" id="asset_code" class="form-control" placeholder="Enter Asset Code" required>
-                                        </div>
-                                        <div class="col-sm-12">
-                                        <label for="asset_model">Asset Model : </label>
-                                        <input type="text" name="asset_model" id="asset_model" class="form-control" placeholder="Enter Asset Model" required>
-                                        </div>
-                                        <div class="col-sm-12">
-                                        <label for="asset_status">Asset Status : </label>
-                                        <input type="text" name="asset_status" id="asset_status" class="form-control" placeholder="Enter Asset Status" required>
-                                        </div>
-                                        <div class="col-sm-12">
-                                        <label for="asset_quantity">Asset Quantity : </label>
-                                        <input type="text" name="asset_quantity" id="asset_quantity" class="form-control" placeholder="Enter Asset Quantity" required>
-                                        </div>
-                                        <div class="col-sm-12">
-                                        <label for="asset_image">Asset Image : </label>
-                                        <input type="text" name="asset_image" id="asset_image" class="form-control" placeholder="Enter Asset Image" required>
-                                        </div>
-                                        <div class="col-sm-12">
-                                          <label for="priority_id">Prioritas: </label>
-                                          <select name="priority_id" id="priority_id" class="form-control" required>
-                                            <option value="">Pilih Prioritas</option>
-                                            @foreach($priorities as $priority)
-                                                <option value="{{ $priority->priority_id }}">{{ $priority->priority_name }}</option>
-                                            @endforeach
-                                        </select>
-                                      </div>
-                                        <div class="col-sm-12">
-                                        <label for="cat_id">Kategori : </label>
-                                            <select name="cat_id" id="cat_id" class="form-control" required>
-                                              <option value="">Pilih Kategori</option>
-                                              @foreach($categories as $category)
-                                                  <option value="{{ $category->cat_id }}">{{ $category->cat_name }}</option>
-                                              @endforeach
-                                          </select>
-                                        </div>
-                                        <div class="col-sm-12">
-                                        <label for="type_id">Tipe : </label>
-                                            <select name="type_id" id="type_id" class="form-control" required>
-                                              <option value="">Pilih Tipe</option>
-                                              @foreach($tipies as $type)
-                                                  <option value="{{ $type->type_id }}">{{ $type->type_name }}</option>
-                                              @endforeach
-                                          </select>
-                                        </div>
-                                        <div class="col-sm-12">
-                                        <label for="uom_id">Satuan : </label>
-                                            <select name="uom_id" id="uom_id" class="form-control" required>
-                                              <option value="">Pilih Satuan</option>
-                                              @foreach($uomies as $uom)
-                                                  <option value="{{ $uom->uom_id }}">{{ $uom->uom_name }}</option>
-                                              @endforeach
-                                          </select>
-                                        </div>
+
+                            <!-- Button trigger modal -->
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+                            @if (session('error'))
+                                <div class="alert alert-danger">
+                                    {{ session('error') }}
+                                </div>
+                            @endif
+
+                            <!-- Modal add -->
+                            <!-- Modal Add Data Asset -->
+                            <div class="modal fade" id="addDataAsset" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                                <div class="modal-dialog modal-md">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Add Data Asset</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
-                                </form>
+                                    <div class="modal-body">
+                                        <form id="addAssetForm" enctype="multipart/form-data">  
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                <label for="asset_code">Asset Code : </label>
+                                                <input type="text" name="asset_code" id="asset_code" class="form-control" placeholder="Enter Asset Code" required>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                <label for="asset_model">Asset Model : </label>
+                                                <input type="text" name="asset_model" id="asset_model" class="form-control" placeholder="Enter Asset Model" required>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                <label for="asset_status">Asset Status : </label>
+                                                <input type="text" name="asset_status" id="asset_status" class="form-control" placeholder="Enter Asset Status" required>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                <label for="asset_quantity">Asset Quantity : </label>
+                                                <input type="text" name="asset_quantity" id="asset_quantity" class="form-control" placeholder="Enter Asset Quantity" required>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <label for="asset_image">Asset Image: </label>
+                                                    <input type="file" name="asset_image" id="asset_image" class="form-control" required accept="image/*">
+                                                </div>
+                                                <div class="col-sm-12">
+                                                  <label for="priority_id">Prioritas: </label>
+                                                  <select name="priority_id" id="priority_id" class="form-control" required>
+                                                    <option value="">Pilih Prioritas</option>
+                                                    @foreach($priorities as $priority)
+                                                        <option value="{{ $priority->priority_id }}">{{ $priority->priority_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                              </div>
+                                                <div class="col-sm-12">
+                                                <label for="cat_id">Kategori : </label>
+                                                    <select name="cat_id" id="cat_id" class="form-control" required>
+                                                      <option value="">Pilih Kategori</option>
+                                                      @foreach($categories as $category)
+                                                          <option value="{{ $category->cat_id }}">{{ $category->cat_name }}</option>
+                                                      @endforeach
+                                                  </select>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                <label for="type_id">Tipe : </label>
+                                                    <select name="type_id" id="type_id" class="form-control" required>
+                                                      <option value="">Pilih Tipe</option>
+                                                      @foreach($tipies as $type)
+                                                          <option value="{{ $type->type_id }}">{{ $type->type_name }}</option>
+                                                      @endforeach
+                                                  </select>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                <label for="uom_id">Satuan : </label>
+                                                    <select name="uom_id" id="uom_id" class="form-control" required>
+                                                      <option value="">Pilih Satuan</option>
+                                                      @foreach($uomies as $uom)
+                                                          <option value="{{ $uom->uom_id }}">{{ $uom->uom_name }}</option>
+                                                      @endforeach
+                                                  </select>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" id="saveAssetButton">Save changes</button>
+                                    </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" id="saveAssetButton">Save changes</button>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
 
                             <!-- Update Modal -->
                             <div id="updateModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -327,12 +362,25 @@
                                               <div class="row">
                                                   <div class="col-sm-12">
                                                       <label for="asset_code">Assets Code : </label>
-                                                      <input type="text" name="asset_code" id="asset_code" class="form-control" required>
+                                                      <input type="text" name="asset_code" id="asset_code" class="form-control" required readonly>
                                                   </div>
                                                   <div class="col-sm-12">
                                                       <label for="asset_model">Assets Model : </label>
                                                       <input type="text" name="asset_model" id="asset_model" class="form-control" required>
                                                   </div>
+                                                  <div class="col-sm-12">
+                                                      <label for="asset_status">Assets Status : </label>
+                                                      <input type="text" name="asset_status" id="asset_status" class="form-control" required>
+                                                  </div>
+                                                  <div class="col-sm-12">
+                                                      <label for="asset_quantity">Assets Quantity : </label>
+                                                      <input type="text" name="asset_quantity" id="asset_quantity" class="form-control" required>
+                                                  </div>
+                                                  <div class="col-sm-12">
+                                                    <label for="asset_image">Asset Image: </label>
+                                                    <input type="file" name="asset_image" id="asset_image" class="form-control" accept="image/*">
+                                                    <small class="form-text text-muted">Leave empty to keep the current image.</small>
+                                                </div>
                                                   <div class="col-sm-12">
                                                     <label for="priority_id">Priority: </label>
                                                     <select name="priority_id" id="priority_id" class="form-control" required>
@@ -379,82 +427,140 @@
                                       </form>
                                   </div>
                               </div>
-                          </div>
+                            </div>
 
+                            <div class="modal fade" id="detailDataAsset" tabindex="-1" role="dialog" aria-labelledby="detailDataAssetLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                          <h5 class="modal-title" id="detailDataAssetLabel">Detail Barang Asset</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                          </button>
+                                      </div>
+                                      <div class="modal-body">
+                                          <img id="qrCodeImage" src="" alt="QR Code" style="width: 150px; height: 150px;">
+                                          <p id="assetDetails"></p>
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                      </div>
+                                  </div>
+                              </div>
+                            </div>
 
-                        <div class="modal fade" id="detailDataAsset" tabindex="-1" role="dialog" aria-labelledby="detailDataAssetLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="detailDataAssetLabel">Detail Barang Asset</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <img id="qrCodeImage" src="" alt="QR Code" style="width: 150px; height: 150px;">
-                                        <p id="assetDetails"></p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                            <div class="modal fade" id="importDataExcel" tabindex="-1" role="dialog" aria-labelledby="importDataExcelLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="importDataExcelLabel">Import Data Excel Asset</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                        <form action="" method="post" enctype="multipart/form-data">
+                                            <label for="import-data">Import Data Excel : </label>
+                                            <input type="file" name="data_excel" id="data_excel" class="form-control" placeholder="Upload File Excel">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                    <div class="modal fade" id="importDataExcel" tabindex="-1" role="dialog" aria-labelledby="importDataExcelLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="importDataExcelLabel">Import Data Excel Asset</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+        
+                            <div class="table-responsive product-table" style="max-width: 100%; overflow-x: auto;">
+                                <div class="d-flex justify-content-between mb-3 mt-3">
+                                    <h5>Asset Data</h5> <!-- Add a heading for the table if needed -->
+                                    <!-- Search Input Field aligned to the right -->
+                                    <div class="input-group" style="width: 250px;">
+                                        <input type="text" id="searchInput" class="form-control" placeholder="Search for assets..." />
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                <form action="" method="post" enctype="multipart/form-data">
-                                    <label for="import-data">Import Data Excel : </label>
-                                    <input type="file" name="data_excel" id="data_excel" class="form-control" placeholder="Upload File Excel">
+                                <table class="table table-striped display" id="coba" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Asset Code</th>
+                                            <th>Asset Model</th>
+                                            <th>Status</th>
+                                            <th>Quantity</th>
+                                            <th>Priority</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($assets as $asset)
+                                            <tr>
+                                                <td>{{ $asset->asset_code }}</td>
+                                                <td>{{ $asset->asset_model }}</td>
+                                                <td>{{ $asset->asset_status }}</td>
+                                                <td>{{ $asset->asset_quantity }}</td>
+                                                <td>
+                                                    @if($asset->priority_name == 'Priority')
+                                                        <span class="badge badge-danger text-white">{{ $asset->priority_name }}</span> <!-- Priority: Red label -->
+                                                    @elseif($asset->priority_name == 'Basic')
+                                                        <span class="badge badge-success text-white">{{ $asset->priority_name }}</span> <!-- Basic: Green label -->
+                                                    @elseif($asset->priority_name == 'Not Priority')
+                                                        <span class="badge badge-warning text-white">{{ $asset->priority_name }}</span> <!-- Not Priority: Yellow label -->
+                                                    @else
+                                                        <span class="badge badge-primary text-white">No Priority</span> <!-- No Priority: Blue label -->
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                  <a href="javascript:void(0);" class="edit-button" 
+                                                  data-id="{{ $asset->asset_id }}" 
+                                                  title="Edit">
+                                                     <i class="fas fa-edit"></i>
+                                               </a>
+                                                    <a href="javascript:void(0);" class="detail-button" data-id="{{ $asset->asset_id }}" data-name="{{ $asset->asset_code }}" title="Detail">
+                                                        <i class="fas fa-book"></i>
+                                                    </a>
+                                                    <form class="delete-form" action="{{ url('admin/regists/delete', $asset->asset_id) }}" method="POST" style="display:inline;">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="delete-button" title="Delete" style="border: none; background: none; cursor: pointer;">
+                                                            <i class="fas fa-trash-alt" style="color: red;"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                                <div class="d-flex justify-content-center align-items-center mt-4">
+                                  <div>
+                                      <!-- Previous Button -->
+                                      @if ($assets->onFirstPage())
+                                          <span class="disabled"><< Previous</span>
+                                      @else
+                                          <a href="{{ $assets->previousPageUrl() }}" class="btn btn-link"><< Previous</a>
+                                      @endif
+                                  </div>
+                                  <div>
+                                      <!-- Next Button -->
+                                      @if ($assets->hasMorePages())
+                                          <a href="{{ $assets->nextPageUrl() }}" class="btn btn-link">Next >></a>
+                                      @else
+                                          <span class="disabled">Next >></span>
+                                      @endif
+                                  </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                                </div>
-                                </form>
+                              
+                              <!-- Display current page and total pages -->
+                              <div class="d-flex justify-content-center mt-2">
+                                  <span>Page {{ $assets->currentPage() }} of {{ $assets->lastPage() }}</span>
+                              </div>
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="card-body">
-                      <div class="table-responsive col-lg-12">
-                          <table class="table table-bordered table-striped" id="coba" width="100%">
-                              <thead class="thead-dark">
-                                  <tr>
-                                      <th>ID Asset</th>
-                                      <th>Asset Code</th>
-                                      <th>Asset Model</th>
-                                      <th>Asset Status</th>
-                                      <th>Asset Quantity</th>
-                                      <th>Asset Image</th>
-                                      <th>Priority</th>
-                                      <th>Category</th>
-                                      <th>Type</th>
-                                      <th>Uom</th>
-                                      <th>Action</th>
-                                  </tr>
-                              </thead>
-                              <tbody id="assetTableBody">
-                                  <!-- Data akan diisi dengan AJAX -->
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
                 </div>
-              </div>
-              <!-- Individual column searching (text inputs) Ends-->
+                <!-- Individual column searching (text inputs) Ends-->
             </div>
-          </div>
+        </div>
+        
           <!-- Container-fluid Ends-->
         
         </div>
@@ -512,7 +618,15 @@
     <script src="{{asset('assets/js/typeahead-search/handlebars.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <script>
+      $(document).ready(function() {
+        $('#coba').DataTable({
+          paging: true, // Enable pagination
+          searching: true, // Enable searching
+          ordering: true // Enable sorting
+        });
+      });
+    </script>
     <!-- Plugins JS Ends-->
     <!-- Theme js-->
     <script src="{{asset('assets/js/script.js')}}"></script>
@@ -571,80 +685,84 @@
     {{-- Add Data Asset --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $('#saveAssetButton').click(function (e) {
-            e.preventDefault();
-            
-            $.ajax({
-                url: '{{ route('add-regist') }}', // URL yang benar
-                method: 'POST',
-                data: $('#addAssetForm').serialize(), // Pastikan menggunakan ID yang benar
-                success: function(response) {
-                    console.log(response);
-                    if (response.status === 'success') {
-                        $('#addDataAsset').modal('hide');
-                        window.location.href = response.redirect_url;
-                    } else {
-                        alert(response.message);
-                    }
-                },
-                error: function(jqXHR) {
-                    console.log(jqXHR.responseJSON); // Cek detail kesalahan
-                    const message = jqXHR.responseJSON?.message || 'Failed to update Asset.';
-                    alert(message); // Tampilkan pesan kesalahan
-                }
-            });
-        });
-    </script>
+      $('#saveAssetButton').click(function (e) {
+          e.preventDefault();
+          
+          // Create a FormData object from the form
+          var formData = new FormData($('#addAssetForm')[0]);
+  
+          $.ajax({
+              url: '{{ route('add-regist') }}', // Correct URL
+              method: 'POST',
+              data: formData,
+              contentType: false, // Important: Prevent jQuery from setting the content type
+              processData: false, // Important: Prevent jQuery from processing the data
+              success: function(response) {
+                  console.log(response);
+                  if (response.status === 'success') {
+                      $('#addDataAsset').modal('hide');
+                      window.location.href = response.redirect_url;
+                  } else {
+                      alert(response.message);
+                  }
+              },
+              error: function(jqXHR) {
+                  console.log(jqXHR.responseJSON); // Check error details
+                  const message = jqXHR.responseJSON?.message || 'Failed to update Asset.';
+                  alert(message); // Show error message
+              }
+          });
+      });
+  </script>
 
     {{-- Update Data Asset --}}
     <script>
-        $(document).on('click', '.edit-button', function() {
-            const assetId = $(this).data('id'); // Ambil asset_id dari atribut data
-            const assetCode = $(this).data('code'); // Ambil asset_code dari atribut data
-            const assetModel = $(this).data('model'); // Ambil asset_code dari atribut data
-            const assetQuantity = $(this).data('quantity'); // Ambil asset_code dari atribut data
-            const assetStatus = $(this).data('status'); // Ambil asset_code dari atribut data
-            const assetImage = $(this).data('image'); // Ambil asset_code dari atribut data
-            const priorityId = $(this).data('priority'); // Ambil asset_code dari atribut data
-            const catId = $(this).data('cat'); // Ambil asset_code dari atribut data
-            const typeId = $(this).data('type'); // Ambil asset_code dari atribut data
-
-            // Isi input dengan data
-            $('#asset_id').val(assetId);
-            $('#asset_code').val(assetCode);
-            $('#asset_status').val(assetStatus);
-            $('#asset_quantity').val(assetQuantity);
-            $('#asset_model').val(assetModel);
-            $('#asset_image').val(assetImage);
-            $('#priority_id').val(priorityId);
-            $('#type_id').val(typeId);
-            $('#cat_id').val(catId);
-            $('#uom_id').val(uomId);
-
-            // Tampilkan modal
-            $('#updateModal').modal('show');
-        });
-
-        // Mengirim permintaan edit melalui Ajax
-        $('#updateForm').on('submit', function(e) {
-            e.preventDefault(); // Cegah form reload halaman
-
-            $.ajax({
-                url: '/admin/regists/edit/' + $('#asset_id').val(),
-                method: 'PUT', // Menggunakan PUT untuk memperbarui data
-                data: $(this).serialize(), // Serialisasi data form untuk dikirim
-                success: function(response) {
-                    if(response.status === 'success') {
-                        window.location.href = response.redirect_url; // Redirect ke halaman yang sudah diatur
-                    }
-                },
-                error: function(jqXHR) {
-                    const message = jqXHR.responseJSON?.message || 'Failed to update Asset.';
-                    alert(message); // Tampilkan pesan error jika gagal
-                }
-            });
-        });
-    </script>
+      
+      $(document).ready(function() {
+          $(document).on('click', '.edit-button', function() {
+              const assetId = $(this).data('id');
+              const assetCode = $(this).data('code');
+              const assetModel = $(this).data('model');
+              const assetQuantity = $(this).data('quantity');
+              const assetStatus = $(this).data('status');
+              const assetImage = $(this).data('image');
+              const priorityId = $(this).data('priority');
+              const catId = $(this).data('cat');
+              const typeId = $(this).data('type');
+  
+              $('#asset_id').val(assetId);
+              $('#asset_code').val(assetCode);
+              $('#asset_model').val(assetModel);
+              $('#asset_quantity').val(assetQuantity);
+              $('#asset_status').val(assetStatus);
+              $('#asset_image').val(assetImage);
+              $('#priority_id').val(priorityId);
+              $('#cat_id').val(catId);
+              $('#type_id').val(typeId);
+  
+              $('#updateModal').modal('show');
+          });
+  
+          $('#updateForm').on('submit', function(e) {
+              e.preventDefault();
+  
+              $.ajax({
+                  url: '/admin/regists/edit/' + $('#asset_id').val(),
+                  method: 'PUT',
+                  data: $(this).serialize(),
+                  success: function(response) {
+                      if (response.status === 'success') {
+                          window.location.href = response.redirect_url;
+                      }
+                  },
+                  error: function(jqXHR) {
+                      const message = jqXHR.responseJSON?.message || 'Failed to update Asset.';
+                      alert(message);
+                  }
+              });
+          });
+      });
+  </script>
     
     {{-- Delete data Asset --}}
     <script>
@@ -675,6 +793,33 @@
         }
     });
     </script>
+    <script>
+      // JavaScript for searching/filtering the table rows
+      document.getElementById('searchInput').addEventListener('keyup', function() {
+          var input, filter, table, tr, td, i, j, txtValue;
+          input = document.getElementById('searchInput');
+          filter = input.value.toLowerCase();
+          table = document.getElementById('coba');
+          tr = table.getElementsByTagName('tr');
+          
+          // Loop through all table rows, and hide those who don't match the search query
+          for (i = 1; i < tr.length; i++) { // Start from 1 to skip table header
+              tr[i].style.display = "none"; // Hide the row initially
+              
+              // Loop through all columns in the row
+              for (j = 0; j < tr[i].getElementsByTagName('td').length; j++) {
+                  td = tr[i].getElementsByTagName('td')[j];
+                  if (td) {
+                      txtValue = td.textContent || td.innerText;
+                      if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                          tr[i].style.display = ""; // Show the row if match is found
+                          break; // Exit loop once a match is found
+                      }
+                  }
+              }
+          }
+      });
+  </script>
     <!-- login js-->
     <!-- Plugin used-->
   </body>

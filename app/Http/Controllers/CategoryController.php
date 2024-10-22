@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -16,11 +17,16 @@ class CategoryController extends Controller
 {
     public function Index()
     {
-        return view("Admin.category");
+        $categorys = DB::table('m_category')->select('m_category.*')->paginate(10);
+
+        return view("Admin.category", ['categorys' => $categorys]);
     }
 
-    public function HalamanCategory() {
-        return view("Admin.category");
+    public function HalamanCategory() 
+    {
+        $categorys = DB::table('m_category')->select('m_category.*')->paginate(10);
+
+        return view("Admin.category", ['categorys' => $categorys]);
     }
 
     public function getCategory()

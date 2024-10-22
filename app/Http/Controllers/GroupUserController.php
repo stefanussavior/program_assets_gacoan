@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -16,11 +17,16 @@ class GroupUserController extends Controller
 {
     public function Index()
     {
-        return view("Admin.group");
+        $groupusers = DB::table('m_groupuser')->select('m_groupuser.*')->paginate(10);
+
+        return view("Admin.groupuser", ['groupusers' => $groupusers]);
     }
 
-    public function HalamanGroupUser() {
-        return view("Admin.group");
+    public function HalamanGroupUser() 
+    {
+        $groupusers = DB::table('m_groupuser')->select('m_groupuser.*')->paginate(10);
+
+        return view("Admin.groupuser", ['groupusers' => $groupusers]);
     }
 
     public function getGroupUser()
@@ -55,7 +61,7 @@ class GroupUserController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'group berhasil ditambahkan',
-                'redirect_url' => route('Admin.group')
+                'redirect_url' => route('Admin.groupuser')
             ]);
             
         } catch (\Exception $e) {
@@ -115,7 +121,7 @@ class GroupUserController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'group updated successfully.',
-                'redirect_url' => route('Admin.group'), // Sesuaikan dengan route index Anda
+                'redirect_url' => route('Admin.groupuser'), // Sesuaikan dengan route index Anda
             ]);
         } else {
             return response()->json(['status' => 'error', 'message' => 'Failed to update group.'], 500);
@@ -131,7 +137,7 @@ class GroupUserController extends Controller
             return response()->json([
                 'status' => 'success', 
                 'message' => 'group deleted successfully.',
-                'redirect_url' => route('Admin.group')
+                'redirect_url' => route('Admin.groupuser')
             ]);
         } else {
             return response()->json(['status' => 'Error', 'message' => 'Data group Gagal Terhapus'], 404);

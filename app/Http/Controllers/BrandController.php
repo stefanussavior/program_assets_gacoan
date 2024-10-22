@@ -9,6 +9,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -16,11 +17,18 @@ class BrandController extends Controller
 {
     public function Index()
     {
-        return view("Admin.brand");
+        $brands = DB::table('m_brand')->select('m_brand.*')->paginate(10);
+
+        return view("Admin.brand", [
+            'brands' => $brands
+        ]);
     }
 
-    public function HalamanBrand() {
-        return view("Admin.brand");
+    public function HalamanBrand() 
+    {
+        $brands = DB::table('m_brand')->select('m_brand.*')->paginate(10);
+
+        return view("Admin.brand", ['brands' => $brands]);
     }
 
     public function getBrand()

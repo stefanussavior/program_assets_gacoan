@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -16,11 +17,16 @@ class LayoutController extends Controller
 {
     public function Index()
     {
-        return view("Admin.layout");
+        $layouts = DB::table('m_layout')->select('m_layout.*')->paginate(10);
+
+        return view("Admin.layout", ['layouts' => $layouts]);
     }
 
-    public function HalamanLayout() {
-        return view("Admin.layout");
+    public function HalamanLayout() 
+    {
+        $layouts = DB::table('m_layout')->select('m_layout.*')->paginate(10);
+
+        return view("Admin.layout", ['layouts' => $layouts]);
     }
 
     public function getLayout()
@@ -34,12 +40,14 @@ class LayoutController extends Controller
     {
         // Validasi data yang dikirimkan
         $request->validate([
+            'layout_code' => 'required|string|max:255',
             'layout_name' => 'required|string|max:255',
         ]);
 
         try {
             // Buat instance dari model MasterLayout
             $layout = new MasterLayout();
+            $layout->layout_code = $request->input('layout_code');
             $layout->layout_name = $request->input('layout_name');
             $layout->create_by = Auth::user()->username; // Mengambil username yang sedang login
             

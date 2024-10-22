@@ -20,12 +20,41 @@ class AssetsController extends Controller
         $categories = DB::table('m_category')->select('cat_id', 'cat_name')->get();
         $tipies = DB::table('m_type')->select('type_id', 'type_name')->get();
         $uomies = DB::table('m_uom')->select('uom_id', 'uom_name')->get();
-        
+
+        $assets = DB::table('m_assets')
+        ->join('m_priority', 'm_assets.priority_id', '=', 'm_priority.priority_id') // Join with m_priority
+        ->select('m_assets.*', 'm_priority.priority_name')
+        ->where('m_assets.type_id', 1) // Filter for equipment
+        ->paginate(10);
+
         return view("Admin.asset", [
             'priorities' => $priorities,
             'categories' => $categories,
             'tipies' => $tipies,
             'uomies' => $uomies,
+            'assets' => $assets
+        ]);
+    }
+    
+    public function IndexEquipment()
+    {
+        $priorities = DB::table('m_priority')->select('priority_id', 'priority_name')->get();
+        $categories = DB::table('m_category')->select('cat_id', 'cat_name')->get();
+        $tipies = DB::table('m_type')->select('type_id', 'type_name')->get();
+        $uomies = DB::table('m_uom')->select('uom_id', 'uom_name')->get();
+
+        $assets_equipment = DB::table('m_assets')
+        ->join('m_priority', 'm_assets.priority_id', '=', 'm_priority.priority_id') // Join with m_priority
+        ->select('m_assets.*', 'm_priority.priority_name')
+        ->where('m_assets.type_id', 2) // Filter for equipment
+        ->paginate(10);
+
+        return view("Admin.assetequipment", [
+            'priorities' => $priorities,
+            'categories' => $categories,
+            'tipies' => $tipies,
+            'uomies' => $uomies,
+            'assets_equipment' => $assets_equipment
         ]);
     }
 
@@ -36,19 +65,60 @@ class AssetsController extends Controller
         $tipies = DB::table('m_type')->select('type_id', 'type_name')->get();
         $uomies = DB::table('m_uom')->select('uom_id', 'uom_name')->get();
         
+        $assets = DB::table('m_assets')
+        ->join('m_priority', 'm_assets.priority_id', '=', 'm_priority.priority_id') // Join with m_priority
+        ->select('m_assets.*', 'm_priority.priority_name')
+        ->where('m_assets.type_id', 1) // Filter for equipment
+        ->paginate(10);
+
         return view("Admin.asset", [
             'priorities' => $priorities,
             'categories' => $categories,
             'tipies' => $tipies,
             'uomies' => $uomies,
+            'assets' => $assets
+        ]);
+    }
+
+    public function HalamanAssetsEquipment() 
+    {
+        $priorities = DB::table('m_priority')->select('priority_id', 'priority_name')->get();
+        $categories = DB::table('m_category')->select('cat_id', 'cat_name')->get();
+        $tipies = DB::table('m_type')->select('type_id', 'type_name')->get();
+        $uomies = DB::table('m_uom')->select('uom_id', 'uom_name')->get();
+
+        $assets_equipment = DB::table('m_assets')
+        ->join('m_priority', 'm_assets.priority_id', '=', 'm_priority.priority_id') // Join with m_priority
+        ->select('m_assets.*', 'm_priority.priority_name')
+        ->where('m_assets.type_id', 2) // Filter for equipment
+        ->paginate(10);
+
+        return view("Admin.assetequipment", [
+            'priorities' => $priorities,
+            'categories' => $categories,
+            'tipies' => $tipies,
+            'uomies' => $uomies,
+            'assets_equipment' => $assets_equipment
         ]);
     }
 
     public function getAssets()
     {
-        // Mengambil semua data dari tabel m_asset
-        $assets = MasterAsset::all();
-        return response()->json($assets); // Mengembalikan data dalam format JSON
+        try {
+            // Fetch assets from the database
+            $assets = MasterAsset::all();
+    
+            return response()->json([
+                'status' => 'success',
+                'data' => $assets
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Failed to retrieve assets',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     // public function AddDataAssets(Request $request)
@@ -109,7 +179,7 @@ class AssetsController extends Controller
             'asset_model' => 'required|string|max:255',
             'asset_status' => 'required|string|max:100',
             'asset_quantity' => 'required|int|max:1000',
-            'asset_image' => 'required|string|max:255',
+            'asset_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'priority_id' => 'required|exists:m_priority,priority_id',
             'cat_id' => 'required|exists:m_category,cat_id',
             'type_id' => 'required|exists:m_type,type_id',
@@ -123,7 +193,13 @@ class AssetsController extends Controller
             $asset->asset_model = $request->input('asset_model');
             $asset->asset_status = $request->input('asset_status');
             $asset->asset_quantity = $request->input('asset_quantity');
-            $asset->asset_image = $request->input('asset_image');
+            // Handle the image upload
+            if ($request->hasFile('asset_image')) {
+                $image = $request->file('asset_image');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('assets/images'), $imageName); // Move the file to public/assets/images
+                $asset->asset_image = 'assets/images/' . $imageName; // Store relative path
+            }
             $asset->priority_id = $request->input('priority_id');
             $asset->cat_id = $request->input('cat_id');
             $asset->type_id = $request->input('type_id');
@@ -138,25 +214,25 @@ class AssetsController extends Controller
             $asset->save(); // Save the asset data
 
             // Generate the QR code
-            $asset_code = $asset->asset_code;
+            // $asset_code = $asset->asset_code;
 
-            // Define the folder path for the QR code
-            $folderPath = public_path('assets/qrcodes');
+            // // Define the folder path for the QR code
+            // $folderPath = public_path('assets/qrcodes');
 
-            // Check if the folder exists; if not, create it
-            if (!file_exists($folderPath)) {
-                mkdir($folderPath, 0755, true);
-            }
+            // // Check if the folder exists; if not, create it
+            // if (!file_exists($folderPath)) {
+            //     mkdir($folderPath, 0755, true);
+            // }
 
-            // Generate the QR code and save it as an image
-            $qrCodePath = $folderPath . '/' . $asset_code . '.png';
+            // // Generate the QR code and save it as an image
+            // $qrCodePath = $folderPath . '/' . $asset_code . '.png';
 
-            // Generate the QR code
-            QrCode::format('png')->size(300)->generate($asset_code, $qrCodePath);
+            // // Generate the QR code
+            // QrCode::format('png')->size(300)->generate($asset_code, $qrCodePath);
 
-            // Save the QR code path to the asset record
-            $asset->qr_code_path = 'assets/qrcodes/' . $asset_code . '.png'; // Store relative path
-            $asset->save(); // Save the updated asset data
+            // // Save the QR code path to the asset record
+            // $asset->qr_code_path = 'assets/qrcodes/' . $asset_code . '.png'; // Store relative path
+            // $asset->save(); // Save the updated asset data
 
             return response()->json([
                 'status' => 'success',
@@ -291,7 +367,7 @@ class AssetsController extends Controller
             'asset_model' => 'required|string|max:255',
             'asset_status' => 'required|string|max:255',
             'asset_quantity' => 'required|string|max:255',
-            'asset_image' => 'required|string|max:255',
+            'asset_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'priority_id' => 'required|string|max:255',
             'cat_id' => 'required|string|max:255',
             'type_id' => 'required|string|max:255',
@@ -310,7 +386,13 @@ class AssetsController extends Controller
         $asset->asset_model = $request->asset_model;
         $asset->asset_status = $request->asset_status;
         $asset->asset_quantity = $request->asset_quantity;
-        $asset->asset_image = $request->asset_image;
+        // Handle the image upload
+        if ($request->hasFile('asset_image')) {
+            $image = $request->file('asset_image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('assets/images'), $imageName); // Move the file to public/assets/images
+            $asset->asset_image = 'assets/images/' . $imageName; // Store relative path
+        }
         $asset->priority_id = $request->priority_id;
         $asset->cat_id = $request->cat_id;
         $asset->type_id = $request->type_id;

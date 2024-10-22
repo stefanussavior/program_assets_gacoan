@@ -15,14 +15,16 @@ class MasterUser extends Model
     // use SoftDeletes;
 
     protected $table = 'm_user';
-    protected $primaryKey = 'user_id';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
-        'user_id',
+        'id',
         'username',
         'password',
         'email',
-        'role'
+        'role',
+        'created_at',
+        'updated_at'
     ];
     
     public $timestamps = false; // Nonaktifkan pengelolaan otomatis kolom created_at dan updated_at
@@ -33,18 +35,15 @@ class MasterUser extends Model
 
         // Event ketika menambah data (creating)
         static::creating(function ($model) {
-            $model->create_date = Carbon::now(); // Mengisi create_date dengan tanggal saat ini
-            $model->create_by = Auth::user()->username ?? 'system'; // Mengisi create_by dengan username user yang login
-
-            // Menghasilkan user_id secara otomatis
-            $maxUserId = MasterUser::max('user_id'); // Ambil nilai user_id maksimum
-            $model->user_id = $maxUserId ? $maxUserId + 1 : 1; // Set user_id, mulai dari 1 jika tidak ada
+            $model->created_at = Carbon::now(); // Mengisi created_at dengan tanggal saat ini
+            // Menghasilkan id secara otomatis
+            $maxUserId = MasterUser::max('id'); // Ambil nilai id maksimum
+            $model->id = $maxUserId ? $maxUserId + 1 : 1; // Set id, mulai dari 1 jika tidak ada
         });
 
         // Event ketika mengupdate data (updating)
         static::updating(function ($model) {
-            $model->modified_date = Carbon::now(); // Mengisi modified_date dengan tanggal saat ini
-            $model->modified_by = Auth::user()->username ?? 'system'; // Mengisi modified_by dengan username user yang login
+            $model->updated_at = Carbon::now(); // Mengisi updated_at dengan tanggal saat ini
         });
     }
 }

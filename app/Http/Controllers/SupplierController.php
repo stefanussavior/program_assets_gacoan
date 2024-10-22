@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -16,11 +17,16 @@ class SupplierController extends Controller
 {
     public function Index()
     {
-        return view("Admin.supplier");
+        $suppliers = DB::table('m_supplier')->select('m_supplier.*')->paginate(10);
+
+        return view("Admin.supplier", ['suppliers' => $suppliers]);
     }
 
-    public function HalamanSupplier() {
-        return view("Admin.supplier");
+    public function HalamanSupplier() 
+    {
+        $suppliers = DB::table('m_supplier')->select('m_supplier.*')->paginate(10);
+
+        return view("Admin.supplier", ['suppliers' => $suppliers]);
     }
 
     public function getSupplier()

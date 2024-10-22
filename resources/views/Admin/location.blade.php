@@ -40,9 +40,43 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
     <link id="color" rel="stylesheet" href="{{asset('assets/css/color-1.css')}}" media="screen">
     <!-- Responsive css-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/responsive.css')}}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+      .btn-link {
+          color: #007bff;
+          text-decoration: none;
+      }
+
+      .btn-link:hover {
+          text-decoration: underline;
+      }
+
+      .disabled {
+          color: #6c757d; /* Grey color for disabled links */
+          cursor: not-allowed; /* Change cursor for disabled links */
+      }
+
+      .mt-4 {
+          margin-top: 1.5rem; /* Margin adjustment for spacing */
+      }
+
+      .mt-2 {
+          margin-top: 0.5rem; /* Margin adjustment for spacing */
+      }
+
+      .pagination-container {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+
+      .pagination-info {
+          text-align: center;
+      }
+    </style>
   </head>
   <body>
     <!-- tap on top starts-->
@@ -243,6 +277,10 @@
                                     @csrf
                                     <div class="row">
                                         <div class="col-sm-12">
+                                        <label for="loc_code">Location Code : </label>
+                                        <input type="text" name="loc_code" id="loc_code" class="form-control" placeholder="Enter Location Code" required>
+                                        </div>
+                                        <div class="col-sm-12">
                                         <label for="loc_name">Location Name : </label>
                                         <input type="text" name="loc_name" id="loc_name" class="form-control" placeholder="Enter Location Name" required>
                                         </div>
@@ -259,16 +297,20 @@
                                         <input type="text" name="loc_distric" id="loc_distric" class="form-control" placeholder="Enter Location Distric" required>
                                         </div>
                                         <div class="col-sm-12">
-                                        <label for="loc_village">Location Village : </label>
-                                        <input type="text" name="loc_village" id="loc_village" class="form-control" placeholder="Enter Location Village" required>
+                                        <label for="loc_vilage">Location Village : </label>
+                                        <input type="text" name="loc_vilage" id="loc_vilage" class="form-control" placeholder="Enter Location Village" required>
                                         </div>
                                         <div class="col-sm-12">
                                         <label for="region_id">Location Region : </label>
                                         <input type="text" name="region_id" id="region_id" class="form-control" placeholder="Enter Location Region" required>
                                         </div>
                                         <div class="col-sm-12">
-                                        <label for="loc_longtitude">Location Longtitude : </label>
-                                        <input type="text" name="loc_longtitude" id="loc_longtitude" class="form-control" placeholder="Enter Location Longtitude" required>
+                                        <label for="loc_latitude">Location Latitude : </label>
+                                        <input type="text" name="loc_latitude" id="loc_latitude" class="form-control" placeholder="Enter Location Latitude" required>
+                                        </div>
+                                        <div class="col-sm-12">
+                                        <label for="loc_longitude">Location Longitude : </label>
+                                        <input type="text" name="loc_longitude" id="loc_longitude" class="form-control" placeholder="Enter Location Longitude" required>
                                         </div>
                                     </div>
                                 </form>
@@ -297,6 +339,10 @@
                                           <div class="modal-body">
                                               <div class="row">
                                                   <div class="col-sm-12">
+                                                      <label for="loc_code">Location Code : </label>
+                                                      <input type="text" name="loc_code" id="loc_code" class="form-control" required>
+                                                  </div>
+                                                  <div class="col-sm-12">
                                                       <label for="loc_name">Location Name : </label>
                                                       <input type="text" name="loc_name" id="loc_name" class="form-control" required>
                                                   </div>
@@ -313,16 +359,20 @@
                                                       <input type="text" name="loc_distric" id="loc_distric" class="form-control" required>
                                                   </div>
                                                   <div class="col-sm-12">
-                                                      <label for="loc_village">Location Village : </label>
-                                                      <input type="text" name="loc_village" id="loc_village" class="form-control" required>
+                                                      <label for="loc_vilage">Location Village : </label>
+                                                      <input type="text" name="loc_vilage" id="loc_vilage" class="form-control" required>
                                                   </div>
                                                   <div class="col-sm-12">
                                                       <label for="region_id">Location Region : </label>
                                                       <input type="text" name="region_id" id="region_id" class="form-control" required>
                                                   </div>
                                                   <div class="col-sm-12">
-                                                      <label for="loc_longtitude">Location Longtitude : </label>
-                                                      <input type="text" name="loc_longtitude" id="loc_longtitude" class="form-control" required>
+                                                      <label for="loc_latitude">Location Latitude : </label>
+                                                      <input type="text" name="loc_latitude" id="loc_latitude" class="form-control" required>
+                                                  </div>
+                                                  <div class="col-sm-12">
+                                                      <label for="loc_longitude">Location Longitude : </label>
+                                                      <input type="text" name="loc_longitude" id="loc_longitude" class="form-control" required>
                                                   </div>
                                                   <input type="hidden" name="loc_id" id="loc_id">
                                               </div>
@@ -382,25 +432,83 @@
 
 
                     <div class="card-body">
-                      <div class="table-responsive col-lg-12">
-                          <table class="table table-bordered table-striped" id="coba" width="100%">
-                              <thead class="thead-dark">
-                                  <tr>
-                                      <th>ID Location</th>
-                                      <th>Location Name</th>
-                                      <th>Location City</th>
-                                      <th>Location Address</th>
-                                      <th>Location Distric</th>
-                                      <th>Location Village</th>
-                                      <th>Location Region</th>
-                                      <th>Location Longtitude</th>
-                                      <th>Action</th>
-                                  </tr>
-                              </thead>
-                              <tbody id="locationTableBody">
-                                  <!-- Data akan diisi dengan AJAX -->
-                              </tbody>
-                          </table>
+                      <div class="table-responsive product-table" style="max-width: 100%; overflow-x: auto;">
+                        <div class="d-flex justify-content-between mb-3 mt-3">
+                            <h5>Location Data</h5> <!-- Add a heading for the table if needed -->
+                            <!-- Search Input Field aligned to the right -->
+                            <div class="input-group" style="width: 250px;">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search for assets..." />
+                            </div>
+                        </div>
+                        <table class="table table-striped display" id="coba" style="width: 100%;">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Code Location</th>
+                                    <th>Name Location</th>
+                                    <th>City</th>
+                                    <th>Address</th>
+                                    <th>Distric</th>
+                                    <th>Vilage</th>
+                                    <th>Region</th>
+                                    <th>Latitude</th>
+                                    <th>Longitude</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($locations as $location)
+                                    <tr class="text-center">
+                                        <td>{{ $location->loc_code }}</td>
+                                        <td>{{ $location->loc_name }}</td>
+                                        <td>{{ $location->loc_city }}</td>
+                                        <td>{{ $location->loc_address }}</td>
+                                        <td>{{ $location->loc_distric }}</td>
+                                        <td>{{ $location->loc_vilage }}</td>
+                                        <td>{{ $location->region_id }}</td>
+                                        <td>{{ $location->loc_latitude }}</td>
+                                        <td>{{ $location->loc_longitude }}</td>
+                                        <td class="text-center">
+                                            <a href="javascript:void(0);" class="edit-button" data-id="{{ $location->loc_id }}" data-name="{{ $location->loc_code }}" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" class="detail-button" data-id="{{ $location->loc_id }}" data-name="{{ $location->loc_code }}" title="Detail">
+                                                <i class="fas fa-book"></i>
+                                            </a>
+                                            <form class="delete-form" action="{{ url('admin/locations/delete', $location->loc_id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="delete-button" title="Delete" style="border: none; background: none; cursor: pointer;">
+                                                    <i class="fas fa-trash-alt" style="color: red;"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center align-items-center mt-4">
+                          <div>
+                              <!-- Previous Button -->
+                              @if ($locations->onFirstPage())
+                                  <span class="disabled"><< Previous</span>
+                              @else
+                                  <a href="{{ $locations->previousPageUrl() }}" class="btn btn-link"><< Previous</a>
+                              @endif
+                          </div>
+                          <div>
+                              <!-- Next Button -->
+                              @if ($locations->hasMorePages())
+                                  <a href="{{ $locations->nextPageUrl() }}" class="btn btn-link">Next >></a>
+                              @else
+                                  <span class="disabled">Next >></span>
+                              @endif
+                          </div>
+                        </div>
+                      
+                        <!-- Display current page and total pages -->
+                        <div class="d-flex justify-content-center mt-2">
+                            <span>Page {{ $locations->currentPage() }} of {{ $locations->lastPage() }}</span>
+                        </div>
                       </div>
                   </div>
                 </div>
@@ -488,13 +596,15 @@
                         rows += `
                             <tr>
                                 <td>${location.loc_id}</td> <!-- Tampilkan ID location -->
+                                <td>${location.loc_code}</td> <!-- Tampilkan Nama location -->
                                 <td>${location.loc_name}</td> <!-- Tampilkan Nama location -->
                                 <td>${location.loc_city}</td> <!-- Tampilkan Nama location -->
                                 <td>${location.loc_address}</td> <!-- Tampilkan Nama location -->
                                 <td>${location.loc_distric}</td> <!-- Tampilkan Nama location -->
-                                <td>${location.loc_village}</td> <!-- Tampilkan Nama location -->
+                                <td>${location.loc_vilage}</td> <!-- Tampilkan Nama location -->
                                 <td>${location.region_id}</td> <!-- Tampilkan Nama location -->
-                                <td>${location.loc_longtitude}</td> <!-- Tampilkan Nama location -->
+                                <td>${location.loc_latitude}</td> <!-- Tampilkan Nama location -->
+                                <td>${location.loc_longitude}</td> <!-- Tampilkan Nama location -->
                                 <td>
                                 <a href="javascript:void(0);" class="edit-button" data-id="${location.loc_id}" data-name="${location.loc_name}" title="Edit">
                                     <i class="fas fa-edit"></i>
@@ -523,29 +633,51 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
+        // Get the CSRF token from the meta tag
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
             $('#saveLocationButton').click(function (e) {
                 e.preventDefault();
 
                 // Ambil data form
+                var locationCode = $('#loc_code').val();
                 var locationName = $('#loc_name').val();
-
-                // Validasi jika diperlukan
-                if (locationName === '') {
-                    alert('Location Name is required');
-                    return;
-                }
+                var locationCity = $('#loc_city').val();
+                var locationAddress = $('#loc_address').val();
+                var locationDistric = $('#loc_distric').val();
+                var locationVillage = $('#loc_vilage').val();
+                var regionId = $('#region_id').val();
+                var locationLatitude = $('#loc_latitude').val();
+                var locationLongitude = $('#loc_longitude').val();
 
                 // Kirimkan data menggunakan Ajax
                 $.ajax({
-                    url: '/admin/locations/edit/' + $('#loc_id').val(), // Pastikan ini adalah URL yang benar
-                    method: 'PUT', // Pastikan ini menggunakan metode PUT
-                    data: $(this).serialize(), // Kirim data dari form
-                    success: function(response) {
-                        $('#updateModal').modal('hide'); // Sembunyikan modal
-                            $('#addDataLocation').modal('hide');
-                            window.location.href = response.redirect_url;
-                        location.reload(); // Refresh halaman
-                    },
+                    url: '/add-location' + $('#loc_id').val(), // Pastikan ini adalah URL yang benar
+                    method: 'POST', // Pastikan ini menggunakan metode PUT
+                    data: {
+                    loc_code: locationCode,
+                    loc_name: locationName,
+                    loc_city: locationCity,
+                    loc_address: locationAddress,
+                    loc_distric: locationDistric,
+                    loc_vilage: locationVillage,
+                    region_id: regionId,
+                    loc_latitude: locationLatitude,
+                    loc_longitude: locationLongitude,
+                }, // Kirim data dari form
+                success: function(response) {
+                      console.log(response);
+                      // Cek apakah response berisi error atau success
+                      if (response.status === 'success') {
+                          $('#addDataLocation').modal('hide');
+                          window.location.href = response.redirect_url;
+                      } else {
+                          alert(response.message);
+                      }
+                  },
                     error: function(jqXHR) {
                         const message = jqXHR.responseJSON?.message || 'Failed to update Location.';
                         alert(message); // Tampilkan pesan kesalahan
@@ -559,23 +691,27 @@
     <script>
         $(document).on('click', '.edit-button', function() {
             const locationId = $(this).data('id'); // Ambil loc_id dari atribut data
+            const locationCode = $(this).data('code'); // Ambil loc_name dari atribut data
             const locationName = $(this).data('name'); // Ambil loc_name dari atribut data
             const locationCity = $(this).data('city'); // Ambil loc_name dari atribut data
             const locationAddress = $(this).data('address'); // Ambil loc_name dari atribut data
             const locationDistric = $(this).data('distric'); // Ambil loc_name dari atribut data
             const locationregion = $(this).data('region'); // Ambil loc_name dari atribut data
             const locationVillage = $(this).data('village'); // Ambil loc_name dari atribut data
-            const locationLongtitude = $(this).data('longtitude'); // Ambil loc_name dari atribut data
+            const locationLatitude = $(this).data('latitude'); // Ambil loc_name dari atribut data
+            const locationLongitude = $(this).data('longitude'); // Ambil loc_name dari atribut data
 
             // Isi input dengan data
             $('#loc_id').val(locationId);
+            $('#loc_code').val(locatioCode);
             $('#loc_name').val(locationName);
             $('#loc_city').val(locationCity);
             $('#loc_address').val(locationAddress);
             $('#loc_distric').val(locationDistric);
             $('#region_id').val(locationRegion);
-            $('#loc_village').val(locationVillage);
-            $('#loc_longtitude').val(locationLongtitude);
+            $('#loc_vilage').val(locationVillage);
+            $('#loc_latitude').val(locationLatitude);
+            $('#loc_longitude').val(locationLongitude);
 
             // Tampilkan modal
             $('#updateModal').modal('show');
@@ -631,6 +767,34 @@
         }
     });
     </script>
+    
+    <script>
+      // JavaScript for searching/filtering the table rows
+      document.getElementById('searchInput').addEventListener('keyup', function() {
+          var input, filter, table, tr, td, i, j, txtValue;
+          input = document.getElementById('searchInput');
+          filter = input.value.toLowerCase();
+          table = document.getElementById('coba');
+          tr = table.getElementsByTagName('tr');
+          
+          // Loop through all table rows, and hide those who don't match the search query
+          for (i = 1; i < tr.length; i++) { // Start from 1 to skip table header
+              tr[i].style.display = "none"; // Hide the row initially
+              
+              // Loop through all columns in the row
+              for (j = 0; j < tr[i].getElementsByTagName('td').length; j++) {
+                  td = tr[i].getElementsByTagName('td')[j];
+                  if (td) {
+                      txtValue = td.textContent || td.innerText;
+                      if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                          tr[i].style.display = ""; // Show the row if match is found
+                          break; // Exit loop once a match is found
+                      }
+                  }
+              }
+          }
+      });
+  </script>
     <!-- login js-->
     <!-- Plugin used-->
   </body>

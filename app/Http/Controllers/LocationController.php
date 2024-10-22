@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -16,11 +17,16 @@ class LocationController extends Controller
 {
     public function Index()
     {
-        return view("Admin.location");
+        $layouts = DB::table('m_layout')->select('m_layout.*')->paginate(10);
+
+        return view("Admin.layout", ['layouts' => $layouts]);
     }
 
-    public function HalamanLocation() {
-        return view("Admin.location");
+    public function HalamanLocation() 
+    {
+        $layouts = DB::table('m_layout')->select('m_layout.*')->paginate(10);
+
+        return view("Admin.layout", ['layouts' => $layouts]);
     }
 
     public function getLocation()
@@ -34,30 +40,34 @@ class LocationController extends Controller
     {
         // Validasi data yang dikirimkan
         $request->validate([
+            'loc_code' => 'required|string|max:255',
             'loc_name' => 'required|string|max:255',
             'loc_city' => 'required|string|max:255',
             'loc_address' => 'required|string|max:255',
             'loc_distric' => 'required|string|max:255',
-            'loc_village' => 'required|string|max:255',
+            'loc_vilage' => 'required|string|max:255',
             'region_id' => 'required|string|max:255',
-            'loc_longtitude' => 'required|string|max:255',
+            'loc_latitude' => 'required|string|max:255',
+            'loc_longitude' => 'required|string|max:255',
         ]);
 
         try {
             // Buat instance dari model MasterLocation
             $location = new MasterLocation();
+            $location->loc_code = $request->input('loc_code');
             $location->loc_name = $request->input('loc_name');
             $location->loc_city = $request->input('loc_city');
             $location->loc_address = $request->input('loc_address');
             $location->loc_distric = $request->input('loc_distric');
-            $location->loc_village = $request->input('loc_village');
+            $location->loc_vilage = $request->input('loc_vilage');
             $location->region_id = $request->input('region_id');
-            $location->loc_longtitude = $request->input('loc_longtitude');
+            $location->loc_latitude = $request->input('loc_latitude');
+            $location->loc_longitude = $request->input('loc_longitude');
             $location->create_by = Auth::user()->username; // Mengambil username yang sedang login
             
-            // Menghasilkan location_id secara otomatis
-            $maxLocationId = MasterLocation::max('location_id'); // Ambil nilai location_id maksimum
-            $location->location_id = $maxLocationId ? $maxLocationId + 1 : 1; // Set location_id, mulai dari 1 jika tidak ada
+            // Menghasilkan loc_id secara otomatis
+            $maxLocationId = MasterLocation::max('loc_id'); // Ambil nilai loc_id maksimum
+            $location->loc_id = $maxLocationId ? $maxLocationId + 1 : 1; // Set loc_id, mulai dari 1 jika tidak ada
             
             $location->create_date = Carbon::now(); // Mengisi create_date dengan tanggal saat ini
             $location->save(); // Simpan data
@@ -106,13 +116,15 @@ class LocationController extends Controller
     {
         // Validasi input
         $request->validate([
+            'loc_code' => 'required|string|max:255',
             'loc_name' => 'required|string|max:255',
             'loc_city' => 'required|string|max:255',
             'loc_address' => 'required|string|max:255',
             'loc_distric' => 'required|string|max:255',
-            'loc_village' => 'required|string|max:255',
+            'loc_vilage' => 'required|string|max:255',
             'region_id' => 'required|string|max:255',
-            'loc_longtitude' => 'required|string|max:255',
+            'loc_latitude' => 'required|string|max:255',
+            'loc_longitude' => 'required|string|max:255',
         ]);
 
         // Cek apakah location dengan id yang benar ada
@@ -123,13 +135,15 @@ class LocationController extends Controller
         }
 
         // Update data location
+        $location->loc_code = $request->loc_code;
         $location->loc_name = $request->loc_name;
         $location->loc_city = $request->loc_city;
         $location->loc_address = $request->loc_address;
         $location->loc_distric = $request->loc_distric;
-        $location->loc_village = $request->loc_village;
+        $location->loc_vilage = $request->loc_vilage;
         $location->region_id = $request->region_id;
-        $location->loc_longtitude = $request->loc_longtitude;
+        $location->loc_latitude = $request->loc_latitude;
+        $location->loc_longitude = $request->loc_longitude;
         
         if ($location->save()) { // Menggunakan save() yang lebih aman daripada update()
             return response()->json([
@@ -161,7 +175,7 @@ class LocationController extends Controller
 
     public function details($LocationId)
     {
-        $location = MasterLocation::where('location_id', $LocationId)->first();
+        $location = MasterLocation::where('loc_id', $LocationId)->first();
 
         if (!$location) {
             abort(404, 'location not found');

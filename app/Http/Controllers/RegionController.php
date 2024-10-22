@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -16,11 +17,16 @@ class RegionController extends Controller
 {
     public function Index()
     {
-        return view("Admin.region");
+        $regions = DB::table('m_region')->select('m_region.*')->paginate(10);
+
+        return view("Admin.region", ['regions' => $regions]);
     }
 
-    public function HalamanRegion() {
-        return view("Admin.region");
+    public function HalamanRegion() 
+    {
+        $regions = DB::table('m_region')->select('m_region.*')->paginate(10);
+
+        return view("Admin.region", ['regions' => $regions]);
     }
 
     public function getRegion()

@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -16,11 +17,16 @@ class DivisionController extends Controller
 {
     public function Index()
     {
-        return view("Admin.division");
+        $divisions = DB::table('m_division')->select('m_division.*')->paginate(10);
+
+        return view("Admin.division", ['divisions' => $divisions]);
     }
 
-    public function HalamanDivision() {
-        return view("Admin.division");
+    public function HalamanDivision() 
+    {
+        $divisions = DB::table('m_division')->select('m_division.*')->paginate(10);
+
+        return view("Admin.division", ['divisions' => $divisions]);
     }
 
     public function getDivision()

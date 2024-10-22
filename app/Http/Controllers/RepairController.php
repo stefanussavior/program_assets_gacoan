@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -16,11 +17,16 @@ class RepairController extends Controller
 {
     public function Index()
     {
-        return view("Admin.repair");
+        $repairs = DB::table('m_repair')->select('m_repair.*')->paginate(10);
+
+        return view("Admin.repair", ['repairs' => $repairs]);
     }
 
-    public function HalamanRepair() {
-        return view("Admin.repair");
+    public function HalamanRepair() 
+    {
+        $repairs = DB::table('m_repair')->select('m_repair.*')->paginate(10);
+
+        return view("Admin.repair", ['repairs' => $repairs]);
     }
 
     public function getRepair()

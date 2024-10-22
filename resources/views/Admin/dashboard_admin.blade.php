@@ -11,6 +11,7 @@
     <link rel="shortcut icon" href="{{asset('assets/images/favicon/favicon.png')}}" type="image/x-icon">
     <title>ASMI - Asset System Management Integration</title>
     <!-- Google font-->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&amp;display=swap" rel="stylesheet">
@@ -40,6 +41,39 @@
     <link id="color" rel="stylesheet" href="{{asset('assets/css/color-1.css')}}" media="screen">
     <!-- Responsive css-->
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/responsive.css')}}">
+    <style>
+      * {
+  box-sizing: border-box;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 30px;
+  text-align: left;
+  gap: 25rem;
+  padding-left: 8rem;
+}
+
+.flex-item-left {
+  background-color: #f1f1f1;
+  padding: 50px;
+  flex: 50%;
+}
+
+.flex-item-right {
+  background-color: dodgerblue;
+  padding: 10px;
+  flex: 50%;
+}
+
+/* Responsive layout - makes a one column-layout instead of a two-column layout */
+@media (max-width: 800px) {
+  .flex-item-right, .flex-item-left {
+    flex: 100%;
+  }
+}
+    </style>
   </head>
   <body>
     <!-- tap on top starts-->
@@ -137,17 +171,30 @@
               <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
               <li class="profile-nav onhover-dropdown p-0 me-0">
                 <div class="d-flex profile-media"><img class="b-r-50" src="{{asset('assets/images/dashboard/profile.jpg')}}">
-                  <?php $session = session(); ?>
-                  <div class="flex-grow-1"><span>{{ Auth::user()->username }}</span>
-                    <p class="mb-0 font-roboto">{{ Auth::user()->role}}<i class="middle fa fa-angle-down"></i></p>
-                  </div>
+                @if (Auth::check())
+            <div class="flex-grow-1">
+                <span>{{ Auth::user()->username }}</span>
+                <p class="mb-0 font-roboto">{{ session('role') ?? Auth::user()->role }} <i class="middle fa fa-angle-down"></i></p>
+            </div>
+        @else
+            <div class="flex-grow-1">
+                <span>Guest</span>
+                <p class="mb-0 font-roboto">No role <i class="middle fa fa-angle-down"></i></p>
+            </div>
+        @endif
+
                   
                 </div>
                 <ul class="profile-dropdown onhover-show-div">
                   <li><a href="user-profile.html"><i data-feather="user"></i><span>Account </span></a></li>
                   <!-- <li><a href="email_inbox.html"><i data-feather="mail"></i><span>Inbox</span></a></li>
                   <li><a href="kanban.html"><i data-feather="file-text"></i><span>Taskboard</span></a></li> -->
-                  <li><a href="/logout"><i data-feather="log-out"> </i><span>Log Out</span></a></li>
+                  <li><a href="{{ route('logout') }}" onclick="event.preventDefault();
+                      document.getElementById('logout-form').submit();">
+                      <i data-feather="log-out"></i><span>Log Out</span></a></li>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                 </ul>
               </li>
             </ul>
@@ -171,8 +218,9 @@
         <!-- Page Sidebar Ends-->
         <div class="page-body">
           <!-- Container-fluid starts-->
-            <h2>Dashboard</h2>
-            <div class="column">
+          <h2>Dashboard</h2>
+          <br>
+          <div class="flex-container">
               <div class="total_asset">
                 <h4>Total Asset</h4>
               </div>
@@ -182,6 +230,7 @@
               <div class="good_asset">
                 <h4>Good Asset</h4>
               </div>
+           
             </div>
         </div>
         <!-- footer start-->

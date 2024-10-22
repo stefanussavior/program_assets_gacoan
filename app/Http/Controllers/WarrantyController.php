@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -16,11 +17,16 @@ class WarrantyController extends Controller
 {
     public function Index()
     {
-        return view("Admin.warranty");
+        $warrantys = DB::table('m_warranty')->select('m_warranty.*')->paginate(10);
+
+        return view("Admin.warranty", ['warrantys' => $warrantys]);
     }
 
-    public function HalamanWarranty() {
-        return view("Admin.warranty");
+    public function HalamanWarranty() 
+    {
+        $warrantys = DB::table('m_warranty')->select('m_warranty.*')->paginate(10);
+
+        return view("Admin.warranty", ['warrantys' => $warrantys]);
     }
 
     public function getWarranty()

@@ -13,7 +13,7 @@ class MasterMtc extends Model
     use HasFactory;
     // use SoftDeletes;
 
-    protected $table = 'mc_mtc';
+    protected $table = 'm_mtc';
     protected $primaryKey = 'mtc_id';
     
     protected $fillable = [

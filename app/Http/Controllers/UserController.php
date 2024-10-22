@@ -148,6 +148,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -155,11 +156,16 @@ class UserController extends Controller
 {
     public function Index()
     {
-        return view("Admin.user");
+        $users = DB::table('m_user')->select('m_user.*')->paginate(10);
+
+        return view("Admin.user", ['users' => $users]);
     }
 
-    public function HalamanUser() {
-        return view("Admin.user");
+    public function HalamanUser() 
+    {
+        $users = DB::table('m_user')->select('m_user.*')->paginate(10);
+
+        return view("Admin.user", ['users' => $users]);
     }
 
     public function getUser()
@@ -173,22 +179,23 @@ class UserController extends Controller
     {
         // Validasi data yang dikirimkan
         $request->validate([
-            'email' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
             'password' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
         ]);
 
         try {
             // Buat instance dari model MasterUser
             $user = new MasterUser();
+            $user->username = $request->input('username');
+            $user->password = md5($request->input('password'));
             $user->email = $request->input('email');
-            $user->password = $request->input('password');
-            $user->create_by = Auth::user()->email; // Mengambil email yang sedang login
+            $user->role = 'User';
+            // Menghasilkan id secara otomatis
+            $maxUserId = MasterUser::max('id'); // Ambil nilai id maksimum
+            $user->id = $maxUserId ? $maxUserId + 1 : 1; // Set id, mulai dari 1 jika tidak ada
             
-            // Menghasilkan user_id secara otomatis
-            $maxUserId = MasterUser::max('user_id'); // Ambil nilai user_id maksimum
-            $user->user_id = $maxUserId ? $maxUserId + 1 : 1; // Set user_id, mulai dari 1 jika tidak ada
-            
-            $user->create_date = Carbon::now(); // Mengisi create_date dengan tanggal saat ini
+            $user->created_at = Carbon::now(); // Mengisi created_at dengan tanggal saat ini
             $user->save(); // Simpan data
 
             return response()->json([
@@ -235,8 +242,9 @@ class UserController extends Controller
     {
         // Validasi input
         $request->validate([
-            'email' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
             'password' => 'required|string|max:255',
+            'email' => 'required|string|max:255',
         ]);
 
         // Cek apakah user dengan id yang benar ada
@@ -248,7 +256,8 @@ class UserController extends Controller
 
         // Update data user
         $user->email = $request->email;
-        $user->password = $request->password;
+        $user->username = $request->username;
+        $user->password = md5($request->password);
         
         if ($user->save()) { // Menggunakan save() yang lebih aman daripada update()
             return response()->json([
@@ -280,7 +289,7 @@ class UserController extends Controller
 
     public function details($UserId)
     {
-        $user = MasterUser::where('user_id', $UserId)->first();
+        $user = MasterUser::where('id', $UserId)->first();
 
         if (!$user) {
             abort(404, 'user not found');

@@ -12,14 +12,15 @@ class MasterCondition extends Model
     use HasFactory;
     
     protected $table = 'm_condition';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'condition_id';
     
     protected $fillable = [
-        'id',
+        'condition_id',
         'condition_name',
         'create_date',
         'modified_date',
-        'created_by',
+        'modified_by',
+        'create_by',
         'is_active',
         'deleted_at'
     ];
@@ -33,10 +34,10 @@ class MasterCondition extends Model
         static::creating(function ($model) {
             $model->create_date = Carbon::now(); // Mengisi create_date dengan tanggal saat ini
             $model->create_by = Auth::user()->username ?? 'system'; // Mengisi create_by dengan username user yang login
-
+            $model->modified_by = null; 
             // Menghasilkan id secara otomatis
-            $maxConditionId = MasterCondition::max('id'); // Ambil nilai id maksimum
-            $model->id = $maxConditionId ? $maxConditionId + 1 : 1; // Set id, mulai dari 1 jika tidak ada
+            $maxConditionId = MasterCondition::max('condition_id'); // Ambil nilai id maksimum
+            $model->condition_id = $maxConditionId ? $maxConditionId + 1 : 1; // Set id, mulai dari 1 jika tidak ada
         });
 
         // Event ketika mengupdate data (updating)

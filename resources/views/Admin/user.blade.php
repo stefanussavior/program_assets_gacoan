@@ -239,19 +239,30 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form id="addUserForm" enctype="multipart/form-data">
-                                    @csrf
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                        <label for="username">Username : </label>
+                              <form id="addUserForm" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <label for="username">Username:</label>
                                         <input type="text" name="username" id="username" class="form-control" placeholder="Enter Username" required>
-                                        </div>
-                                        <div class="col-sm-12">
-                                        <label for="password">Password : </label>
-                                        <input type="text" name="password" id="password" class="form-control" placeholder="Enter Password" required>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label for="password">Password:</label>
+                                        <div class="input-group">
+                                            <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
+                                            <div class="input-group-append">
+                                                <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                                    <i class="fas fa-eye"></i> <!-- Icon for visibility toggle -->
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </form>
+                                    <div class="col-sm-12">
+                                        <label for="email">Email:</label>
+                                        <input type="email" name="email" id="email" class="form-control" placeholder="Enter email" required>
+                                    </div>
+                                </div>
+                            </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -272,26 +283,37 @@
                                           </button>
                                       </div>
                                       <form id="updateForm">
-                                          @csrf
-                                          @method('PUT') <!-- Method override untuk PUT -->
-                                          <div class="modal-body">
-                                              <div class="row">
-                                                  <div class="col-sm-12">
-                                                      <label for="username">Username : </label>
-                                                      <input type="text" name="username" id="username" class="form-control" required>
-                                                  </div>
-                                                  <div class="col-sm-12">
-                                                      <label for="password">Password : </label>
-                                                      <input type="text" name="password" id="password" class="form-control" required>
-                                                  </div>
-                                                  <input type="hidden" name="user_id" id="user_id">
-                                              </div>
-                                          </div>
-                                          <div class="modal-footer">
-                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                              <button type="submit" class="btn btn-primary">Save changes</button>
-                                          </div>
-                                      </form>
+                                        @csrf
+                                        @method('PUT') <!-- Method override untuk PUT -->
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <label for="username">Username:</label>
+                                                    <input type="text" name="username" id="username" class="form-control" required>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <label for="password">Password:</label>
+                                                    <div class="input-group">
+                                                        <input type="password" name="password" id="password" class="form-control" required>
+                                                        <div class="input-group-append">
+                                                            <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                                                <i class="fas fa-eye"></i> <!-- Icon for visibility toggle -->
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-12">
+                                                    <label for="email">Email:</label>
+                                                    <input type="email" name="email" id="email" class="form-control" required>
+                                                </div>
+                                                <input type="hidden" name="id" id="id">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </form>
                                   </div>
                               </div>
                           </div>
@@ -342,20 +364,69 @@
 
 
                     <div class="card-body">
-                      <div class="table-responsive col-lg-12">
-                          <table class="table table-bordered table-striped" id="coba" width="100%">
-                              <thead class="thead-dark">
-                                  <tr>
-                                      <th>ID User</th>
-                                      <th>UserName</th>
-                                      <th>Password</th>
-                                      <th>Action</th>
-                                  </tr>
-                              </thead>
-                              <tbody id="userTableBody">
-                                  <!-- Data akan diisi dengan AJAX -->
-                              </tbody>
-                          </table>
+                      <div class="table-responsive product-table" style="max-width: 100%; overflow-x: auto;">
+                        <div class="d-flex justify-content-between mb-3 mt-3">
+                            <h5>User Data</h5> <!-- Add a heading for the table if needed -->
+                            <!-- Search Input Field aligned to the right -->
+                            <div class="input-group" style="width: 250px;">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search for assets..." />
+                            </div>
+                        </div>
+                        <table class="table table-striped display" id="coba" style="width: 100%;">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Username</th>
+                                    <th>Password</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($users as $user)
+                                    <tr class="text-center">
+                                        <td>{{ $user->username }}</td>
+                                        <td>{{ $user->password }}</td>
+                                        <td class="text-center">
+                                            <a href="javascript:void(0);" class="edit-button" data-id="{{ $user->id }}" data-name="{{ $user->username }}" data-password="{{ $user->password }}" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" class="detail-button" data-id="{{ $user->id }}" data-name="{{ $user->username }}" title="Detail">
+                                                <i class="fas fa-book"></i>
+                                            </a>
+                                            <form class="delete-form" action="{{ url('admin/users/delete', $user->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="delete-button" title="Delete" style="border: none; background: none; cursor: pointer;">
+                                                    <i class="fas fa-trash-alt" style="color: red;"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center align-items-center mt-4">
+                          <div>
+                              <!-- Previous Button -->
+                              @if ($users->onFirstPage())
+                                  <span class="disabled"><< Previous</span>
+                              @else
+                                  <a href="{{ $users->previousPageUrl() }}" class="btn btn-link"><< Previous</a>
+                              @endif
+                          </div>
+                          <div>
+                              <!-- Next Button -->
+                              @if ($users->hasMorePages())
+                                  <a href="{{ $users->nextPageUrl() }}" class="btn btn-link">Next >></a>
+                              @else
+                                  <span class="disabled">Next >></span>
+                              @endif
+                          </div>
+                        </div>
+                      
+                        <!-- Display current page and total pages -->
+                        <div class="d-flex justify-content-center mt-2">
+                            <span>Page {{ $users->currentPage() }} of {{ $users->lastPage() }}</span>
+                        </div>
                       </div>
                   </div>
                 </div>
@@ -442,14 +513,14 @@
                     data.forEach(function(user) {
                         rows += `
                             <tr>
-                                <td>${user.user_id}</td> <!-- Tampilkan ID user -->
+                                <td>${user.id}</td> <!-- Tampilkan ID user -->
                                 <td>${user.username}</td> <!-- Tampilkan Nama user -->
                                 <td>${user.password}</td> <!-- Tampilkan Nama user -->
                                 <td>
-                                <a href="javascript:void(0);" class="edit-button" data-id="${user.user_id}" data-name="${user.username}" title="Edit">
+                                <a href="javascript:void(0);" class="edit-button" data-id="${user.id}" data-name="${user.username}" title="Edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form class="delete-form" action="{{ url('admin/users/delete') }}/${user.user_id}" method="POST" style="display:inline;">
+                                <form class="delete-form" action="{{ url('admin/users/delete') }}/${user.id}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="button" class="delete-button" title="Delete" style="border: none; background: none; cursor: pointer;">
@@ -473,30 +544,39 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
+        // Get the CSRF token from the meta tag
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
             $('#saveUserButton').click(function (e) {
                 e.preventDefault();
 
                 // Ambil data form
                 var username = $('#username').val();
+                var email = $('#email').val();
                 var password = $('#password').val();
-
-                // Validasi jika diperlukan
-                if (username === '') {
-                    alert('User Name is required');
-                    return;
-                }
 
                 // Kirimkan data menggunakan Ajax
                 $.ajax({
-                    url: '/admin/users/edit/' + $('#user_id').val(), // Pastikan ini adalah URL yang benar
-                    method: 'PUT', // Pastikan ini menggunakan metode PUT
-                    data: $(this).serialize(), // Kirim data dari form
-                    success: function(response) {
-                        $('#updateModal').modal('hide'); // Sembunyikan modal
-                            $('#addDataUser').modal('hide');
-                            window.location.href = response.redirect_url;
-                        location.reload(); // Refresh halaman
-                    },
+                    url: '/add-user', // Pastikan ini adalah URL yang benar
+                    method: 'POST', // Pastikan ini menggunakan metode PUT
+                    data: {
+                    username: username,
+                    email: email,
+                    password: password
+                }, // Kirim data dari form
+                success: function(response) {
+                      console.log(response);
+                      // Cek apakah response berisi error atau success
+                      if (response.status === 'success') {
+                          $('#addDataUser').modal('hide');
+                          window.location.href = response.redirect_url;
+                      } else {
+                          alert(response.message);
+                      }
+                  },
                     error: function(jqXHR) {
                         const message = jqXHR.responseJSON?.message || 'Failed to update User.';
                         alert(message); // Tampilkan pesan kesalahan
@@ -509,12 +589,12 @@
     {{-- Update Data User --}}
     <script>
         $(document).on('click', '.edit-button', function() {
-            const userId = $(this).data('id'); // Ambil user_id dari atribut data
+            const userId = $(this).data('id'); // Ambil id dari atribut data
             const username = $(this).data('name'); // Ambil username dari atribut data
             const password = $(this).data('password'); // Ambil username dari atribut data
 
             // Isi input dengan data
-            $('#user_id').val(userId);
+            $('#id').val(userId);
             $('#username').val(username);
             $('#password').val(password);
 
@@ -527,7 +607,7 @@
             e.preventDefault(); // Cegah form reload halaman
 
             $.ajax({
-                url: '/admin/users/edit/' + $('#user_id').val(),
+                url: '/admin/users/edit/' + $('#id').val(),
                 method: 'PUT', // Menggunakan PUT untuk memperbarui data
                 data: $(this).serialize(), // Serialisasi data form untuk dikirim
                 success: function(response) {
@@ -572,6 +652,51 @@
         }
     });
     </script>
+    
+    <script>
+      // JavaScript for searching/filtering the table rows
+      document.getElementById('searchInput').addEventListener('keyup', function() {
+          var input, filter, table, tr, td, i, j, txtValue;
+          input = document.getElementById('searchInput');
+          filter = input.value.toLowerCase();
+          table = document.getElementById('coba');
+          tr = table.getElementsByTagName('tr');
+          
+          // Loop through all table rows, and hide those who don't match the search query
+          for (i = 1; i < tr.length; i++) { // Start from 1 to skip table header
+              tr[i].style.display = "none"; // Hide the row initially
+              
+              // Loop through all columns in the row
+              for (j = 0; j < tr[i].getElementsByTagName('td').length; j++) {
+                  td = tr[i].getElementsByTagName('td')[j];
+                  if (td) {
+                      txtValue = td.textContent || td.innerText;
+                      if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                          tr[i].style.display = ""; // Show the row if match is found
+                          break; // Exit loop once a match is found
+                      }
+                  }
+              }
+          }
+      });
+  </script>
+  <script>
+    $(document).ready(function() {
+    $('#togglePassword').click(function() {
+        const passwordField = $('#password');
+        const passwordFieldType = passwordField.attr('type');
+        const icon = $(this).find('i');
+
+        if (passwordFieldType === 'password') {
+            passwordField.attr('type', 'text'); // Show the password
+            icon.removeClass('fa-eye').addClass('fa-eye-slash'); // Change icon to eye-slash
+        } else {
+            passwordField.attr('type', 'password'); // Hide the password
+            icon.removeClass('fa-eye-slash').addClass('fa-eye'); // Change icon to eye
+        }
+    });
+});
+  </script>
     <!-- login js-->
     <!-- Plugin used-->
   </body>

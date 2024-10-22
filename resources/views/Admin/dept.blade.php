@@ -40,9 +40,43 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
     <link id="color" rel="stylesheet" href="{{asset('assets/css/color-1.css')}}" media="screen">
     <!-- Responsive css-->
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/responsive.css')}}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+      .btn-link {
+          color: #007bff;
+          text-decoration: none;
+      }
+
+      .btn-link:hover {
+          text-decoration: underline;
+      }
+
+      .disabled {
+          color: #6c757d; /* Grey color for disabled links */
+          cursor: not-allowed; /* Change cursor for disabled links */
+      }
+
+      .mt-4 {
+          margin-top: 1.5rem; /* Margin adjustment for spacing */
+      }
+
+      .mt-2 {
+          margin-top: 0.5rem; /* Margin adjustment for spacing */
+      }
+
+      .pagination-container {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+      }
+
+      .pagination-info {
+          text-align: center;
+      }
+    </style>
   </head>
   <body>
     <!-- tap on top starts-->
@@ -334,19 +368,67 @@
 
 
                     <div class="card-body">
-                      <div class="table-responsive col-lg-12">
-                          <table class="table table-bordered table-striped" id="coba" width="100%">
-                              <thead class="thead-dark">
-                                  <tr>
-                                      <th>ID Departement</th>
-                                      <th>Departement Name</th>
-                                      <th>Action</th>
-                                  </tr>
-                              </thead>
-                              <tbody id="deptTableBody">
-                                  <!-- Data akan diisi dengan AJAX -->
-                              </tbody>
-                          </table>
+                      <div class="table-responsive product-table" style="max-width: 100%; overflow-x: auto;">
+                        <div class="d-flex justify-content-between mb-3 mt-3">
+                            <h5>Departmen Data</h5> <!-- Add a heading for the table if needed -->
+                            <!-- Search Input Field aligned to the right -->
+                            <div class="input-group" style="width: 250px;">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search for assets..." />
+                            </div>
+                        </div>
+                        <table class="table table-striped display" id="coba" style="width: 100%;">
+                            <thead>
+                                <tr class="text-center">
+                                    <th>Nama Departmen</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($depts as $dept)
+                                    <tr>
+                                        <td>{{ $dept->dept_name }}</td>
+                                        <td class="text-center">
+                                            <a href="javascript:void(0);" class="edit-button" data-id="{{ $dept->dept_id }}" data-name="{{ $dept->dept_name }}" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="javascript:void(0);" class="detail-button" data-id="{{ $dept->dept_id }}" data-name="{{ $dept->dept_name }}" title="Detail">
+                                                <i class="fas fa-book"></i>
+                                            </a>
+                                            <form class="delete-form" action="{{ url('admin/depts/delete', $dept->dept_id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="delete-button" title="Delete" style="border: none; background: none; cursor: pointer;">
+                                                    <i class="fas fa-trash-alt" style="color: red;"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-center align-items-center mt-4">
+                          <div>
+                              <!-- Previous Button -->
+                              @if ($depts->onFirstPage())
+                                  <span class="disabled"><< Previous</span>
+                              @else
+                                  <a href="{{ $depts->previousPageUrl() }}" class="btn btn-link"><< Previous</a>
+                              @endif
+                          </div>
+                          <div>
+                              <!-- Next Button -->
+                              @if ($depts->hasMorePages())
+                                  <a href="{{ $depts->nextPageUrl() }}" class="btn btn-link">Next >></a>
+                              @else
+                                  <span class="disabled">Next >></span>
+                              @endif
+                          </div>
+                        </div>
+                      
+                        <!-- Display current page and total pages -->
+                        <div class="d-flex justify-content-center mt-2">
+                            <span>Page {{ $depts->currentPage() }} of {{ $depts->lastPage() }}</span>
+                        </div>
                       </div>
                   </div>
                 </div>
@@ -463,29 +545,35 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
+        // Get the CSRF token from the meta tag
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
             $('#saveDeptButton').click(function (e) {
                 e.preventDefault();
 
                 // Ambil data form
                 var deptName = $('#dept_name').val();
 
-                // Validasi jika diperlukan
-                if (deptName === '') {
-                    alert('Dept Name is required');
-                    return;
-                }
-
                 // Kirimkan data menggunakan Ajax
                 $.ajax({
-                    url: '/admin/depts/edit/' + $('#dept_id').val(), // Pastikan ini adalah URL yang benar
-                    method: 'PUT', // Pastikan ini menggunakan metode PUT
-                    data: $(this).serialize(), // Kirim data dari form
-                    success: function(response) {
-                        $('#updateModal').modal('hide'); // Sembunyikan modal
-                            $('#addDataDept').modal('hide');
-                            window.location.href = response.redirect_url;
-                        location.reload(); // Refresh halaman
-                    },
+                    url: '/add-dept' + $('#dept_id').val(), // Pastikan ini adalah URL yang benar
+                    method: 'POST', // Pastikan ini menggunakan metode PUT
+                    data: {
+                    dept_name: deptName
+                }, // Kirim data dari form
+                success: function(response) {
+                      console.log(response);
+                      // Cek apakah response berisi error atau success
+                      if (response.status === 'success') {
+                          $('#addDataDept').modal('hide');
+                          window.location.href = response.redirect_url;
+                      } else {
+                          alert(response.message);
+                      }
+                  },
                     error: function(jqXHR) {
                         const message = jqXHR.responseJSON?.message || 'Failed to update Dept.';
                         alert(message); // Tampilkan pesan kesalahan
@@ -559,6 +647,34 @@
         }
     });
     </script>
+    
+    <script>
+      // JavaScript for searching/filtering the table rows
+      document.getElementById('searchInput').addEventListener('keyup', function() {
+          var input, filter, table, tr, td, i, j, txtValue;
+          input = document.getElementById('searchInput');
+          filter = input.value.toLowerCase();
+          table = document.getElementById('coba');
+          tr = table.getElementsByTagName('tr');
+          
+          // Loop through all table rows, and hide those who don't match the search query
+          for (i = 1; i < tr.length; i++) { // Start from 1 to skip table header
+              tr[i].style.display = "none"; // Hide the row initially
+              
+              // Loop through all columns in the row
+              for (j = 0; j < tr[i].getElementsByTagName('td').length; j++) {
+                  td = tr[i].getElementsByTagName('td')[j];
+                  if (td) {
+                      txtValue = td.textContent || td.innerText;
+                      if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                          tr[i].style.display = ""; // Show the row if match is found
+                          break; // Exit loop once a match is found
+                      }
+                  }
+              }
+          }
+      });
+  </script>
     <!-- login js-->
     <!-- Plugin used-->
   </body>

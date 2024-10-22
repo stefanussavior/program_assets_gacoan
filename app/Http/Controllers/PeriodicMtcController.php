@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -16,16 +17,21 @@ class PeriodicMtcController extends Controller
 {
     public function Index()
     {
-        return view("Admin.periodic");
+        $periodics = DB::table('m_periodic_mtc')->select('m_periodic_mtc.*')->paginate(10);
+
+        return view("Admin.periodic_mtc", ['periodics' => $periodics]);
     }
 
-    public function HalamanPeriodicMtc() {
-        return view("Admin.periodic");
+    public function HalamanPeriodicMtc() 
+    {
+        $periodics = DB::table('m_periodic_mtc')->select('m_periodic_mtc.*')->paginate(10);
+
+        return view("Admin.periodic_mtc", ['periodics' => $periodics]);
     }
 
     public function getPeriodicMtc()
     {
-        // Mengambil semua data dari tabel m_periodic
+        // Mengambil semua data dari tabel m_periodic_mtc
         $periodics = MasterPeriodicMtc::all();
         return response()->json($periodics); // Mengembalikan data dalam format JSON
     }
@@ -45,9 +51,9 @@ class PeriodicMtcController extends Controller
             $periodic->periodic_mtc_day = $request->input('periodic_mtc_day');
             $periodic->create_by = Auth::user()->username; // Mengambil username yang sedang login
             
-            // Menghasilkan periodic_id secara otomatis
-            $maxPeriodicMtcId = MasterPeriodicMtc::max('periodic_id'); // Ambil nilai periodic_id maksimum
-            $periodic->periodic_id = $maxPeriodicMtcId ? $maxPeriodicMtcId + 1 : 1; // Set periodic_id, mulai dari 1 jika tidak ada
+            // Menghasilkan periodic_mtc_id secara otomatis
+            $maxPeriodicMtcId = MasterPeriodicMtc::max('periodic_mtc_id'); // Ambil nilai periodic_mtc_id maksimum
+            $periodic->periodic_mtc_id = $maxPeriodicMtcId ? $maxPeriodicMtcId + 1 : 1; // Set periodic_mtc_id, mulai dari 1 jika tidak ada
             
             $periodic->create_date = Carbon::now(); // Mengisi create_date dengan tanggal saat ini
             $periodic->save(); // Simpan data
@@ -141,7 +147,7 @@ class PeriodicMtcController extends Controller
 
     public function details($PeriodicMtcId)
     {
-        $periodic = MasterPeriodicMtc::where('periodic_id', $PeriodicMtcId)->first();
+        $periodic = MasterPeriodicMtc::where('periodic_mtc_id', $PeriodicMtcId)->first();
 
         if (!$periodic) {
             abort(404, 'periodic not found');

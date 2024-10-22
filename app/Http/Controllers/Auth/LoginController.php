@@ -10,7 +10,6 @@ use App\Http\Controllers\Auth\View;
 use Illuminate\Support\Facades\Auth;
 
 
-
 class LoginController extends Controller
 {
     public function IndexLogin() {

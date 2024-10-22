@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -16,11 +17,16 @@ class MtcController extends Controller
 {
     public function Index()
     {
-        return view("Admin.mtc");
+        $mtcs = DB::table('m_mtc')->select('m_mtc.*')->paginate(10);
+
+        return view("Admin.mtc", ['mtcs' => $mtcs]);
     }
 
-    public function HalamanMtc() {
-        return view("Admin.mtc");
+    public function HalamanMtc() 
+    {
+        $mtcs = DB::table('m_mtc')->select('m_mtc.*')->paginate(10);
+
+        return view("Admin.mtc", ['mtcs' => $mtcs]);
     }
 
     public function getMtc()

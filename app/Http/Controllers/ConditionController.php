@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -16,11 +17,16 @@ class ConditionController extends Controller
 {
     public function Index()
     {
-        return view("Admin.condition");
+        $conditions = DB::table('m_condition')->select('m_condition.*')->paginate(10);
+
+        return view("Admin.condition", ['conditions' => $conditions]);
     }
 
-    public function HalamanCondition() {
-        return view("Admin.condition");
+    public function HalamanCondition() 
+    {
+        $conditions = DB::table('m_condition')->select('m_condition.*')->paginate(10);
+
+        return view("Admin.condition", ['conditions' => $conditions]);
     }
 
     public function getCondition()

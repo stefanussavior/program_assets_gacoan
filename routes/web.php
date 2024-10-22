@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RegistrasiAssetController;
 
 use App\Http\Controllers\UserController;
 
@@ -52,6 +53,22 @@ Route::group(['middleware' => ['auth']], function(){
     // Route::resource('products', );
 });
 
+// registrasi data asset
+    Route::prefix('admin/registrasi_asset')->group(function(){
+        Route::get('/lihat_data_registrasi_asset', [RegistrasiAssetController::class, 'HalamanRegistrasiAsset']);
+        Route::get('/get_data_registrasi_asset',[RegistrasiAssetController::class, 'GetDataRegistrasiAsset']);
+        Route::post('/tambah_data_registrasi_asset', [RegistrasiAssetController::class,'AddDataRegistrasiAsset']);
+        Route::get('/get_detail_data_asset/{id}', [RegistrasiAssetController::class,'GetDetailDataRegistrasiAsset']);
+        Route::put('/update_data_registrasi_asset/{id}', [RegistrasiAssetController::class,'UpdateDataRegistrasiAsset']);
+        Route::delete('/delete_data_registrasi_asset/{id}', [RegistrasiAssetController::class, 'DeleteDataRegistrasiAsset']);
+        Route::get('/export_data_asset', [RegistrasiAssetController::class,'ExportToExcel']);
+    }); 
+
+    Route::get('/admin/registrasi_asset/{id}', [RegistrasiAssetController::class, 'show']);
+
+// Route to update asset data (PUT method)
+Route::put('/admin/registrasi_asset/{id}', [RegistrasiAssetController::class, 'update']);
+
 Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::get('/admin/dashboard', [AdminController::class, 'index']);
     // Asset Route
@@ -68,6 +85,17 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     // Regist Assets
     Route::get('/admin/regist', [AssetsController::class, 'HalamanAssets']);
     Route::get('/admin/regist', [AssetsController::class, 'HalamanAssets'])->name('Admin.asset');
+    Route::post('/add-regist', [AssetsController::class, 'AddDataAssets'])->name('add-regist');
+    Route::get('/get-regist', [AssetsController::class, 'GetAssets'])->name('get.asset');
+    Route::get('/admin/regists', [AssetsController::class, 'Index'])->name('Admin.asset');
+    Route::get('/admin/regists/edit/{id}', [AssetsController::class, 'showEditForm'])->name('edit.asset');
+    Route::put('/admin/regists/edit/{id}', [AssetsController::class, 'updateDataAssets'])->name('update.asset');
+    Route::delete('/admin/regists/delete/{id}', [AssetsController::class, 'deleteDataAssets'])->name('delete.asset');
+    Route::get('/add-regist', [AssetsController::class, 'showForm'])->name('addDataAsset');
+
+    // Regist Assets Equipment
+    Route::get('/admin/registeqp', [AssetsController::class, 'HalamanAssetsEquipment']);
+    Route::get('/admin/registeqp', [AssetsController::class, 'HalamanAssetsEquipment'])->name('Admin.assetequipment');
     Route::post('/add-regist', [AssetsController::class, 'AddDataAssets'])->name('add-regist');
     Route::get('/get-regist', [AssetsController::class, 'GetAssets'])->name('get.asset');
     Route::get('/admin/regists', [AssetsController::class, 'Index'])->name('Admin.asset');
@@ -121,6 +149,15 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::get('/admin/categorys/edit/{id}', [CategoryController::class, 'showEditForm'])->name('edit.category');
     Route::put('/admin/categorys/edit/{id}', [CategoryController::class, 'updateDataCategory'])->name('update.category');
     Route::delete('/admin/categorys/delete/{id}', [CategoryController::class, 'deleteDataCategory'])->name('delete.category');
+    // Sub Category
+    Route::get('/admin/subcategory', [SubCategoryController::class, 'HalamanSubCategory']);
+    Route::get('/admin/subcategory', [SubCategoryController::class, 'HalamanSubCategory'])->name('Admin.subcategory');
+    Route::post('/add-subcategory', [SubCategoryController::class, 'AddDataSubCategory'])->name('add-subcategory');
+    Route::get('/get-subcategory', [SubCategoryController::class, 'GetSubCategory'])->name('get.subcategory');
+    Route::get('/admin/subcategorys', [SubCategoryController::class, 'Index'])->name('Admin.subcategory');
+    Route::get('/admin/subcategorys/edit/{id}', [SubCategoryController::class, 'showEditForm'])->name('edit.subcategory');
+    Route::put('/admin/subcategorys/edit/{id}', [SubCategoryController::class, 'updateDataSubCategory'])->name('update.subcategory');
+    Route::delete('/admin/subcategorys/delete/{id}', [SubCategoryController::class, 'deleteDataSubCategory'])->name('delete.subcategory');
     // Checklist
     Route::get('/admin/checklist', [ChecklistController::class, 'HalamanChecklist']);
     Route::get('/admin/checklist', [ChecklistController::class, 'HalamanChecklist'])->name('Admin.checklist');
@@ -142,7 +179,7 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     // Condition
     Route::get('/admin/condition', [ConditionController::class, 'HalamanCondition']);
     Route::get('/admin/condition', [ConditionController::class, 'HalamanCondition'])->name('Admin.condition');
-    Route::post('/add-condition', [ConditionController::class, 'AddDataCondition'])->name('add.condition');
+    Route::post('/add-condition', [ConditionController::class, 'AddDataCondition'])->name('add-condition');
     Route::get('/get-condition', [ConditionController::class, 'GetCondition'])->name('get.condition');
     Route::get('/admin/conditions', [ConditionController::class, 'Index'])->name('Admin.condition');
     Route::get('/admin/conditions/edit/{id}', [ConditionController::class, 'showEditForm'])->name('edit.condition');
@@ -169,7 +206,7 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     // Group User
     Route::get('/admin/groupuser', [GroupUserController::class, 'HalamanGroupUser']);
     Route::get('/admin/groupuser', [GroupUserController::class, 'HalamanGroupUser'])->name('Admin.groupuser');
-    Route::post('/add-groupuser', [GroupUserController::class, 'AddDataGroupUser'])->name('add.groupuser');
+    Route::post('/add-groupuser', [GroupUserController::class, 'AddDataGroupUser'])->name('add-groupuser');
     Route::get('/get-groupuser', [GroupUserController::class, 'GetGroupUser'])->name('get.groupuser');
     Route::get('/admin/groupusers', [GroupUserController::class, 'Index'])->name('Admin.groupuser');
     Route::get('/admin/groupusers/edit/{id}', [GroupUserController::class, 'showEditForm'])->name('edit.groupuser');
@@ -221,14 +258,14 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::put('/admin/peoples/edit/{id}', [PeopleController::class, 'updateDataPeople'])->name('update.people');
     Route::delete('/admin/peoples/delete/{id}', [PeopleController::class, 'deleteDataPeople'])->name('delete.people');
     // Periodic Mtc
-    Route::get('/admin/periodic', [PeriodicMtcController::class, 'HalamanPeriodic']);
-    Route::get('/admin/periodic', [PeriodicMtcController::class, 'HalamanPeriodic'])->name('Admin.periodic');
-    Route::post('/add-periodic', [PeriodicMtcController::class, 'AddDataPeriodic'])->name('add.periodic');
-    Route::get('/get-periodic', [PeriodicMtcController::class, 'GetPeriodic'])->name('get.periodic');
+    Route::get('/admin/periodic', [PeriodicMtcController::class, 'HalamanPeriodicMtc']);
+    Route::get('/admin/periodic', [PeriodicMtcController::class, 'HalamanPeriodicMtc'])->name('Admin.periodic');
+    Route::post('/add-periodic', [PeriodicMtcController::class, 'AddDataPeriodicMtc'])->name('add.periodic');
+    Route::get('/get-periodic', [PeriodicMtcController::class, 'GetPeriodicMtc'])->name('get.periodic');
     Route::get('/admin/periodics', [PeriodicMtcController::class, 'Index'])->name('Admin.periodic');
     Route::get('/admin/periodics/edit/{id}', [PeriodicMtcController::class, 'showEditForm'])->name('edit.periodic');
-    Route::put('/admin/periodics/edit/{id}', [PeriodicMtcController::class, 'updateDataPeriodic'])->name('update.periodic');
-    Route::delete('/admin/periodics/delete/{id}', [PeriodicMtcController::class, 'deleteDataPeriodic'])->name('delete.periodic');
+    Route::put('/admin/periodics/edit/{id}', [PeriodicMtcController::class, 'updateDataPeriodicMtc'])->name('update.periodic');
+    Route::delete('/admin/periodics/delete/{id}', [PeriodicMtcController::class, 'deleteDataPeriodicMtc'])->name('delete.periodic');
     // Priority
     Route::get('/admin/priority', [PriorityController::class, 'HalamanPriority']);
     Route::get('/admin/priority', [PriorityController::class, 'HalamanPriority'])->name('Admin.priority');
@@ -247,6 +284,15 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::get('/admin/reasons/edit/{id}', [ReasonController::class, 'showEditForm'])->name('edit.reason');
     Route::put('/admin/reasons/edit/{id}', [ReasonController::class, 'updateDataReason'])->name('update.reason');
     Route::delete('/admin/reasons/delete/{id}', [ReasonController::class, 'deleteDataReason'])->name('delete.reason');
+    // Reason SO
+    Route::get('/admin/reasonso', [ReasonSoController::class, 'HalamanReasonSo']);
+    Route::get('/admin/reasonso', [ReasonSoController::class, 'HalamanReasonSo'])->name('Admin.reasonso');
+    Route::post('/add-reasonso', [ReasonSoController::class, 'AddDataReasonSo'])->name('add.reasonso');
+    Route::get('/get-reasonso', [ReasonSoController::class, 'GetReasonSo'])->name('get.reasonso');
+    Route::get('/admin/reasonsos', [ReasonSoController::class, 'IndexSo'])->name('Admin.reasonso');
+    Route::get('/admin/reasonsos/edit/{id}', [ReasonSoController::class, 'showEditFormSo'])->name('edit.reasonso');
+    Route::put('/admin/reasonsos/edit/{id}', [ReasonSoController::class, 'updateDataReasonSo'])->name('update.reasonso');
+    Route::delete('/admin/reasonsos/delete/{id}', [ReasonSoController::class, 'deleteDataReasonSo'])->name('delete.reasonso');
     // Region
     Route::get('/admin/region', [RegionController::class, 'HalamanRegion']);
     Route::get('/admin/region', [RegionController::class, 'HalamanRegion'])->name('Admin.region');
@@ -310,6 +356,15 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::get('/admin/warrantys/edit/{id}', [WarrantyController::class, 'showEditForm'])->name('edit.warranty');
     Route::put('/admin/warrantys/edit/{id}', [WarrantyController::class, 'updateDataWarranty'])->name('update.warranty');
     Route::delete('/admin/warrantys/delete/{id}', [WarrantyController::class, 'deleteDataWarranty'])->name('delete.warranty');
+    // City
+    Route::get('/admin/city', [CityController::class, 'HalamanCity']);
+    Route::get('/admin/city', [CityController::class, 'HalamanCity'])->name('Admin.city');
+    Route::post('/add-city', [CityController::class, 'AddDataCity'])->name('add.city');
+    Route::get('/get-city', [CityController::class, 'GetCity'])->name('get.city');
+    Route::get('/admin/citys', [CityController::class, 'Index'])->name('Admin.city');
+    Route::get('/admin/citys/edit/{id}', [CityController::class, 'showEditForm'])->name('edit.city');
+    Route::put('/admin/citys/edit/{id}', [CityController::class, 'updateDataCity'])->name('update.city');
+    Route::delete('/admin/citys/delete/{id}', [CityController::class, 'deleteDataCity'])->name('delete.city');
 });
 
 Route::group([RoleMiddleware::class => ':user'], function(){

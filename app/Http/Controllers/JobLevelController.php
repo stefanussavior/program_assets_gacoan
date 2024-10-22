@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -16,11 +17,16 @@ class JobLevelController extends Controller
 {
     public function Index()
     {
-        return view("Admin.joblevel");
+        $joblevels = DB::table('m_joblevel')->select('m_joblevel.*')->paginate(10);
+
+        return view("Admin.joblevel", ['joblevels' => $joblevels]);
     }
 
-    public function HalamanJobLevel() {
-        return view("Admin.joblevel");
+    public function HalamanJobLevel() 
+    {
+        $joblevels = DB::table('m_joblevel')->select('m_joblevel.*')->paginate(10);
+
+        return view("Admin.joblevel", ['joblevels' => $joblevels]);
     }
 
     public function getJobLevel()

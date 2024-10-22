@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\File;
 
@@ -16,11 +17,16 @@ class UomController extends Controller
 {
     public function Index()
     {
-        return view("Admin.uom");
+        $uoms = DB::table('m_uom')->select('m_uom.*')->paginate(10);
+
+        return view("Admin.uom", ['uoms' => $uoms]);
     }
 
-    public function HalamanUom() {
-        return view("Admin.uom");
+    public function HalamanUom() 
+    {
+        $uoms = DB::table('m_uom')->select('m_uom.*')->paginate(10);
+
+        return view("Admin.uom", ['uoms' => $uoms]);
     }
 
     public function getUom()
