@@ -149,7 +149,16 @@
                   <li><a href="user-profile.html"><i data-feather="user"></i><span>Account </span></a></li>
                   <!-- <li><a href="email_inbox.html"><i data-feather="mail"></i><span>Inbox</span></a></li>
                   <li><a href="kanban.html"><i data-feather="file-text"></i><span>Taskboard</span></a></li> -->
-                  <li><a href="/logout"><i data-feather="log-out"> </i><span>Log Out</span></a></li>
+                  <>
+                  <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                    <li>
+    <button id="logoutBtn"><i data-feather="log-out"> </i><span>Log Out</span></button>
+</li>
+                  </form>
+
+
+
                 </ul>
               </li>
             </ul>
@@ -305,6 +314,7 @@
               <label for="purchase_date">Purchase Date : </label>
               <input type="date" name="purchase_date" id="purchase_date" class="form-control" placeholder="Masukkan Purchase Date" required>
             </div>
+              <input type="hidden" name="approve_status" id="approve_status" class="form-control">
             <div class="col-sm-6">
               <label for="warranty">Warranty : </label>
               <input type="text" name="warranty" id="warranty" class="form-control" placeholder="Masukkan Warranty" required>
@@ -342,73 +352,73 @@
                     <input type="hidden" id="assetId" name="id">
 
                     <div class="form-group">
-                        <label for="register_code">Register Code:</label>
-                        <input type="text" id="register_code" name="register_code" class="form-control" required>
+                        <label for="edit-register_code">Register Code:</label>
+                        <input type="text" id="edit-register_code" name="register_code" class="form-control" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="asset_name">Asset Name:</label>
-                        <input type="text" id="asset_name" name="asset_name" class="form-control" required>
+                        <label for="edit-asset_name">Asset Name:</label>
+                        <input type="text" id="edit-asset_name" name="asset_name" class="form-control" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="serial_number">Serial Number:</label>
-                        <input type="text" id="serial_number" name="serial_number" class="form-control">
+                        <label for="edit-serial_number">Serial Number:</label>
+                        <input type="text" id="edit-serial_number" name="serial_number" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="type_asset">Type Asset:</label>
-                        <input type="text" id="type_asset" name="type_asset" class="form-control">
+                        <label for="edit-type_asset">Type Asset:</label>
+                        <input type="text" id="edit-type_asset" name="type_asset" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="category_asset">Category Asset:</label>
-                        <input type="text" id="category_asset" name="category_asset" class="form-control">
+                        <label for="edit-category_asset">Category Asset:</label>
+                        <input type="text" id="edit-category_asset" name="category_asset" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="prioritas">Priority:</label>
-                        <input type="text" id="prioritas" name="prioritas" class="form-control">
+                        <label for="edit-prioritas">Priority:</label>
+                        <input type="text" id="edit-prioritas" name="prioritas" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="merk">Brand:</label>
-                        <input type="text" id="merk" name="merk" class="form-control">
+                        <label for="edit-merk">Brand:</label>
+                        <input type="text" id="edit-merk" name="merk" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="qty">Quantity:</label>
-                        <input type="number" id="qty" name="qty" class="form-control" required>
+                        <label for="edit-qty">Quantity:</label>
+                        <input type="number" id="edit-qty" name="qty" class="form-control" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="satuan">Unit:</label>
-                        <input type="text" id="satuan" name="satuan" class="form-control">
+                        <label for="edit-satuan">Unit:</label>
+                        <input type="text" id="edit-satuan" name="satuan" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="register_location">Register Location:</label>
-                        <input type="text" id="register_location" name="register_location" class="form-control">
+                        <label for="edit-register_location">Register Location:</label>
+                        <input type="text" id="edit-register_location" name="register_location" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="layout">Layout:</label>
-                        <input type="text" id="layout" name="layout" class="form-control">
+                        <label for="edit-layout">Layout:</label>
+                        <input type="text" id="edit-layout" name="layout" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="register_date">Register Date:</label>
-                        <input type="date" id="register_date" name="register_date" class="form-control">
+                        <label for="edit-register_date">Register Date:</label>
+                        <input type="date" id="edit-register_date" name="register_date" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="supplier">Supplier:</label>
-                        <input type="text" id="supplier" name="supplier" class="form-control">
+                        <label for="edit-supplier">Supplier:</label>
+                        <input type="text" id="edit-supplier" name="supplier" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="status">Status:</label>
-                        <select name="status" id="status" class="form-control">
+                        <label for="edit-status">Status:</label>
+                        <select name="status" id="edit-status" class="form-control">
                         <option value=""></option>
                         <option value="PRIORITY">PRIORITY</option>
                         <option value="NOT PRIORITY">NOT PRIORITY</option>
@@ -417,23 +427,23 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="purchase_number">Purchase Number:</label>
-                        <input type="text" id="purchase_number" name="purchase_number" class="form-control">
+                        <label for="edit-purchase_number">Purchase Number:</label>
+                        <input type="text" id="edit-purchase_number" name="purchase_number" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="purchase_date">Purchase Date:</label>
-                        <input type="date" id="purchase_date" name="purchase_date" class="form-control">
+                        <label for="edit-purchase_date">Purchase Date:</label>
+                        <input type="date" id="edit-purchase_date" name="purchase_date" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="warranty">Warranty:</label>
-                        <input type="text" id="warranty" name="warranty" class="form-control">
+                        <label for="edit-warranty">Warranty:</label>
+                        <input type="text" id="edit-warranty" name="warranty" class="form-control">
                     </div>
 
                     <div class="form-group">
-                        <label for="periodic_maintenance">Periodic Maintenance:</label>
-                        <input type="text" id="periodic_maintenance" name="periodic_maintenance" class="form-control">
+                        <label for="edit-periodic_maintenance">Periodic Maintenance:</label>
+                        <input type="text" id="edit-periodic_maintenance" name="periodic_maintenance" class="form-control">
                     </div>
 
                     <button type="submit" class="btn btn-primary">Update Asset</button>
@@ -521,6 +531,7 @@
                             <th>Warranty</th>
                             <th>Periodic Maintenance</th>
                             <th>Data Registrasi Asset Status</th>
+                            <th>Approve Status</th>
                             <th>Action</th>
                             <!-- <th>Type</th>
                             <th>Brand</th>
@@ -635,7 +646,6 @@
     <script src="{{asset('assets/js/datatable/datatables/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('assets/js/data-registrasi-asset.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
 
     
 

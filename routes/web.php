@@ -65,8 +65,10 @@ Route::prefix('admin/registrasi_asset')->group(function(){
     Route::get('/export_data_asset', [RegistrasiAssetController::class,'ExportToExcel']);
     Route::post('/import', [MasterRegistrasiModel::class, 'import'])->name('import');
 }); 
-        Route::get('/admin/registrasi_asset/{id}', [RegistrasiAssetController::class, 'show']);
-        Route::put('/admin/registrasi_asset/{id}', [RegistrasiAssetController::class, 'update']);
+Route::get('/admin/registrasi_asset/get_detail/{id}', [RegistrasiAssetController::class, 'getDetail']);
+Route::put('/admin/registrasi_asset/{id}', [RegistrasiAssetController::class, 'update']);
+Route::post('admin/registrasi_asset/approve', [RegistrasiAssetController::class, 'approve']);
+Route::get('/assets/details/{register_code}', [RegistrasiAssetController::class, 'TampilDataQR'])->name('assets.details');
 
 
 Route::group([RoleMiddleware::class => ':admin'], function(){

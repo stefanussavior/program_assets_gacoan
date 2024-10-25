@@ -11,7 +11,7 @@ use Carbon\Carbon; // Untuk tanggal dan waktu
 class MasterRepair extends Model
 {
     use HasFactory;
-    // use SoftDeletes;
+    use SoftDeletes;
 
     protected $table = 'm_repair';
     protected $primaryKey = 'repair_id';
