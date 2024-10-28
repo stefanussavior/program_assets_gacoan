@@ -555,7 +555,7 @@ $('#coba').on('click', '.delete-btn', function(){
                     var regionSelect = $('#region');
                     $.each(data, function(index, region) {
                         regionSelect.append($('<option>', {
-                            value: region.region_id, // Assuming 'id' is the unique identifier for the region
+                            value: region.region_name, // Assuming 'id' is the unique identifier for the region
                             text: region.region_name // Assuming 'name' is the display name of the region
                         }));
                     });
@@ -592,7 +592,7 @@ $('#coba').on('click', '.delete-btn', function(){
                     var regionSelect = $('#merk');
                     $.each(data, function(index, merk) {
                         regionSelect.append($('<option>', {
-                            value: merk.brand_id, // Assuming 'id' is the unique identifier for the region
+                            value: merk.brand_name, // Assuming 'id' is the unique identifier for the region
                             text: merk.brand_name // Assuming 'name' is the display name of the region
                         }));
                     });
@@ -611,7 +611,7 @@ $('#coba').on('click', '.delete-btn', function(){
                     var regionSelect = $('#supplier');
                     $.each(data, function(index, supplier) {
                         regionSelect.append($('<option>', {
-                            value: supplier.supplier_id, // Assuming 'id' is the unique identifier for the region
+                            value: supplier.supplier_name, // Assuming 'id' is the unique identifier for the region
                             text: supplier.supplier_name // Assuming 'name' is the display name of the region
                         }));
                     });
@@ -620,22 +620,6 @@ $('#coba').on('click', '.delete-btn', function(){
         });
 
 
-        $(document).ready(function(){
-            // Fetch regions and populate the dropdown
-            $.ajax({
-                url: '/admin/get-supplier', // Route to fetch regions
-                method: 'GET',
-                success: function(data) {
-                    var regionSelect = $('#supplier');
-                    $.each(data, function(index, supplier) {
-                        regionSelect.append($('<option>', {
-                            value: supplier.supplier_id, // Assuming 'id' is the unique identifier for the region
-                            text: supplier.supplier_name // Assuming 'name' is the display name of the region
-                        }));
-                    });
-                }
-            });
-        });
 
 
         $(document).ready(function(){
@@ -647,7 +631,7 @@ $('#coba').on('click', '.delete-btn', function(){
                     var regionSelect = $('#warranty');
                     $.each(data, function(index, warranty) {
                         regionSelect.append($('<option>', {
-                            value: warranty.warranty_id, // Assuming 'id' is the unique identifier for the region
+                            value: warranty.warranty_name + ' - ' + warranty.date, // Assuming 'id' is the unique identifier for the region
                             text: warranty.warranty_name + ' - ' + warranty.warranty_day // Assuming 'name' is the display name of the region
                         }));
                     });
@@ -668,7 +652,7 @@ $('#coba').on('click', '.delete-btn', function(){
                         // Loop through the assets and append them to the dropdown
                         $.each(response.data, function(index, asset) {
                             regionSelect.append($('<option>', {
-                                value: asset.asset_id, // Assuming 'asset_id' is a field in MasterAsset
+                                value: asset.asset_model, // Assuming 'asset_id' is a field in MasterAsset
                                 text: asset.asset_model // Assuming 'asset_model' is a field in MasterAsset
                             }));
                         });
@@ -693,7 +677,7 @@ $('#coba').on('click', '.delete-btn', function(){
                     var regionSelect = $('#periodic_maintenance');
                     $.each(data, function(index, periodic) {
                         regionSelect.append($('<option>', {
-                            value: periodic.periodic_mtc_id, // Assuming 'id' is the unique identifier for the region
+                            value: periodic.periodic_mtc_name, // Assuming 'id' is the unique identifier for the region
                             text: periodic.periodic_mtc_name	 // Assuming 'name' is the display name of the region
                         }));
                     });
@@ -711,7 +695,7 @@ $('#coba').on('click', '.delete-btn', function(){
                     var regionSelect = $('#layout');
                     $.each(data, function(index, layout) {
                         regionSelect.append($('<option>', {
-                            value: layout.layout_id, // Assuming 'id' is the unique identifier for the region
+                            value: layout.layout_code, // Assuming 'id' is the unique identifier for the region
                             text: layout.layout_code + ' - ' + layout.layout_name // Assuming 'name' is the display name of the region
                         }));
                     });
@@ -728,7 +712,7 @@ $('#coba').on('click', '.delete-btn', function(){
                     var regionSelect = $('#category_asset');
                     $.each(data, function(index, category) {
                         regionSelect.append($('<option>', {
-                            value: category.cat_id, // Assuming 'id' is the unique identifier for the region
+                            value: category.cat_code, // Assuming 'id' is the unique identifier for the region
                             text: category.cat_code + ' - ' + category.cat_name // Assuming 'name' is the display name of the region
                         }));
                     });
@@ -746,7 +730,7 @@ $('#coba').on('click', '.delete-btn', function(){
                     var regionSelect = $('#prioritas');
                     $.each(data, function(index, prioritas) {
                         regionSelect.append($('<option>', {
-                            value: prioritas.priority_id, // Assuming 'id' is the unique identifier for the region
+                            value: prioritas.priority_code, // Assuming 'id' is the unique identifier for the region
                             text: prioritas.priority_code + ' - ' + prioritas.priority_name // Assuming 'name' is the display name of the region
                         }));
                     });
@@ -755,22 +739,6 @@ $('#coba').on('click', '.delete-btn', function(){
         });
 
 
-        $(document).ready(function(){
-            // Fetch regions and populate the dropdown
-            $.ajax({
-                url: '/get-priority', // Route to fetch regions
-                method: 'GET',
-                success: function(data) {
-                    var regionSelect = $('#prioritas');
-                    $.each(data, function(index, prioritas) {
-                        regionSelect.append($('<option>', {
-                            value: prioritas.priority_id, // Assuming 'id' is the unique identifier for the region
-                            text: prioritas.priority_code + ' - ' + prioritas.priority_name // Assuming 'name' is the display name of the region
-                        }));
-                    });
-                }
-            });
-        });
 
         $(document).ready(function(){
             // Fetch regions and populate the dropdown
@@ -781,7 +749,7 @@ $('#coba').on('click', '.delete-btn', function(){
                     var regionSelect = $('#type_asset');
                     $.each(data, function(index, type) {
                         regionSelect.append($('<option>', {
-                            value: type.type_id, // Assuming 'id' is the unique identifier for the region
+                            value: type.type_code, // Assuming 'id' is the unique identifier for the region
                             text: type.type_code + ' - ' + type.type_name // Assuming 'name' is the display name of the region
                         }));
                     });
@@ -800,7 +768,7 @@ $('#coba').on('click', '.delete-btn', function(){
                     var regionSelect = $('#satuan');
                     $.each(data, function(index, uom) {
                         regionSelect.append($('<option>', {
-                            value: uom.uom_id, // Assuming 'id' is the unique identifier for the region
+                            value: uom.uom_name, // Assuming 'id' is the unique identifier for the region
                             text: uom.uom_name // Assuming 'name' is the display name of the region
                         }));
                     });
@@ -809,40 +777,38 @@ $('#coba').on('click', '.delete-btn', function(){
         });
 
 
-        $(document).ready(function(){
-            // Fetch regions and populate the dropdown
-            $.ajax({
-                url: '/get-uom', // Route to fetch regions
-                method: 'GET',
-                success: function(data) {
-                    var regionSelect = $('#satuan');
-                    $.each(data, function(index, uom) {
-                        regionSelect.append($('<option>', {
-                            value: uom.uom_id, // Assuming 'id' is the unique identifier for the region
-                            text: uom.uom_name // Assuming 'name' is the display name of the region
-                        }));
-                    });
-                }
-            });
-        });
 
 
-        $(document).ready(function(){
-            // Fetch regions and populate the dropdown
-            $.ajax({
-                url: '/admin/get-resto', // Route to fetch regions
-                method: 'GET',
-                success: function(data) {
-                    var regionSelect = $('#register_location');
-                    $.each(data, function(index, resto) {
-                        regionSelect.append($('<option>', {
-                            value: resto.id, // Assuming 'id' is the unique identifier for the region
-                            text: resto.kode_resto + '-' + resto.resto // Assuming 'name' is the display name of the region
-                        }));
-                    });
-                }
+        $(document).ready(function() {
+            // Initialize Select2 with AJAX search
+            $('#register_location').select2({
+                placeholder: '--- Pilih Register Location ---',
+                ajax: {
+                    url: '/admin/get-resto', // Route to fetch regions
+                    dataType: 'json',
+                    delay: 250, // Delay to avoid overloading the server
+                    data: function(params) {
+                        return {
+                            search: params.term || '', // Send the search term if available, otherwise an empty string
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(resto) {
+                                return {
+                                    id: resto.kode_resto + ' - ' + resto.resto + ' - ' + resto.kom_resto, // Unique ID combining fields
+                                    text: resto.kode_resto + ' - ' + resto.resto + ' - ' + resto.kom_resto // Display text combining fields
+                                };
+                            })
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 0
             });
         });
+        
+        
 
 
 

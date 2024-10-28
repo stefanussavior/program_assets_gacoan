@@ -46,8 +46,6 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/responsive.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
   </head>
   <body>
     <!-- tap on top starts-->
@@ -189,13 +187,13 @@
             <div class="page-title">
               <div class="row">
                 <div class="col-sm-6">
-                  <h3>Product Asset List</h3>
+                  <h3>Stock Opname Data</h3>
                 </div>
                 <div class="col-sm-6">
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
                     <li class="breadcrumb-item">ASMI</li>
-                    <li class="breadcrumb-item active">Product Asset List</li>
+                    <li class="breadcrumb-item active">Stock Opname Data List</li>
                   </ol>
                 </div>
               </div>
@@ -209,16 +207,16 @@
               <div class="col-sm-12">
                 <div class="card">
                   <div class="card-header pb-0">
-                    <h5>Product Asset List</h5><span>adalah daftar atau kumpulan aset yang dimiliki oleh seseorang, organisasi, atau perusahaan. Daftar ini biasanya mencakup rincian tentang setiap aset, seperti jenis aset, nilai, lokasi, dan informasi relevan lainnya.</span>
+                    <h5>Stock Opname Data List</h5>
                   </div>
 					<div class="card-body"> 
 						<div class="btn-showcase">
               <div class="button_between">
-				        <button class="btn btn-square btn-primary" type="button" data-toggle="modal" data-target="#addDataAsset">+ Add Data Asset</button>
+				        <!-- <button class="btn btn-square btn-primary" type="button" data-toggle="modal" data-target="#addDataAsset">+ Add Data Asset</button>
 				        <button class="btn btn-square btn-primary" type="button" data-toggle="modal" data-target="#importDataExcel"> <i class="fa fa-file-excel-o" ></i> Import Data Excel </button>
                 <a href="{{ url('/admin/registrasi_asset/export_data_asset') }}" class="btn btn-square btn-primary" role="button">
     <i class="fa fa-file-excel-o" aria-hidden="true"></i> Download Excel Data
-</a>
+</a> -->
 
               </div>
 						  </div>
@@ -546,29 +544,14 @@
                       <table class="display" id="coba">
                         <thead>
                           <tr>
-                            <th>ID Asset</th>
-                            <th>QRCode</th>
-                            <th>Register Code</th>
-                            <th>Asset Name</th>
-                            <th>Serial Number</th>
-                            <th>Type Asset</th>
-                            <th>Category Asset</th>
-                            <th>Prioritas</th>
-                            <th>Merk</th>
-                            <th>Quantity</th>
-                            <th>Satuan</th>
-                            <th>Register Location</th>
-                            <th>Layout</th>
-                            <th>Register Date</th>
-                            <th>Supplier</th>
-                            <th>Status</th>
-                            <th>Purchase Number</th>
-                            <th>Purchase Date</th>
-                            <th>Warranty</th>
-                            <th>Periodic Maintenance</th>
-                            <th>Data Registrasi Asset Status</th>
-                            <th>Approve Status</th>
-                            <th>Action</th>
+                            <th>No</th>
+                            <th>Nama Barang</th>
+                            <th>Data Barang Masuk</th>
+                            <th>Data Barang Keluar</th>
+                            <th>Data Stock Opname</th>
+                            <th>Total Barang Masuk</th>
+                            <th>Total Barang Keluar</th>
+                            <th>Total Stock Opname</th>
                             <!-- <th>Type</th>
                             <th>Brand</th>
 							<th>Location</th>
@@ -680,9 +663,8 @@
     <!-- Theme js-->
     <script src="{{asset('assets/js/script.js')}}"></script>
     <script src="{{asset('assets/js/datatable/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('assets/js/data-registrasi-asset.js')}}"></script>
+    <script src="{{asset('assets/js/data-stock-opname.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     
 
