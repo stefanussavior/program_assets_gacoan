@@ -258,18 +258,24 @@
             <div class="col-sm-6">
               <label for="type_asset">Type Asset : </label>
               <select name="type_asset" id="type_asset" class="form-control">
-                <option value=""></option>
-                <option value="sparepart">Sparepart</option>
-                <option value="unit">Unit</option>
+                <option value="" selected disabled></option>
+                <!-- <option value="sparepart">Sparepart</option>
+                <option value="unit">Unit</option> -->
               </select>
             </div>
             <div class="col-sm-6">
               <label for="category_asset">Category Asset : </label>
-              <input type="text" name="category_asset" id="category_asset" class="form-control" placeholder="Masukkan Category Asset" required>
+              <!-- <input type="text" name="category_asset" id="category_asset" class="form-control" placeholder="Masukkan Category Asset" required> -->
+              <select name="category_asset" id="category_asset" class="form-control">
+                <option value="" selected disabled> --- PILIH CATEGORY ASSET ---- </option>
+              </select>
             </div>
             <div class="col-sm-6">
               <label for="prioritas">Prioritas : </label>
-              <input type="text" name="prioritas" id="prioritas" class="form-control" placeholder="Masukkan Prioritas" required>
+              <!-- <input type="text" name="prioritas" id="prioritas" class="form-control" placeholder="Masukkan Prioritas" required> -->
+               <select name="prioritas" id="prioritas" class="form-control">
+                <option value="" selected disabled> --- PILIH PRIORITAS ---- </option>
+               </select>
             </div>
             <div class="col-sm-6">
               <label for="merk">Merk : </label>
@@ -280,11 +286,14 @@
             <div class="col-sm-6">
               <label for="qty">Quantity : </label>
               <input type="number" name="qty" id="qty" class="form-control" placeholder="Masukkan Quantity" required
-              min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+              min="1" oninput="this.value = this.value.replace(/[^0-9]/g, '');" value="1" />
             </div>
             <div class="col-sm-6">
               <label for="satuan">Satuan : </label>
-              <input type="text" name="satuan" id="satuan" class="form-control" placeholder="Masukkan Satuan" required>
+              <!-- <input type="text" name="satuan" id="satuan" class="form-control" placeholder="Masukkan Satuan" required> -->
+               <select name="satuan" id="satuan" class="form-control">
+                <option value="" selected disabled> --- PILIH SATUAN ---- </option>o
+               </select>
             </div>
             <div class="col-sm-6">
               <label for="region">Pilih Region: </label>
@@ -293,9 +302,16 @@
               </select>
           </div>
             <div class="col-sm-6">
+                <label for="register_location">Register Location :</label>
+                <!-- <input type="text" name="register_location" id="register_location" class="form-control" placeholder="Masukkan Register Location" required> -->
+                 <select name="register_location" id="register_location" class="form-control">
+                  <option value=""> --- Pilih Register Location ---- </option>
+                 </select>
+            </div>
+            <div class="col-sm-6">
               <label for="layout">Layout : </label>
               <!-- <input type="text" name="layout" id="layout" class="form-control" placeholder="Masukkan Layout" required> -->
-              <select name="layput" id="layout" class="form-control">
+              <select name="layout" id="layout" class="form-control">
                 <option value="" selected disabled> --- Pilih Layout ---</option>
               </select>
             </div>

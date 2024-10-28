@@ -384,6 +384,9 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::delete('/admin/citys/delete/{id}', [CityController::class, 'deleteDataCity'])->name('delete.city');
 
 
+    //Resto
+    Route::get('/admin/get-resto', [RestoController::class, 'GetDataResto']);
+
 });
 
 

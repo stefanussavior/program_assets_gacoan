@@ -712,7 +712,132 @@ $('#coba').on('click', '.delete-btn', function(){
                     $.each(data, function(index, layout) {
                         regionSelect.append($('<option>', {
                             value: layout.layout_id, // Assuming 'id' is the unique identifier for the region
-                            text: layout.layout_code + '-' + layout.layout_name // Assuming 'name' is the display name of the region
+                            text: layout.layout_code + ' - ' + layout.layout_name // Assuming 'name' is the display name of the region
+                        }));
+                    });
+                }
+            });
+        });
+
+        $(document).ready(function(){
+            // Fetch regions and populate the dropdown
+            $.ajax({
+                url: '/get-category', // Route to fetch regions
+                method: 'GET',
+                success: function(data) {
+                    var regionSelect = $('#category_asset');
+                    $.each(data, function(index, category) {
+                        regionSelect.append($('<option>', {
+                            value: category.cat_id, // Assuming 'id' is the unique identifier for the region
+                            text: category.cat_code + ' - ' + category.cat_name // Assuming 'name' is the display name of the region
+                        }));
+                    });
+                }
+            });
+        });
+
+
+        $(document).ready(function(){
+            // Fetch regions and populate the dropdown
+            $.ajax({
+                url: '/get-priority', // Route to fetch regions
+                method: 'GET',
+                success: function(data) {
+                    var regionSelect = $('#prioritas');
+                    $.each(data, function(index, prioritas) {
+                        regionSelect.append($('<option>', {
+                            value: prioritas.priority_id, // Assuming 'id' is the unique identifier for the region
+                            text: prioritas.priority_code + ' - ' + prioritas.priority_name // Assuming 'name' is the display name of the region
+                        }));
+                    });
+                }
+            });
+        });
+
+
+        $(document).ready(function(){
+            // Fetch regions and populate the dropdown
+            $.ajax({
+                url: '/get-priority', // Route to fetch regions
+                method: 'GET',
+                success: function(data) {
+                    var regionSelect = $('#prioritas');
+                    $.each(data, function(index, prioritas) {
+                        regionSelect.append($('<option>', {
+                            value: prioritas.priority_id, // Assuming 'id' is the unique identifier for the region
+                            text: prioritas.priority_code + ' - ' + prioritas.priority_name // Assuming 'name' is the display name of the region
+                        }));
+                    });
+                }
+            });
+        });
+
+        $(document).ready(function(){
+            // Fetch regions and populate the dropdown
+            $.ajax({
+                url: '/get-type', // Route to fetch regions
+                method: 'GET',
+                success: function(data) {
+                    var regionSelect = $('#type_asset');
+                    $.each(data, function(index, type) {
+                        regionSelect.append($('<option>', {
+                            value: type.type_id, // Assuming 'id' is the unique identifier for the region
+                            text: type.type_code + ' - ' + type.type_name // Assuming 'name' is the display name of the region
+                        }));
+                    });
+                }
+            });
+        });
+
+
+
+        $(document).ready(function(){
+            // Fetch regions and populate the dropdown
+            $.ajax({
+                url: '/get-uom', // Route to fetch regions
+                method: 'GET',
+                success: function(data) {
+                    var regionSelect = $('#satuan');
+                    $.each(data, function(index, uom) {
+                        regionSelect.append($('<option>', {
+                            value: uom.uom_id, // Assuming 'id' is the unique identifier for the region
+                            text: uom.uom_name // Assuming 'name' is the display name of the region
+                        }));
+                    });
+                }
+            });
+        });
+
+
+        $(document).ready(function(){
+            // Fetch regions and populate the dropdown
+            $.ajax({
+                url: '/get-uom', // Route to fetch regions
+                method: 'GET',
+                success: function(data) {
+                    var regionSelect = $('#satuan');
+                    $.each(data, function(index, uom) {
+                        regionSelect.append($('<option>', {
+                            value: uom.uom_id, // Assuming 'id' is the unique identifier for the region
+                            text: uom.uom_name // Assuming 'name' is the display name of the region
+                        }));
+                    });
+                }
+            });
+        });
+
+
+        $(document).ready(function(){
+            // Fetch regions and populate the dropdown
+            $.ajax({
+                url: '/admin/get-resto', // Route to fetch regions
+                method: 'GET',
+                success: function(data) {
+                    var regionSelect = $('#register_location');
+                    $.each(data, function(index, resto) {
+                        regionSelect.append($('<option>', {
+                            value: resto.id, // Assuming 'id' is the unique identifier for the region
+                            text: resto.kode_resto + '-' + resto.resto // Assuming 'name' is the display name of the region
                         }));
                     });
                 }
