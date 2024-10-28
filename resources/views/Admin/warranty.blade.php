@@ -173,11 +173,18 @@
               </li>
               <li class="maximize"><a class="text-dark" href="#!" onclick="javascript:toggleFullScreen()"><i data-feather="maximize"></i></a></li>
               <li class="profile-nav onhover-dropdown p-0 me-0">
-                <div class="d-flex profile-media"><img class="b-r-50" src="{{asset('assets/images/dashboard/profile.jpg')}}">
-                  <?php $session = session(); ?>
-                  <div class="flex-grow-1"><span>{{ Auth::user()->username }}</span>
-                    <p class="mb-0 font-roboto">{{ Auth::user()->role}}<i class="middle fa fa-angle-down"></i></p>
-                  </div>
+              <div class="d-flex profile-media"><img class="b-r-50" src="{{asset('assets/images/dashboard/profile.jpg')}}">
+                @if (Auth::check())
+            <div class="flex-grow-1">
+                <span>{{ Auth::user()->username }}</span>
+                <p class="mb-0 font-roboto">{{ session('role') ?? Auth::user()->role }} <i class="middle fa fa-angle-down"></i></p>
+            </div>
+        @else
+            <div class="flex-grow-1">
+                <span>Guest</span>
+                <p class="mb-0 font-roboto">No role <i class="middle fa fa-angle-down"></i></p>
+            </div>
+        @endif
                   
                 </div>
                 <ul class="profile-dropdown onhover-show-div">

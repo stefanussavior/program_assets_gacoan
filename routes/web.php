@@ -90,6 +90,9 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::delete('/admin/regists/delete/{id}', [AssetsController::class, 'deleteDataAssets'])->name('delete.asset');
     Route::get('/add-regist', [AssetsController::class, 'showForm'])->name('addDataAsset');
 
+    Route::get('/admin/get-regist', [AssetsController::class, 'GetAssets']);
+
+
     // Regist Assets Equipment
     Route::get('/admin/registeqp', [AssetsController::class, 'HalamanAssetsEquipment']);
     Route::get('/admin/registeqp', [AssetsController::class, 'HalamanAssetsEquipment'])->name('Admin.assetequipment');
@@ -100,6 +103,7 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::put('/admin/regists/edit/{id}', [AssetsController::class, 'updateDataAssets'])->name('update.asset');
     Route::delete('/admin/regists/delete/{id}', [AssetsController::class, 'deleteDataAssets'])->name('delete.asset');
     Route::get('/add-regist', [AssetsController::class, 'showForm'])->name('addDataAsset');
+    
     
     // Approval Reg OPS SM
     Route::get('/admin/approval-reg', [AssetsController::class, 'HalamanApproval']);
@@ -121,6 +125,8 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::put('/admin/review-regs/edit/{id}', [AssetsController::class, 'updateDataReview'])->name('update.review-reg');
     Route::delete('/admin/review-regs/delete/{id}', [AssetsController::class, 'deleteDataReview'])->name('delete.review-reg');
 
+    
+
     // Route::get('/admin/regist', [AssetsController::class, 'index'])->name('admin.assets');
     // Route::post('/admin/regist', [AssetsController::class, 'addDataAssets'])->name('add-asset');
     // Route::get('/admin/regists/{id}', [AssetsController::class, 'getAssets'])->name('get.asset');
@@ -137,6 +143,8 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::get('/admin/brands/edit/{id}', [BrandController::class, 'showEditForm'])->name('edit.brand');
     Route::put('/admin/brands/edit/{id}', [BrandController::class, 'updateDataBrand'])->name('update.brand');
     Route::delete('/admin/brands/delete/{id}', [BrandController::class, 'deleteDataBrand'])->name('delete.brand');
+    Route::get('/admin/get-brand', [BrandController::class, 'GetBrand'])->name('get.brand');
+
     // Category
     Route::get('/admin/category', [CategoryController::class, 'HalamanCategory']);
     Route::get('/admin/category', [CategoryController::class, 'HalamanCategory'])->name('Admin.category');
@@ -263,6 +271,10 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::get('/admin/periodics/edit/{id}', [PeriodicMtcController::class, 'showEditForm'])->name('edit.periodic');
     Route::put('/admin/periodics/edit/{id}', [PeriodicMtcController::class, 'updateDataPeriodicMtc'])->name('update.periodic');
     Route::delete('/admin/periodics/delete/{id}', [PeriodicMtcController::class, 'deleteDataPeriodicMtc'])->name('delete.periodic');
+
+    Route::get('/admin/get-periodic', [PeriodicMtcController::class, 'GetPeriodicMtc']);
+
+
     // Priority
     Route::get('/admin/priority', [PriorityController::class, 'HalamanPriority']);
     Route::get('/admin/priority', [PriorityController::class, 'HalamanPriority'])->name('Admin.priority');
@@ -299,6 +311,9 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::get('/admin/regions/edit/{id}', [RegionController::class, 'showEditForm'])->name('edit.region');
     Route::put('/admin/regions/edit/{id}', [RegionController::class, 'updateDataRegion'])->name('update.region');
     Route::delete('/admin/regions/delete/{id}', [RegionController::class, 'deleteDatsRegion'])->name('delete.region');
+
+    Route::get('/admin/get-region', [RegionController::class, 'getRegion'])->name('get.region');
+
     // Repair
     Route::get('/admin/repair', [RepairController::class, 'HalamanRepair']);
     Route::get('/admin/repair', [RepairController::class, 'HalamanRepair'])->name('Admin.repair');
@@ -317,6 +332,9 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::get('/admin/suppliers/edit/{id}', [SupplierController::class, 'showEditForm'])->name('edit.supplier');
     Route::put('/admin/suppliers/edit/{id}', [SupplierController::class, 'updateDataSupplier'])->name('update.supplier');
     Route::delete('/admin/suppliers/delete/{id}', [SupplierController::class, 'deleteDataSupplier'])->name('delete.supplier');
+
+    Route::get('/admin/get-supplier', [SupplierController::class, 'GetSupplier']);
+
     // Type
     Route::get('/admin/type', [TypeController::class, 'HalamanType']);
     Route::get('/admin/type', [TypeController::class, 'HalamanType'])->name('Admin.type');
@@ -353,6 +371,8 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::get('/admin/warrantys/edit/{id}', [WarrantyController::class, 'showEditForm'])->name('edit.warranty');
     Route::put('/admin/warrantys/edit/{id}', [WarrantyController::class, 'updateDataWarranty'])->name('update.warranty');
     Route::delete('/admin/warrantys/delete/{id}', [WarrantyController::class, 'deleteDataWarranty'])->name('delete.warranty');
+
+    Route::get('/admin/get-warranty', [WarrantyController::class, 'GetWarranty']);
     // City
     Route::get('/admin/city', [CityController::class, 'HalamanCity']);
     Route::get('/admin/city', [CityController::class, 'HalamanCity'])->name('Admin.city');
@@ -362,7 +382,12 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::get('/admin/citys/edit/{id}', [CityController::class, 'showEditForm'])->name('edit.city');
     Route::put('/admin/citys/edit/{id}', [CityController::class, 'updateDataCity'])->name('update.city');
     Route::delete('/admin/citys/delete/{id}', [CityController::class, 'deleteDataCity'])->name('delete.city');
+
+
 });
+
+
+
 
 Route::group([RoleMiddleware::class => ':user'], function(){
     Route::get('/user/dashboard', [UserController::class, 'dashboard']);

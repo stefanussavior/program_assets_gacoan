@@ -155,4 +155,8 @@ class RegionController extends Controller
 
         return view('region.details', ['asset' => $region]);
     }
+
+
+    
+
 }

@@ -544,3 +544,180 @@ $('#coba').on('click', '.delete-btn', function(){
     });
 });
 
+
+
+    $(document).ready(function(){
+            // Fetch regions and populate the dropdown
+            $.ajax({
+                url: '/admin/get-region', // Route to fetch regions
+                method: 'GET',
+                success: function(data) {
+                    var regionSelect = $('#region');
+                    $.each(data, function(index, region) {
+                        regionSelect.append($('<option>', {
+                            value: region.region_id, // Assuming 'id' is the unique identifier for the region
+                            text: region.region_name // Assuming 'name' is the display name of the region
+                        }));
+                    });
+                }
+            });
+        
+            // Event listener for dropdown change
+            $('#region').change(function() {
+                var selectedRegionId = $(this).val();
+                
+                // Optionally, you can fetch specific data based on the selected region
+                if (selectedRegionId) {
+                    // For example, if you want to get a specific location based on the region
+                    $.ajax({
+                        url: '/get-location/' + selectedRegionId, // Adjust this route as needed
+                        method: 'GET',
+                        success: function(locationData) {
+                            $('#register_location').val(locationData.location); // Assuming locationData has a 'location' field
+                        }
+                    });
+                } else {
+                    $('#register_location').val(''); // Clear the input if no region is selected
+                }
+            });
+        });
+
+
+        $(document).ready(function(){
+            // Fetch regions and populate the dropdown
+            $.ajax({
+                url: '/admin/get-brand', // Route to fetch regions
+                method: 'GET',
+                success: function(data) {
+                    var regionSelect = $('#merk');
+                    $.each(data, function(index, merk) {
+                        regionSelect.append($('<option>', {
+                            value: merk.brand_id, // Assuming 'id' is the unique identifier for the region
+                            text: merk.brand_name // Assuming 'name' is the display name of the region
+                        }));
+                    });
+                }
+            });
+        });
+
+
+
+        $(document).ready(function(){
+            // Fetch regions and populate the dropdown
+            $.ajax({
+                url: '/admin/get-supplier', // Route to fetch regions
+                method: 'GET',
+                success: function(data) {
+                    var regionSelect = $('#supplier');
+                    $.each(data, function(index, supplier) {
+                        regionSelect.append($('<option>', {
+                            value: supplier.supplier_id, // Assuming 'id' is the unique identifier for the region
+                            text: supplier.supplier_name // Assuming 'name' is the display name of the region
+                        }));
+                    });
+                }
+            });
+        });
+
+
+        $(document).ready(function(){
+            // Fetch regions and populate the dropdown
+            $.ajax({
+                url: '/admin/get-supplier', // Route to fetch regions
+                method: 'GET',
+                success: function(data) {
+                    var regionSelect = $('#supplier');
+                    $.each(data, function(index, supplier) {
+                        regionSelect.append($('<option>', {
+                            value: supplier.supplier_id, // Assuming 'id' is the unique identifier for the region
+                            text: supplier.supplier_name // Assuming 'name' is the display name of the region
+                        }));
+                    });
+                }
+            });
+        });
+
+
+        $(document).ready(function(){
+            // Fetch regions and populate the dropdown
+            $.ajax({
+                url: '/admin/get-warranty', // Route to fetch regions
+                method: 'GET',
+                success: function(data) {
+                    var regionSelect = $('#warranty');
+                    $.each(data, function(index, warranty) {
+                        regionSelect.append($('<option>', {
+                            value: warranty.warranty_id, // Assuming 'id' is the unique identifier for the region
+                            text: warranty.warranty_name + ' - ' + warranty.warranty_day // Assuming 'name' is the display name of the region
+                        }));
+                    });
+                }
+            });
+        });
+
+
+        $(document).ready(function(){
+            $.ajax({
+                url: '/get-regist',  // Ensure this matches your actual route for getAssets
+                method: 'GET',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        var regionSelect = $('#asset_name');
+                        regionSelect.empty(); // Clear existing options
+                        
+                        // Loop through the assets and append them to the dropdown
+                        $.each(response.data, function(index, asset) {
+                            regionSelect.append($('<option>', {
+                                value: asset.asset_id, // Assuming 'asset_id' is a field in MasterAsset
+                                text: asset.asset_model // Assuming 'asset_model' is a field in MasterAsset
+                            }));
+                        });
+                    } else {
+                        alert('Failed to fetch assets');
+                    }
+                },
+                error: function() {
+                    alert('An error occurred while fetching assets');
+                }
+            });
+        });
+
+        
+
+        $(document).ready(function(){
+            // Fetch regions and populate the dropdown
+            $.ajax({
+                url: '/admin/get-periodic', // Route to fetch regions
+                method: 'GET',
+                success: function(data) {
+                    var regionSelect = $('#periodic_maintenance');
+                    $.each(data, function(index, periodic) {
+                        regionSelect.append($('<option>', {
+                            value: periodic.periodic_mtc_id, // Assuming 'id' is the unique identifier for the region
+                            text: periodic.periodic_mtc_name	 // Assuming 'name' is the display name of the region
+                        }));
+                    });
+                }
+            });
+        });
+
+
+        $(document).ready(function(){
+            // Fetch regions and populate the dropdown
+            $.ajax({
+                url: '/get-layout', // Route to fetch regions
+                method: 'GET',
+                success: function(data) {
+                    var regionSelect = $('#layout');
+                    $.each(data, function(index, layout) {
+                        regionSelect.append($('<option>', {
+                            value: layout.layout_id, // Assuming 'id' is the unique identifier for the region
+                            text: layout.layout_code + '-' + layout.layout_name // Assuming 'name' is the display name of the region
+                        }));
+                    });
+                }
+            });
+        });
+
+
+

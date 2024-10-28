@@ -245,8 +245,11 @@
               <input type="text" name="register_code" id="register_code" class="form-control" placeholder="Masukkkan Kode Registrasi..." required>
             </div>
             <div class="col-sm-6">
-              <label for="asset_model">Asset Name : </label>
-              <input type="text" name="asset_name" id="asset_name" class="form-control" placeholder="Masukkan Nama Asset" required>
+              <label for="asset_name">Asset Name : </label>
+              <!-- <input type="text" name="periodic_maintenance" id="periodic_maintenance" class="form-control" placeholder="Masukkan Periodic Maintenance" required> -->
+              <select name="asset_name" id="asset_name" class="form-control">
+                <option value="" selected disabled> --- Pilih Asset Name ---</option>
+              </select>
             </div>
             <div class="col-sm-6">
               <label for="serial_number">Serial Number : </label>
@@ -270,7 +273,9 @@
             </div>
             <div class="col-sm-6">
               <label for="merk">Merk : </label>
-              <input type="text" name="merk" id="merk" class="form-control" placeholder="Masukkan Merk" required>
+              <select name="merk" id="merk" class="form-control">
+                <option value="" selected disabled> --- Pilih Merk ---</option>
+              </select>
             </div>
             <div class="col-sm-6">
               <label for="qty">Quantity : </label>
@@ -282,12 +287,17 @@
               <input type="text" name="satuan" id="satuan" class="form-control" placeholder="Masukkan Satuan" required>
             </div>
             <div class="col-sm-6">
-              <label for="register_location">Register Location : </label>
-              <input type="text" name="register_location" id="register_location" class="form-control" placeholder="Masukkan Register Location" required>
-            </div>
+              <label for="region">Pilih Region: </label>
+              <select name="region" id="region" class="form-control" required>
+                  <option value="" selected disabled> --- Pilih Region ----</option>
+              </select>
+          </div>
             <div class="col-sm-6">
               <label for="layout">Layout : </label>
-              <input type="text" name="layout" id="layout" class="form-control" placeholder="Masukkan Layout" required>
+              <!-- <input type="text" name="layout" id="layout" class="form-control" placeholder="Masukkan Layout" required> -->
+              <select name="layput" id="layout" class="form-control">
+                <option value="" selected disabled> --- Pilih Layout ---</option>
+              </select>
             </div>
             <div class="col-sm-6">
               <label for="asset_model">Status : </label>
@@ -304,7 +314,10 @@
             </div>
             <div class="col-sm-6">
               <label for="supplier">Supplier : </label>
-              <input type="text" name="supplier" id="supplier" class="form-control" placeholder="Masukkan Supplier" required>
+              <!-- <input type="text" name="supplier" id="supplier" class="form-control" placeholder="Masukkan Supplier" required> -->
+              <select name="supplier" id="supplier" class="form-control">
+                <option value="" selected disabled> --- Pilih Supplier ---</option>
+              </select>
             </div>
             <div class="col-sm-6">
               <label for="purchase_number">Purchase Number : </label>
@@ -317,11 +330,16 @@
               <input type="hidden" name="approve_status" id="approve_status" class="form-control">
             <div class="col-sm-6">
               <label for="warranty">Warranty : </label>
-              <input type="text" name="warranty" id="warranty" class="form-control" placeholder="Masukkan Warranty" required>
+              <select name="warranty" id="warranty" class="form-control">
+                <option value=""> --- PILIH WARRANTY ---- </option>
+              </select>
             </div>
             <div class="col-sm-6">
               <label for="periodic_maintenance">Periodic Maintenace : </label>
-              <input type="text" name="periodic_maintenance" id="periodic_maintenance" class="form-control" placeholder="Masukkan Periodic Maintenance" required>
+              <!-- <input type="text" name="periodic_maintenance" id="periodic_maintenance" class="form-control" placeholder="Masukkan Periodic Maintenance" required> -->
+              <select name="periodic_maintenance" id="periodic_maintenance" class="form-control">
+                <option value="" selected disabled> --- Pilih Periodic Maintenance ---</option>
+              </select>
             </div>
               </div>
         </form>

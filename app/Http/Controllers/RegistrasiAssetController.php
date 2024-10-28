@@ -30,17 +30,17 @@ class RegistrasiAssetController extends Controller
         if (!empty($Asset->asset_code)) {
             // Define the file path for the QR code
             $qrCodeFileName = $Asset->asset_code . '.png';
-            $qrCodeFilePath = storage_path('app/public/qrcodes/' . $qrCodeFileName);
+            $qrCodeFilePath = storage_path('qrcodes/' . $qrCodeFileName);
 
             // Check if the QR code already exists
             if (file_exists($qrCodeFilePath)) {
                 // Assign the QR code path to the asset object
-                $Asset->qr_code_path = asset('storage/qrcodes/' . $qrCodeFileName);
+                $Asset->qr_code_path = asset('qrcodes/' . $qrCodeFileName);
             } else {
                 // Generate the QR code and save it to the defined path if it doesn't exist
                 QrCode::format('png')->size(300)->generate($Asset->asset_code, $qrCodeFilePath);
                 // Assign the newly generated QR code path to the asset object
-                $Asset->qr_code_path = asset('storage/qrcodes/' . $qrCodeFileName);
+                $Asset->qr_code_path = asset('qrcodes/' . $qrCodeFileName);
             }
         }
     }
@@ -73,7 +73,6 @@ public function AddDataRegistrasiAsset(Request $request) {
         'purchase_date' => 'required',
         'warranty' => 'required',
         'periodic_maintenance' => 'required',
-        // approve_status is optional and defaults to "belum approve"
         'approve_status' => 'nullable|string|max:255'
     ]);
 
@@ -88,7 +87,7 @@ public function AddDataRegistrasiAsset(Request $request) {
     $qty = $validatedData['qty'];
     $satuan = $validatedData['satuan'];
     $register_location = $validatedData['register_location'];
-    $layout = $validatedData['layout'];
+    $layout = $validatedData['layout']; 
     $register_date = $validatedData['register_date'];
     $supplier = $validatedData['supplier'];
     $status = $validatedData['status'];
@@ -96,40 +95,48 @@ public function AddDataRegistrasiAsset(Request $request) {
     $purchase_date = $validatedData['purchase_date'];
     $warranty = $validatedData['warranty'];
     $periodic_maintenance = $validatedData['periodic_maintenance'];
-    
-    // Set approve_status to default "belum approve" if it's not provided
-    $approve_status = $validatedData['approve_status'] ?? 'belum approve';
+    $approve_status = $validatedData['approve_status'];
 
-    // QR Code generation (same as before)
+    // Generate the URL that the QR code will link to, based on your route
     $url = route('assets.details', ['register_code' => $register_code]);
+
+    // Generate the QR Code with the URL
     $qrCode = QrCode::format('png')->size(300)->generate($url);
+
+    // Create an image resource from the QR code
     $qrImage = imagecreatefromstring($qrCode);
     if ($qrImage === false) {
         return response()->json(['status' => 'error', 'message' => 'Failed to create image from QR code.'], 500);
     }
 
-    // Define square color based on asset status (same as before)
+    // Define the color based on the asset status
     $squareColor = match ($status) {
-        'PRIORITY' => imagecolorallocate($qrImage, 255, 0, 0),
-        'NOT PRIORITY' => imagecolorallocate($qrImage, 255, 255, 0),
-        'BASIC' => imagecolorallocate($qrImage, 0, 0, 255),
-        default => imagecolorallocate($qrImage, 0, 0, 0),
+        'PRIORITY' => imagecolorallocate($qrImage, 255, 0, 0), // Red
+        'NOT PRIORITY' => imagecolorallocate($qrImage, 255, 255, 0), // Yellow
+        'BASIC' => imagecolorallocate($qrImage, 0, 0, 255), // Blue
+        default => imagecolorallocate($qrImage, 0, 0, 0), // Default to black
     };
 
-    $squareSize = 50;
+    // Calculate position for the square
+    $squareSize = 50; // Size of the small square
     $xPosition = (imagesx($qrImage) / 2) - ($squareSize / 2);
     $yPosition = (imagesy($qrImage) / 2) - ($squareSize / 2);
+
+    // Draw the square on the QR code
     imagefilledrectangle($qrImage, $xPosition, $yPosition, $xPosition + $squareSize, $yPosition + $squareSize, $squareColor);
 
-    $filePath = base_path('qrcodes');
+    // Define the file path for the QR code
+    $filePath = public_path('qrcodes');
     $fileName = $register_code . '.png';
 
+    // Create the directory if it doesn't exist
     if (!File::exists($filePath)) {
         File::makeDirectory($filePath, 0755, true);
     }
 
+    // Save the modified QR code image
     imagepng($qrImage, $filePath . '/' . $fileName);
-    imagedestroy($qrImage);
+    imagedestroy($qrImage); // Free up memory
 
     // Store asset data in the database
     $asset = new MasterRegistrasiModel();
@@ -151,10 +158,10 @@ public function AddDataRegistrasiAsset(Request $request) {
     $asset->purchase_date = $purchase_date;
     $asset->warranty = $warranty;
     $asset->periodic_maintenance = $periodic_maintenance;
-    $asset->qr_code_path = $filePath . '/' . $fileName;
-    
-    // Set approve_status to default or provided value
     $asset->approve_status = $approve_status;
+
+    // Update the asset's qr_code_path before saving
+    $asset->qr_code_path = asset('qrcodes/' . $fileName);
 
     if ($asset->save()) {
         return response()->json([
