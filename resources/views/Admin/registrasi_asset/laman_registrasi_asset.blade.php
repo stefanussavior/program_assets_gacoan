@@ -248,7 +248,7 @@
             </div>
             <div class="col-sm-6">
               <label for="asset_name">Asset Name : </label>
-              <!-- <input type="text" name="periodic_maintenance" id="periodic_maintenance" class="form-control" placeholder="Masukkan Periodic Maintenance" required> -->
+              <!-- <input type="text" name="asset_name" id="asset_name" class="form-control" placeholder="Masukkan Nama Asset" required> -->
               <select name="asset_name" id="asset_name" class="form-control">
                 <option value="" selected disabled> --- Pilih Asset Name ---</option>
               </select>
@@ -359,6 +359,18 @@
                 <option value="" selected disabled> --- Pilih Periodic Maintenance ---</option>
               </select>
             </div>
+            <div class="col-sm-6">
+              <label for="width">Width : </label>
+              <input type="number" name="width" id="width" class="form-control" value="1" required>
+          </div>
+          <div class="col-sm-6">
+              <label for="width">Height : </label>
+              <input type="number" name="height" id="height" class="form-control" value="1" required>
+          </div>
+          <div class="col-sm-6">
+              <label for="width">Depth : </label>
+              <input type="number" name="depth" id="depth" class="form-control" value="1" required>
+          </div>
               </div>
         </form>
       </div>
@@ -383,6 +395,9 @@
             </div>
             <div class="modal-body">
                 <form id="updateAssetForm">
+                  <div class="row">
+
+                  </div>
                     @csrf
                     @method('PUT')
                     <input type="hidden" id="assetId" name="id">

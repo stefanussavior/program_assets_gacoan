@@ -153,4 +153,15 @@ class BrandController extends Controller
 
         return view('brand.details', ['asset' => $brand]);
     }
+
+
+    public function GetSearchBrand(Request $request) {
+        $searchTerm =  $request->input('search');
+        if ($searchTerm) {
+            $dataBrand = MasterBrand::where('brand_name', 'LIKE','%' . $searchTerm . '%')->get();
+        } else {
+            $dataBrand = MasterBrand::all();
+        }
+        return response()->json($dataBrand);
+    }
 }

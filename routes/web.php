@@ -143,7 +143,7 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::get('/admin/brands/edit/{id}', [BrandController::class, 'showEditForm'])->name('edit.brand');
     Route::put('/admin/brands/edit/{id}', [BrandController::class, 'updateDataBrand'])->name('update.brand');
     Route::delete('/admin/brands/delete/{id}', [BrandController::class, 'deleteDataBrand'])->name('delete.brand');
-    Route::get('/admin/get-brand', [BrandController::class, 'GetBrand'])->name('get.brand');
+    Route::get('/admin/get-brand', [BrandController::class, 'GetSearchBrand'])->name('get.brand');
 
     // Category
     Route::get('/admin/category', [CategoryController::class, 'HalamanCategory']);
@@ -333,7 +333,7 @@ Route::group([RoleMiddleware::class => ':admin'], function(){
     Route::put('/admin/suppliers/edit/{id}', [SupplierController::class, 'updateDataSupplier'])->name('update.supplier');
     Route::delete('/admin/suppliers/delete/{id}', [SupplierController::class, 'deleteDataSupplier'])->name('delete.supplier');
 
-    Route::get('/admin/get-supplier', [SupplierController::class, 'GetSupplier']);
+    Route::get('/admin/get-supplier', [SupplierController::class, 'GetSearchDataSupplier']);
 
     // Type
     Route::get('/admin/type', [TypeController::class, 'HalamanType']);

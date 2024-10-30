@@ -35,7 +35,10 @@ class MasterRegistrasiModel extends Model
         'purchase_date',
         'warranty',
         'periodic_maintenance',
-        'approve_status'
+        'approve_status',
+        'width',
+        'height',
+        'depth'
     ];
 
     public $timestamps = true;

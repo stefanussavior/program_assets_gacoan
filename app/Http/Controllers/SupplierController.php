@@ -159,4 +159,17 @@ class SupplierController extends Controller
 
         return view('supplier.details', ['asset' => $supplier]);
     }
+
+    public function GetSearchDataSupplier(Request $request){
+        $searchTerm =  $request->input('search');
+        if ($searchTerm) {
+            $dataBrand = MasterSupplier::where('supplier_code', 'LIKE','%' . $searchTerm . '%')
+            ->orWhere('supplier_name', 'LIKE', '%' . $searchTerm . '%')
+            ->orWhere('supplier_address', '%',  'LIKE', '%' . $searchTerm . '%')
+            ->get();
+        } else {
+            $dataBrand = MasterSupplier::all();
+        }
+        return response()->json($dataBrand);
+    }
 }

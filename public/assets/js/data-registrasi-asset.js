@@ -16,26 +16,26 @@ $(document).ready(function() {
     //   window.open('/admin/download_asset_pdf', '_blank');
     // });
   
-      // function generateRandomCode(length) {
-      //     return Math.floor(Math.pow(10, length-1) + Math.random() * 9 * Math.pow(10, length - 1));
-      //   }
+      function generateRandomCode(length) {
+          return Math.floor(Math.pow(10, length-1) + Math.random() * 9 * Math.pow(10, length - 1));
+        }
     
-      //   function generateAssetCode() {
-      //     const date = new Date();
-      //     const day = String(date.getDate()).padStart(2, '0');
-      //     const month = String(date.getMonth() + 1).padStart(2, '0');
-      //     const year = date.getFullYear();
-      //     const randomCode = generateRandomCode(4);
+        function generateAssetCode() {
+          const date = new Date();
+          const day = String(date.getDate()).padStart(2, '0');
+          const month = String(date.getMonth() + 1).padStart(2, '0');
+          const year = date.getFullYear();
+          const randomCode = generateRandomCode(4);
     
-      //     const assetCode = `AST-${day}-${month}-${year}-${randomCode}`;
-      //     return assetCode;
-      //   }
+          const assetCode = `AST-${day}-${month}-${year}-${randomCode}`;
+          return assetCode;
+        }
     
-      //   function newSetAssetCode() {
-      //     document.getElementById('asset_code').value =generateAssetCode();
-      //   }
+        function newSetAssetCode() {
+          document.getElementById('register_code').value =generateAssetCode();
+        }
     
-      //   newSetAssetCode();
+        newSetAssetCode();
   
       var table = $('#coba').DataTable({
         scrollX: true,
@@ -583,39 +583,62 @@ $('#coba').on('click', '.delete-btn', function(){
         });
 
 
-        $(document).ready(function(){
-            // Fetch regions and populate the dropdown
-            $.ajax({
-                url: '/admin/get-brand', // Route to fetch regions
-                method: 'GET',
-                success: function(data) {
-                    var regionSelect = $('#merk');
-                    $.each(data, function(index, merk) {
-                        regionSelect.append($('<option>', {
-                            value: merk.brand_name, // Assuming 'id' is the unique identifier for the region
-                            text: merk.brand_name // Assuming 'name' is the display name of the region
-                        }));
-                    });
-                }
+        $(document).ready(function() {
+            // Initialize Select2 with AJAX search
+            $('#merk').select2({
+                placeholder: '--- Pilih Merk ---',
+                ajax: {
+                    url: '/admin/get-brand', // Route to fetch regions
+                    dataType: 'json',
+                    delay: 250, // Delay to avoid overloading the server
+                    data: function(params) {
+                        return {
+                            search: params.term || '', // Send the search term if available, otherwise an empty string
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(merk) {
+                                return {
+                                    id: merk.brand_name,
+                                    text: merk.brand_name
+                                };
+                            })
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 0
             });
         });
 
 
 
-        $(document).ready(function(){
-            // Fetch regions and populate the dropdown
-            $.ajax({
-                url: '/admin/get-supplier', // Route to fetch regions
-                method: 'GET',
-                success: function(data) {
-                    var regionSelect = $('#supplier');
-                    $.each(data, function(index, supplier) {
-                        regionSelect.append($('<option>', {
-                            value: supplier.supplier_name, // Assuming 'id' is the unique identifier for the region
-                            text: supplier.supplier_name // Assuming 'name' is the display name of the region
-                        }));
-                    });
-                }
+        $(document).ready(function() {
+            $('#supplier').select2({
+                placeholder: '--- Pilih Supplier ---',
+                ajax: {
+                    url: '/admin/get-supplier', 
+                    dataType: 'json',
+                    delay: 250, // Delay to avoid overloading the server
+                    data: function(params) {
+                        return {
+                            search: params.term || '', // Send the search term if available, otherwise an empty string
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(supplier) {
+                                return {
+                                    id: supplier.supplier_code + ' - ' + supplier.supplier_name + ' - ' + supplier.supplier_address,
+                                    text: supplier.supplier_code + ' - ' + supplier.supplier_name + ' - ' + supplier.supplier_address
+                                };
+                            })
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 0
             });
         });
 

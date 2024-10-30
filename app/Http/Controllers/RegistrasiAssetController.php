@@ -73,7 +73,10 @@ public function AddDataRegistrasiAsset(Request $request) {
         'purchase_date' => 'required',
         'warranty' => 'required',
         'periodic_maintenance' => 'required',
-        'approve_status' => 'nullable|string|max:255'
+        'approve_status' => 'nullable|string|max:255',
+        'width' => 'required|int|max:100',
+        'height' => 'required|int|max:100',
+        'depth' => 'required|int|max:100'
     ]);
 
     // Retrieve validated input data
@@ -96,6 +99,9 @@ public function AddDataRegistrasiAsset(Request $request) {
     $warranty = $validatedData['warranty'];
     $periodic_maintenance = $validatedData['periodic_maintenance'];
     $approve_status = $validatedData['approve_status'];
+    $width = $validatedData['width'];
+    $height = $validatedData['height'];
+    $depth = $validatedData['depth'];
 
     // Generate the URL that the QR code will link to, based on your route
     $url = route('assets.details', ['register_code' => $register_code]);
@@ -159,6 +165,9 @@ public function AddDataRegistrasiAsset(Request $request) {
     $asset->warranty = $warranty;
     $asset->periodic_maintenance = $periodic_maintenance;
     $asset->approve_status = $approve_status;
+    $asset->width = $width;
+    $asset->height = $height;
+    $asset->depth = $depth;
 
     // Update the asset's qr_code_path before saving
     $asset->qr_code_path = asset('qrcodes/' . $fileName);
@@ -283,6 +292,9 @@ public function AddDataRegistrasiAsset(Request $request) {
             'purchase_date' => 'nullable|date', // Ensure the date format is valid
             'warranty' => 'nullable|string|max:255',
             'periodic_maintenance' => 'nullable|string|max:255',
+            'width' => 'required|int|max:100',
+            'height' => 'required|int|max:100',
+            'depth' => 'required|int|max:100'
         ]);
         
 
